@@ -8,13 +8,12 @@ export const MatchTabContent = () => {
         <div>
             <TabsContent value="match" className="py-3 px-2">
                 <Select>
-                    <SelectTrigger className="w-full bg-app-background border-1 rounded-full">
-                        <SelectValue placeholder="Selecione uma opção" />
+                    <SelectTrigger className="w-full bg-app-background text-white ring-offset-0 active:border-1 rounded-full">
+                        <SelectValue className="placeholder:tex-twhite" placeholder="Selecione uma opção" />
                     </SelectTrigger>
                     <SelectContent className="bg-app-background text-white">
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
+                        <SelectItem value="1">Brasileirão</SelectItem>
+                        <SelectItem value="2">Libertadores</SelectItem>
                     </SelectContent>
                 </Select>
             </TabsContent>
