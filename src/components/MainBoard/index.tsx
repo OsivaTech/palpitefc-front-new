@@ -17,8 +17,8 @@ export const MainBoard = () => {
                     <TabsTrigger value="news">Notícias</TabsTrigger>
                     <TabsTrigger value="rank">Rankings</TabsTrigger>
                 </TabsList>
-                <NewsTabContent />
                 <MatchTabContent />
+                <NewsTabContent />
                 <RankTabContent />
             </Tabs>
         </main>
