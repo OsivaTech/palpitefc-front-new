@@ -1,12 +1,12 @@
-import { FixtureResponse } from "../../shared/types/api/responses/FixtureResponse";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card"
 
 export type GessCardProps = {
-   fixture: FixtureResponse
+   fixture: Fixture
 }
 import { LockKeyhole, X } from 'lucide-react';
 import Image from "next/image"
 import { Input } from "../ui/input";
+import { Fixture } from "@/shared/types/Fixture";
 
 export const GessCard = ( {
     fixture

@@ -1,5 +1,5 @@
-import { AdBanner, Banner } from "../components/AdBanner";
-import { MainBoard } from "../components/MainBoard";
+import { AdBanner, Banner } from "@/components/AdBanner";
+import { MainBoard } from "@/components/MainBoard";
 
 export default function Home() {
   const mockBanner: Banner[] = [

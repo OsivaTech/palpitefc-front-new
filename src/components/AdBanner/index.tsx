@@ -1,4 +1,4 @@
-
+'use server'
 import {
     Carousel,
     CarouselContent,
@@ -16,7 +16,7 @@ export type Banner = {
 export type AdBannerProps = {
     banners?: Banner[]
 }
-export const AdBanner = ({banners}: AdBannerProps) => {
+export const AdBanner = async ({banners}: AdBannerProps) => {
     return (
         <Carousel className="w-full" >
         <CarouselContent>

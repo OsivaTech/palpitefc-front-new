@@ -7,8 +7,11 @@ import {
 import { NewsTabContent } from "./components/NewsTabContent"
 import { MatchTabContent } from "./components/MatchTabContent"
 import { RankTabContent } from "./components/RankTabContent"
+import { getFixture } from "@/components/MainBoard/data"
 
-export const MainBoard = () => {
+export const MainBoard = async () => {
+    const fixtures =  await getFixture();
+
     return (
         <main className="w-full">
             <Tabs defaultValue="account" className="max-w-[800px] ml-auto mr-auto">
@@ -17,7 +20,7 @@ export const MainBoard = () => {
                     <TabsTrigger value="news">Notícias</TabsTrigger>
                     <TabsTrigger value="rank">Rankings</TabsTrigger>
                 </TabsList>
-                <MatchTabContent />
+                <MatchTabContent data={fixtures} />
                 <NewsTabContent />
                 <RankTabContent />
             </Tabs>

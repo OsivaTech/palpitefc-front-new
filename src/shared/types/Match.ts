@@ -1,4 +1,4 @@
-export type MatchResponse = {
+export type Match = {
     id: number
     gol: number
     teamId: number

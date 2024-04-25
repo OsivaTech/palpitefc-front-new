@@ -1,33 +1,14 @@
+import { Fixture } from "@/shared/types/Fixture"
 import { FixtureResponse } from "../../../../shared/types/api/responses/FixtureResponse"
 import { GessCard } from "../../../GessCard"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../ui/select"
 import { TabsContent } from "../../../ui/tabs"
 
-const mockData = {
-    "id": 1035463,
-    "name": "Premier League",
-    "start": "2024-04-24T15:45:00.000Z",
-    "leagueId": 39,
-    "finished": false,
-    "homeTeam": {
-      "id": 2339,
-      "gol": 0,
-      "teamId": 39,
-      "gameId": 1035463,
-      "name": "Wolves",
-      "image": "https://media.api-sports.io/football/teams/39.png"
-    },
-    "awayTeam": {
-      "id": 2340,
-      "gol": 0,
-      "teamId": 35,
-      "gameId": 1035463,
-      "name": "Bournemouth",
-      "image": "https://media.api-sports.io/football/teams/35.png"
-    }
-  } as FixtureResponse
 
-export const MatchTabContent = () => {
+type MatchTabContentProps = {
+    data: Fixture[]
+}
+export const MatchTabContent = ({data}:MatchTabContentProps ) => {
     return (
         //FILTER
         <div>
@@ -42,15 +23,9 @@ export const MatchTabContent = () => {
                     </SelectContent>
                 </Select>
                 <div className="pt-5 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-center gap-2 max-h-[500px] overflow-auto">
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
-                    <GessCard fixture={mockData} />
+                   {data?.map( fixture => (
+                       <GessCard key={fixture.id} fixture={fixture} />
+                   ))}
                 </div>
             </TabsContent>
         </div>
