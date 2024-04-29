@@ -1,6 +1,6 @@
 'use server'
 import { env } from '@/env'
-import { SignJWT, jwtVerify } from 'jose'
+import { JWTPayload, SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 
 const secretKey = env.SESSION_SECRET
@@ -16,7 +16,7 @@ export async function encrypt(payload: any) {
  
 export async function decrypt(session: string | undefined = '') {
   try {
-    const { payload } = await jwtVerify(session, encodedKey, {
+    const { payload } = await jwtVerify<JWTPayload & {token: string}>(session, encodedKey, {
       algorithms: ['HS256'],
     })
     return payload

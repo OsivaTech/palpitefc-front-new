@@ -2,7 +2,7 @@ export type Match = {
     id: number
     gol: number
     teamId: number
-    gameId: number
+    fixtureId: number
     name: string
     image: string
 }

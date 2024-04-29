@@ -1,7 +1,10 @@
 export const API_ROUTE = {
     login: `/api/signin`,
-    getSelf: '/api/auth/user',
-    getFixture: '/fixture'
+    getSelf: '/api/user',
+    getFixture: '/fixtures',
+    guesses: '/guesses',
+    getMyGuesses: '/guesses/me',
+    legues: '/leagues'
 }
 
 export const ROLE ={

@@ -1,0 +1,26 @@
+{
+  "components": {
+    "MainBoard": {
+      "tabs": {
+        "match": {
+          "title": "Partidas",
+          "errorMessage": "Não foi possivel carregar as partidas"
+        },
+        "news": {
+          "title": "Notícias"
+        },
+        "rank": {
+          "title": "Ranking"
+        }
+      }
+    },
+    "GuessCard": {
+      "myGuesses": "Meus palpites",
+      "guess": "Palpitar"
+    }
+  },
+  "common": {
+    "error": "Erro",
+    "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!"
+  }
+}

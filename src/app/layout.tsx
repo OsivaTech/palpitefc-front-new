@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "../lib/utils";
 import { ApplicationHeader } from "../components/Header";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Toaster } from "@/components/ui/toaster";
+import {NextIntlClientProvider, useMessages} from 'next-intl';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,17 +18,23 @@ const fontSans = Inter({
 
 export default function RootLayout({
   children,
+  params: {locale}
 }: Readonly<{
   children: React.ReactNode;
+  params: {locale: string};
 }>) {
+  const messages = useMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
           fontSans.variable
         )}>
       <ApplicationHeader />
-      {children}
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        {children}
+      </NextIntlClientProvider>
+      <Toaster />
     </body>
     </html>
   );

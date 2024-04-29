@@ -1,7 +1,7 @@
-import { AdBanner, Banner } from "@/components/AdBanner";
-import { MainBoard } from "@/components/MainBoard";
+import { AdBanner, Banner } from "@/app/[lang]/(application)/components/AdBanner";
+import { MainBoard } from "@/app/[lang]/(application)/components/MainBoard";
 
-export default function Home() {
+export default function LandingPage() {
   const mockBanner: Banner[] = [
     {
       imageLink: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrEHRC5xHaiaOSTlILOCHRE8LRKuk57pkDZ3f-X00oZQ&s',

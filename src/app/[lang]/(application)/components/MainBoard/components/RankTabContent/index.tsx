@@ -1,4 +1,4 @@
-import { TabsContent } from "../../../ui/tabs"
+import { TabsContent } from "@/components/ui/tabs"
 
 
 export const RankTabContent = () => {

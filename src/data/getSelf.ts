@@ -9,6 +9,5 @@ export async function getSelf():  Promise<User| null> {
         method:'GET'
     })
     
-
     return null
 }
