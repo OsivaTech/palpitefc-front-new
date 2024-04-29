@@ -4,7 +4,10 @@
       "tabs": {
         "match": {
           "title": "Partidas",
-          "errorMessage": "Não foi possivel carregar as partidas"
+          "errorMessage": "Não foi possivel carregar as partidas",
+          "filter": {
+            "myGuesses": "Meus palpites"
+          }
         },
         "news": {
           "title": "Notícias"
@@ -16,11 +19,12 @@
     },
     "GuessCard": {
       "myGuesses": "Meus palpites",
-      "guess": "Palpitar"
+      "guess": "Mandar Palpite"
     }
   },
   "common": {
     "error": "Erro",
-    "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!"
+    "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!",
+    "all": "Todos"
   }
 }

@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   const messages = useMessages();
   return (
-    <html lang={locale}>
+    <html lang={locale} className="dark">
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
           fontSans.variable

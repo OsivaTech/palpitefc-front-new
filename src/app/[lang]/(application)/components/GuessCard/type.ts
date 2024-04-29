@@ -8,6 +8,7 @@ export type GuessCardContentType = {
     reverse?: boolean,
     onChange: ChangeEventHandler<HTMLInputElement> 
     value?: GuessForm
+    disabled?: boolean
 }
 export type GuessCardProps = {
     fixture: Fixture

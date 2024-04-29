@@ -100,7 +100,7 @@ export const GuessCard = ( {
                 </div>
             </CardContent>
             <CardFooter className="flex justify-center items-center mt-2">
-                <Button type='submit' onClick={onSubmit} disabled={isPending} className={cn(!!guess && 'hidden', "gap-2 h-6 w-48 bg-green-500 hover:bg-green-700 ")}>
+                <Button type='submit' onClick={onSubmit} disabled={isPending} className={cn(!!guess && 'hidden', " dark:text-white uppercase gap-2 h-6 w-48 bg-green-500 hover:bg-green-700 ")}>
                     {isPending && (<Spinner size='xs' /> )}
                     {t('components.GuessCard.guess')}
                 </Button>
@@ -118,9 +118,9 @@ export const GuessCardContent = ({match, reverse,onChange, value, ...rest}: Gues
                 <span className="text-xs text-center" >{match.name}</span>
             </div>
             <Input 
-                className="w-10 text-black text-xl px-2 text-center"
+                className="w-10 dark:bg-white dark:text-black text-xl px-2 text-center"
                 maxLength={2}   
-                placeholder="0"
+                placeholder="-"
                 onChange={onChange}
                 value={reverse? value?.awayTeam : value?.homeTeam}
                 {...rest}
