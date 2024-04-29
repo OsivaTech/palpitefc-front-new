@@ -20,11 +20,15 @@
     "GuessCard": {
       "myGuesses": "Meus palpites",
       "guess": "Mandar Palpite"
+    },
+    "Header": {
+      "signInSignUp": "Entrar/Cadastrar"
     }
   },
   "common": {
     "error": "Erro",
     "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!",
-    "all": "Todos"
+    "all": "Todos",
+    "signIn": "Logar"
   }
 }

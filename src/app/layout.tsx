@@ -30,8 +30,8 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
           fontSans.variable
         )}>
-      <ApplicationHeader />
       <NextIntlClientProvider locale={locale} messages={messages}>
+        <ApplicationHeader />
         {children}
       </NextIntlClientProvider>
       <Toaster />

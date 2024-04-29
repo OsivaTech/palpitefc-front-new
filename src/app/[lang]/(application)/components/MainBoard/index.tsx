@@ -17,7 +17,7 @@ export const MainBoard = async () => {
     
     return (
         <main className="w-full">
-            <Tabs defaultValue="account" className="max-w-[800px] ml-auto mr-auto">
+            <Tabs defaultValue="match" className="max-w-[800px] ml-auto mr-auto">
                 <TabsList className="p-0 grid w-full grid-cols-3 text-white bg-app-background border-b border-b-white rounded-none">
                     <TabsTrigger  value="match">{t('match.title')}</TabsTrigger>
                     <TabsTrigger value="news">{t('news.title')}</TabsTrigger>

@@ -35,20 +35,6 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
         }
     }, [data, toast, t])
 
-    // const filteredOption = data?.filter(d => {
-        
-        
-    //     if(filter.onlyGuesses){
-    //        return guess.find(g => g.fixtureId === d.id)
-    //     }
-
-    //     if(filter.selectedLeague === '0'){
-    //         return d
-    //     }else {
-    //      return  d.leagueId.toString() === filter.selectedLeague
-    //     }
-    // })
-
     const filteredOption = data
         ?.filter(d => filter.onlyGuesses ? guess.find(g => g.fixtureId === d.id) : d )
         ?.filter(d => filter.selectedLeague === '0' ? d : d.leagueId.toString() === filter.selectedLeague)
@@ -58,7 +44,7 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
         <div>
             <TabsContent value="match" className="py-3 px-2">
                 <div className="flex items-center gap-3 pb-2">
-                    <Badge onClick={() => setFilter(old => ({...old, onlyGuesses: true }))} variant={filter.onlyGuesses ? 'default': 'outline' }  className="h-7 w-36 cursor-pointer" >{t("components.MainBoard.tabs.match.filter.myGuesses")}</Badge>
+                    <Badge onClick={() => setFilter(old => ({...old, onlyGuesses: true }))} variant={filter.onlyGuesses ? 'default': 'outline' }  className="flex justify-center items-center h-7 min-w-28 cursor-pointer" >{t("components.MainBoard.tabs.match.filter.myGuesses")}</Badge>
                     <Badge onClick={() => setFilter(old => ({...old, onlyGuesses: false }))} variant={filter.onlyGuesses ? 'outline': 'default' }  className="h-7 cursor-pointer" >{t("common.all")}</Badge>
                     <Select  value={filter.selectedLeague} onValueChange={value => setFilter(old => ({...old, selectedLeague: value}))}>
                         <SelectTrigger  className="border border-white h-7 w-full bg-app-background text-white ring-offset-0 active:border-1 rounded-full">

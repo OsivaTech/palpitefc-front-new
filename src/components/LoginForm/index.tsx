@@ -5,8 +5,10 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { login } from "@/components/LoginForm/data"
+import { useTranslations } from "next-intl"
 
 export const LoginForm = () => {
+    const t = useTranslations()
     const formSchema = z.object({
         email: z.string().email(),
         password: z.string().min(2).max(50),
@@ -38,7 +40,7 @@ export const LoginForm = () => {
                             <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input className="text-black" placeholder="Email" {...field} />
+                                <Input className="dark:bg-white dark:text-black" placeholder="Email" {...field} />
                             </FormControl>
                         
                             <FormMessage />
@@ -52,13 +54,13 @@ export const LoginForm = () => {
                             <FormItem>
                             <FormLabel>Senha</FormLabel>
                             <FormControl>
-                                <Input className="text-black" placeholder="Senha" {...field} />
+                                <Input className="dark:bg-white dark:text-black" placeholder="Senha" {...field} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" >Login</Button>
+                    <Button type="submit" className="w-full bg-green-500 hover:bg-green-700 dark:text-white" >{t("common.signIn")}</Button>
                 </form>
             </Form>
         </div>
