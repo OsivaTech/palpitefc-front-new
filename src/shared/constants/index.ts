@@ -4,7 +4,10 @@ export const API_ROUTE = {
     getFixture: '/fixtures',
     guesses: '/guesses',
     getMyGuesses: '/guesses/me',
-    legues: '/leagues'
+    legues: '/leagues',
+    rank: '/rangings',
+    getNews: '/news',
+    getTeams: '/teams'
 }
 
 export const ROLE ={

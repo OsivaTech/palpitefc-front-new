@@ -1,5 +1,5 @@
 'use client'
-import { LockKeyhole, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "use-intl";
@@ -17,7 +17,8 @@ import { Spinner } from '@/components/Spinner';
 
 export const GuessCard = ( {
     fixture,
-    guess
+    guess,
+    league
 }: GuessCardProps ) => {
     const router = useRouter()
     const t = useTranslations()
@@ -31,8 +32,8 @@ export const GuessCard = ( {
     const {toast} = useToast()
     const [guessForm, setGuessForm] = useState<GuessForm>(
         { 
-            homeTeam: guess?.homeTeam?.goal.toString(), 
-            awayTeam: guess?.awayTeam?.goal.toString()
+            homeTeam: guess?.homeTeam?.goals.toString() || '' , 
+            awayTeam: guess?.awayTeam?.goals.toString()  || ''
         })
     const [isPending, startTransition] = useTransition();
 
@@ -42,11 +43,11 @@ export const GuessCard = ( {
                 fixtureId: fixture.id,
                 homeTeam: {
                     id: fixture.homeTeam.id,
-                    goal: parseInt(guessForm.homeTeam)
+                    goals: parseInt(guessForm.homeTeam)
                 },
                 awayTeam: {
                     id: fixture.awayTeam.id,
-                    goal: parseInt(guessForm.awayTeam)
+                    goals: parseInt(guessForm.awayTeam)
                 }
             });
             
@@ -75,32 +76,38 @@ export const GuessCard = ( {
     },[])
     
     return (
-        <Card className="bg-[#2D3745] h-[148px] w-[376px] py-3 px-3 border-0 border-b">
-            <CardContent className="flex flex-col p-0 gap-2" >
+        <Card className="bg-[#2D3745] h-[150px] w-[422px] px-4 py-2 border-0 border-b font-medium flex flex-col justify-between">
+            
+            <CardContent className="flex flex-col p-0 gap-2 justify-center" >
                 <div className="flex justify-between items-center text-xs  ">
-                    <div className="flex w-full items-center gap-2">
-                        {guess && (
+                    <div className="flex w-full items-center gap-2 justify-start">
+                        {/* {guess && (
 
                             <span className="text-[#FFFFFF]/50 flex items-center gap-1 ">
                             <LockKeyhole size={14}  />
                             {t('components.GuessCard.myGuesses')}
                         </span>
-                        )}
-                        <span className="text-white">{fixture?.name}</span>
+                        )} */}
+                        <div className='w-5 h-5 relative flex justify-center items-center'>
+                            <Image fill src={league.image}  alt='league shield'/>
+                        </div>
+                        <span className="text-white">{fixture.name}</span>
                     </div>
                     <span className="text-white min-w-[114px]">{`${day} ${dayOfWeekFormated} ${time}`}</span>
                 </div>
 
-                <div className="flex justify-between items-center text-white ">
+                <div className="flex justify-between items-center text-white  w-[357px] mx-auto ">
                     <GuessCardContent disabled={!!guess} value={guessForm} onChange={(evt) => handleChange(evt, 'homeTeam')}  match={fixture.homeTeam} />
-                        <div className="flex justify-center items-center  ">
-                            <X className="self-center   mx-3 " />
-                        </div>
+                        <span className="self-center mx-8 flex justify-center items-center text-lg font-extrabold">
+                            X
+                        </span>
                     <GuessCardContent disabled={!!guess} value={guessForm} match={fixture.awayTeam} reverse={true} onChange={(evt) => handleChange(evt, 'awayTeam')} />
                 </div>
             </CardContent>
-            <CardFooter className="flex justify-center items-center mt-2">
-                <Button type='submit' onClick={onSubmit} disabled={isPending} className={cn(!!guess && 'hidden', " dark:text-white uppercase gap-2 h-6 w-48 bg-green-500 hover:bg-green-700 ")}>
+
+            <CardFooter className="flex justify-center items-center mt-auto p-0">
+                <Button type='submit' onClick={onSubmit} disabled={isPending}  
+                        className={cn(!!guess && 'hidden', " dark:text-white uppercase gap-2 h-6 bg-slate-500 hover:bg-green-700 w-full ")}>
                     {isPending && (<Spinner size='xs' /> )}
                     {t('components.GuessCard.guess')}
                 </Button>
@@ -113,8 +120,8 @@ export const GuessCard = ( {
 export const GuessCardContent = ({match, reverse,onChange, value, ...rest}: GuessCardContentType) => {
     return (
         <div className={cn("flex flex-1 justify-between items-center gap-3 ", reverse && 'flex-row-reverse',)} >
-            <div className="flex flex-col items-center justify-center ">
-                <Image src={match.image} width={50} height={50} alt=""  />
+            <div className="flex flex-col items-center justify-center flex-1  ">
+                <Image src={match.image} width={40} height={40} alt=""  />
                 <span className="text-xs text-center" >{match.name}</span>
             </div>
             <Input 

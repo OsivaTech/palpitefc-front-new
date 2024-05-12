@@ -2,10 +2,10 @@ export type Guess= {
     fixtureId: number, 
     homeTeam: {
         id: number, 
-        goal: number
+        goals: number
     },
     awayTeam: {
         id: number, 
-        goal: number
+        goals: number
     }
 }

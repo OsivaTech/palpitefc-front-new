@@ -21,8 +21,8 @@ export const AdBanner = async ({banners}: AdBannerProps) => {
         <Carousel className="w-full" >
         <CarouselContent>
           { banners ? banners.map((banner, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1 w-full flex justify-center items-center">
+            <CarouselItem key={index} className="max-h-[150px]">
+              <div className="p-1 w-full flex justify-center items-center overflow-auto">
                 <Link href={banner.redirectTo}>
                     <Image src={banner.imageLink} width={430} height={150}  alt=""/>
                 </Link>

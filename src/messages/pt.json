@@ -29,6 +29,11 @@
     "error": "Erro",
     "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!",
     "all": "Todos",
-    "signIn": "Logar"
+    "signIn": "Logar",
+    "male": "Masculino",
+    "female": "Feminino",
+    "other": "Outro",
+    "sex": "Sexo",
+    "favoriteTeam": "Time do coração"
   }
 }

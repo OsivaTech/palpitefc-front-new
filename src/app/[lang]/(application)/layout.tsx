@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Rubik} from "next/font/google";
-import "./globals.css";
-import { cn } from "../lib/utils";
-import { Toaster } from "@/components/ui/toaster";
-import {NextIntlClientProvider, useMessages} from 'next-intl';
+import "../../globals.css";
+import { BottonMenu } from "@/components/BottomMenu";
+import { cn } from "@/lib/utils";
+import { ApplicationHeader } from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,17 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
   params: {locale: string};
 }>) {
-  const messages = useMessages();
   return (
     <html lang={locale} className="dark">
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
           fontSans.variable
         )}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+        <ApplicationHeader />
           {children}
-      </NextIntlClientProvider>
-      <Toaster />
+        <BottonMenu />
     </body>
     </html>
   );

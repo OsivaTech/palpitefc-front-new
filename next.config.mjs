@@ -16,6 +16,11 @@ const nextConfig = {
             hostname: 'media.api-sports.io',
             port: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'mrvnoesporte.com.br',
+            port: '',
+          },
         ],
       },
 };

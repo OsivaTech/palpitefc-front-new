@@ -15,7 +15,7 @@ export async function login({email, password}: LoginFormData){
     })
     
     const {accessToken, user}: LoginResponse = await response.json()
-    console.log(user)
+    
     if(!accessToken || !user){
         throw new Error('DEU BOSTA')
     }
