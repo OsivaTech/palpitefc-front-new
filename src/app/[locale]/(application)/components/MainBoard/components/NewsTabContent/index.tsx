@@ -1,4 +1,4 @@
-import { NewsProps } from "@/app/[lang]/(application)/components/MainBoard/components/NewsTabContent/type"
+import { NewsProps } from "@/app/[locale]/(application)/components/MainBoard/components/NewsTabContent/type"
 import { TabsContent } from "@/components/ui/tabs"
 import Image from "next/image"
 

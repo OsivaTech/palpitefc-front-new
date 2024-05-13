@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "../../../globals.css";
 import { ApplicationHeader } from "@/components/Header";
 
 export const metadata: Metadata = {
@@ -9,10 +8,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params: {locale}
 }: Readonly<{
   children: React.ReactNode;
-  params: {locale: string};
 }>) {
   return (
     <div>

@@ -6,19 +6,24 @@ import {
 import { NewsTabContent } from "./components/NewsTabContent"
 import { MatchTabContent } from "./components/MatchTabContent"
 import { RankTabContent } from "./components/RankTabContent"
-import { getTranslations } from "next-intl/server"
-import { getFixture, getLeagues, getMyGuesses, getNews } from "@/app/[lang]/(application)/components/MainBoard/data"
 import { Guess } from "@/shared/types/Guess"
 import { News } from "@/shared/types/News"
+import { useTranslations } from "next-intl"
+import { GuessResponse } from "@/shared/types/api/responses/GessResponse"
+import { League } from "@/shared/types/League"
+import { FixtureResponse } from "@/shared/types/api/responses/FixtureResponse"
+import { NewsResponse } from "@/shared/types/api/responses/NewsResponse"
 
-export const MainBoard = async () => {
-    const fixtures =  await getFixture();
-    const t = await getTranslations('components.MainBoard.tabs');
-    const leagues = await getLeagues();
-    const guess = await getMyGuesses();
-    const news = await getNews();
 
-   
+type MainBoardProps = {
+    fixtures : FixtureResponse | null 
+    leagues: League[]
+    guess: GuessResponse | null
+    news: NewsResponse | null
+}
+export const MainBoard =  ({fixtures, leagues, guess, news}: MainBoardProps) => {
+    const t = useTranslations("components.MainBoard.tabs")
+
     return (
         <main className="w-full">
             <Tabs defaultValue="match" className="max-w-[800px] ml-auto mr-auto">

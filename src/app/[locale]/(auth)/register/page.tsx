@@ -1,7 +1,8 @@
-import { getTeams } from "@/app/[lang]/(auth)/register/data"
+import { getTeams } from "@/app/[locale]/(auth)/register/data"
 import { RegisterForm } from "@/components/RegisterForm"
 
-export default async function RegisterPage() {
+export default async function RegisterPage({params: {locale}}: {params: {locale: any}}) {
+    
     const teams = await getTeams();
     return (
         <main className="bg-[#2D3745] h-screen">

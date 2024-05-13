@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik} from "next/font/google";
 import "./globals.css";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import {NextIntlClientProvider, useMessages} from 'next-intl';
 

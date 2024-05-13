@@ -37,7 +37,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             team: "",
             info: "",
             phoneNumber: "",
-            birthday: null,
+            birthday: new Date(),
             sex: "",
         },
     })
