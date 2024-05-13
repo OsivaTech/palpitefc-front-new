@@ -1,7 +1,8 @@
-import { SignInSignUpDrawer } from "@/components/Header/components/SignInSignUpDrawer"
+import { SignInSignUpSection } from "@/components/Header/components/SignInSignUpDrawer"
 import { getSelf } from "@/data/getSelf"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import Link from "next/link"
 
 
 type ApplicationHeaderType = {
@@ -13,13 +14,15 @@ export const ApplicationHeader = async ({hideMenu}: ApplicationHeaderType) => {
     return(
         <>
             <header className={cn("flex justify-between items-center bg-app-background py-2 px-3 sticky top-0 z-10", hideMenu && "justify-center")}>
-                <Image src='/assets/logo.png' alt="" width={205} height={34}  />
+                <Link href={'/'}>
+                    <Image src='/assets/logo.png' alt="" width={205} height={34}  />
+                </Link>
                 {!hideMenu && (
                     <div className="flex justify-center items-center gap-2">
                         {user ? (
                             <span>{user.name}</span>
                         ) : (
-                            <SignInSignUpDrawer />
+                           <SignInSignUpSection />
                         ) }
                     </div>
                 )}

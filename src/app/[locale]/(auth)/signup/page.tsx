@@ -1,5 +1,5 @@
-import { getTeams } from "@/app/[locale]/(auth)/register/data"
-import { RegisterForm } from "@/components/RegisterForm"
+import { getTeams } from "@/app/[locale]/(auth)/signup/data";
+import { RegisterForm } from "@/components/RegisterForm";
 
 export default async function RegisterPage({params: {locale}}: {params: {locale: any}}) {
     

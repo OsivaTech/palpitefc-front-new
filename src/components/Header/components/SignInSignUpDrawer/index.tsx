@@ -1,26 +1,18 @@
 'use client'
-import { LoginForm } from "@/components/LoginForm"
 import { Button } from "@/components/ui/button"
-import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "@/components/ui/drawer"
-import { Separator } from "@radix-ui/react-select"
-import { Menu } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { APP_LINKS } from "@/shared/constants";
+import { useLocale, useTranslations } from "next-intl"
+import { useRouter } from 'next/navigation';
 
-export const SignInSignUpDrawer = () => {
+export const SignInSignUpSection = () => {
     const t = useTranslations()
+    const { push } = useRouter();
+    const locale = useLocale();
+
     return (
-        <Drawer>
-            <DrawerTrigger asChild>
-                <Button className="text-white " variant='link' >{t('components.Header.signInSignUp')}</Button>
-            </DrawerTrigger>
-            <DrawerContent className="bg-app-background ">
-                <DrawerHeader>
-                    Palpite Futibol Clube
-                </DrawerHeader>
-                <LoginForm />
-                <span className="flex justify-center items-center my-4">Não é cadastrado?  <Button variant='link'>registre-se</Button></span>
-            </DrawerContent>
-            <Menu />
-        </Drawer>
+        <section className="flex gap-2" >
+            <Button onClick={() => push(`${locale}/${APP_LINKS.SIGNIN()}`)} variant={"outline"} className="text-xs font-bold bg-transparent border border-white h-6 px-2 py-[5px] ">{t('common.signIn')}</Button>
+            <Button onClick={() => push(`${locale}/${APP_LINKS.SIGNUP()}`)} className="text-xs font-bold h-6 px-2 py-[5px]">{t('common.signUp')}</Button>
+        </section>
     )
 }

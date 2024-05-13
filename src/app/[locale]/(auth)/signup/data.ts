@@ -2,7 +2,6 @@
 import { api } from "@/data/api";
 import { API_ROUTE } from "@/shared/constants";
 import { TeamResponse } from "@/shared/types/api/responses/TeamsResponse";
-import { NextResponse } from "next/server";
 
 export async function getTeams(){
     const response = await api(API_ROUTE.getTeams, {

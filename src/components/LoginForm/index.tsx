@@ -1,3 +1,4 @@
+'use client'
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { Button } from "@/components/ui/button"
@@ -6,9 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { login } from "@/components/LoginForm/data"
 import { useTranslations } from "next-intl"
+import { CustomInput } from "@/components/CustomInput/custom-input"
+import { CustomButton } from "@/components/CustomButton/custon-button"
+import { useRouter } from 'next/navigation';
+import { APP_LINKS } from "@/shared/constants"
 
 export const LoginForm = () => {
     const t = useTranslations()
+    const router = useRouter()
     const formSchema = z.object({
         email: z.string().email(),
         password: z.string().min(2).max(50),
@@ -26,7 +32,7 @@ export const LoginForm = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         const user = await login(values)
-        console.log(user)
+        router.push(APP_LINKS.HOMEPAGE())
     }
 
     return (
@@ -40,7 +46,7 @@ export const LoginForm = () => {
                             <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input className="dark:bg-white dark:text-black" placeholder="Email" {...field} />
+                                <CustomInput className="dark:bg-white dark:text-black" placeholder="Email" {...field} />
                             </FormControl>
                         
                             <FormMessage />
@@ -54,13 +60,13 @@ export const LoginForm = () => {
                             <FormItem>
                             <FormLabel>Senha</FormLabel>
                             <FormControl>
-                                <Input className="dark:bg-white dark:text-black" placeholder="Senha" {...field} />
+                                <CustomInput type="password" className="dark:bg-white dark:text-black" placeholder="Senha" {...field} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" className="w-full bg-green-500 hover:bg-green-700 dark:text-white" >{t("common.signIn")}</Button>
+                    <CustomButton type="submit"  >{t("common.signIn")}</CustomButton>
                 </form>
             </Form>
         </div>

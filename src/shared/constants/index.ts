@@ -1,3 +1,4 @@
+
 export const API_ROUTE = {
     login: `/api/signin`,
     getSelf: '/users/me',
@@ -8,6 +9,13 @@ export const API_ROUTE = {
     rank: '/rangings',
     getNews: '/news',
     getTeams: '/teams'
+}
+
+export const APP_LINKS = {
+    HOMEPAGE: () => `/`,
+    SIGNIN: () => `/signin`,
+    SIGNUP: () => `/signup`
+    
 }
 
 export const ROLE ={

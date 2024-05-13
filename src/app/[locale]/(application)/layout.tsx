@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Rubik} from "next/font/google";
-import { BottonMenu } from "@/components/BottomMenu";
 import { cn } from "@/lib/utils";
 import { ApplicationHeader } from "@/components/Header";
+import { BottonMenu } from "@/components/BottomMenu";
 
 export const metadata: Metadata = {
   title: "Palpite.com",
@@ -13,7 +13,7 @@ const fontSans = Rubik({
   variable: "--font-sans",
 })
 
-export default function RootLayout({
+export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
