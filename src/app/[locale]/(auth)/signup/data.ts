@@ -1,6 +1,7 @@
 'use server'
 import { api } from "@/data/api";
 import { API_ROUTE } from "@/shared/constants";
+import { User } from "@/shared/types/User";
 import { TeamResponse } from "@/shared/types/api/responses/TeamsResponse";
 
 export async function getTeams(){
@@ -11,3 +12,4 @@ export async function getTeams(){
 
     return teams;
 }
+

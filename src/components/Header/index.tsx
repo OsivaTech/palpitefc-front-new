@@ -1,4 +1,4 @@
-import { SignInSignUpSection } from "@/components/Header/components/SignInSignUpDrawer"
+import { ActionMenu } from "@/components/Header/components/ActionMenu/action-menu"
 import { getSelf } from "@/data/getSelf"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
@@ -18,13 +18,7 @@ export const ApplicationHeader = async ({hideMenu}: ApplicationHeaderType) => {
                     <Image src='/assets/logo.png' alt="" width={205} height={34}  />
                 </Link>
                 {!hideMenu && (
-                    <div className="flex justify-center items-center gap-2">
-                        {user ? (
-                            <span>{user.name}</span>
-                        ) : (
-                           <SignInSignUpSection />
-                        ) }
-                    </div>
+                    <ActionMenu />
                 )}
                 
             </header>

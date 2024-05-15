@@ -12,16 +12,25 @@ import { CustomButton } from "@/components/CustomButton/custon-button"
 import { format } from "date-fns"
 import { Combobox } from "@/components/Combobox/combobox"
 import { Team } from "@/shared/types/Team"
+import { createUser } from "@/components/RegisterForm/data"
+import { User } from "@/shared/types/User"
+import { SignupRequest } from "@/shared/types/api/resquests/SignupRequest"
+import { useRouter } from "next/navigation"
+import { APP_LINKS } from "@/shared/constants"
+import { useToast } from "@/components/ui/use-toast"
 
 export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const t = useTranslations()
+    const {push} = useRouter()
+    const { toast } = useToast()
+
     const formSchema = z.object({
         email: z.string().email(),
         password: z.string().min(2).max(50),
         name: z.string().min(2).max(50),
         document: z.string().min(2).max(50),
-        team: z.string().min(2).max(50),
-        info: z.string().min(2).max(50),
+        team: z.number(),
+        info: z.string().optional(),
         phoneNumber: z.string().min(2).max(50),
         birthday: z.date(),
         sex: z.enum(["male", "female", "other", ""]),
@@ -34,7 +43,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             email: "",
             password: "",
             document: "",
-            team: "",
+            team: 0,
             info: "",
             phoneNumber: "",
             birthday: new Date(),
@@ -43,15 +52,39 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const user = await login(values)
-        console.log(user)
+        
+        const user:SignupRequest = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            document: values.document,
+            team: values.team.toString(),
+            info: "",
+            phoneNumber: values.phoneNumber,
+            birthday: new Date(values.birthday).toISOString(),
+        }
+        
+
+        try{
+            await createUser(user);
+            await login({email: user.email, password: user.password});
+            push(APP_LINKS.HOMEPAGE());
+        }catch(error){
+            console.log("erro", error)
+            toast({
+                title: t("common.error"),
+                description: t("common.genericErrorMessage"),
+                variant: "destructive"
+              })
+            
+        }
     }
 
     return (
         <div className="container flex flex-col justify-center pt-4">
             <h1 className="mb-6 text-center text-xs font-medium">Cadastre-se e ganhe prêmios</h1>
             <Form {...form} >
-                <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col gap-3">
+                <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col  gap-3">
                     <FormField
                         control={form.control}
                         name="name"
@@ -59,6 +92,19 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                             <FormItem>
                                 <FormControl>
                                     <CustomInput placeholder="Nome" {...field} />
+                                </FormControl>
+                            
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <CustomInput placeholder="Senha" type="password" {...field} />
                                 </FormControl>
                             
                                 <FormMessage />
@@ -170,11 +216,13 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                     <h4 className="font-medium text-xs" >{t("common.favoriteTeam")}</h4>
                     <FormField
                         control={form.control}
-                        name="birthday"
+                        name="team"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
                                    <Combobox 
+                                        onChange={field.onChange}
+                                        value={field.value}
                                         data={teams.map(t => ({
                                                 label: t.name,
                                                 value: t.id,
@@ -190,7 +238,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                             </FormItem>
                         )}
                     />
-                    <CustomButton className="w-[267px]" type="submit" >
+                    <CustomButton className="w-[267px] self-center" type="submit" >
                         {t("common.signIn")}
                     </CustomButton>
                 </form>

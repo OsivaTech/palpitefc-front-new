@@ -38,10 +38,13 @@ export function DatePicker({label, onSelect, selected}: DatePickerProps) {
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
-          mode="single"
+         className="bg-transparent"
           selected={date}
           onSelect={setDate}
-          initialFocus
+          fromYear={1960}
+          toYear={new Date().getFullYear()}
+          mode="single"
+          captionLayout="dropdown-buttons"
         />
       </PopoverContent>
     </Popover>

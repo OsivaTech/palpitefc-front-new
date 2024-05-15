@@ -8,7 +8,8 @@ export const API_ROUTE = {
     legues: '/leagues',
     rank: '/rangings',
     getNews: '/news',
-    getTeams: '/teams'
+    getTeams: '/teams',
+    signUp: '/signup'
 }
 
 export const APP_LINKS = {
