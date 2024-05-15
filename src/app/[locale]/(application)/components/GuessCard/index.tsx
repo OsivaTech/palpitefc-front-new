@@ -76,7 +76,7 @@ export const GuessCard = ( {
     },[])
     
     return (
-        <Card className="bg-[#2D3745] h-[150px] w-[422px] px-4 py-2 border-0 border-b font-medium flex flex-col justify-between">
+        <Card className="bg-[#2D3745] h-[150px]  px-4 py-2 border-0 border-b font-medium flex flex-col justify-between">
             
             <CardContent className="flex flex-col p-0 gap-2 justify-center" >
                 <div className="flex justify-between items-center text-xs  ">
