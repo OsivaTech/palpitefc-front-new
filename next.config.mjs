@@ -21,6 +21,11 @@ const nextConfig = {
             hostname: 'mrvnoesporte.com.br',
             port: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'img.freepik.com',
+            port: '',
+          },
         ],
       },
 };
