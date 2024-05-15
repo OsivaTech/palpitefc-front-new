@@ -9,11 +9,11 @@ export default async function AuthLayout({
   children: React.ReactNode;
 }>) {
 
-  const self = await getSelf()
+  // const self = await getSelf()
 
-  if (self){
-    redirect(APP_LINKS.HOMEPAGE())
-  }
+  // if (self){
+  //   redirect(APP_LINKS.HOMEPAGE())
+  // }
 
   return (
     <div>

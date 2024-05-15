@@ -17,7 +17,7 @@ export async function login({email, password}: LoginFormData){
     const {accessToken, user}: LoginResponse = await response.json()
     
     if(!accessToken || !user){
-        throw new Error('DEU BOSTA')
+        throw new Error('Error')
     }
 
     createSession(accessToken)

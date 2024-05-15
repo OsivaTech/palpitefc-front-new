@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Rubik} from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
 import { cn } from "../../lib/utils";
-import {NextIntlClientProvider, useMessages} from 'next-intl';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/context/auth-context";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,10 +31,14 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
           fontSans.variable
         )}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-      </NextIntlClientProvider>
-      <Toaster />
+      <AuthProvider>
+
+        <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+        </NextIntlClientProvider>
+        <Toaster />
+      </AuthProvider>
+
     </body>
     </html>
   );

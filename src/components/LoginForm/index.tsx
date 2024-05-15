@@ -11,6 +11,8 @@ import { CustomInput } from "@/components/CustomInput/custom-input"
 import { CustomButton } from "@/components/CustomButton/custon-button"
 import { useRouter } from 'next/navigation';
 import { APP_LINKS } from "@/shared/constants"
+import { useAuth } from "@/context/auth-context"
+import { User } from "@/shared/types/User"
 
 export const LoginForm = () => {
     const t = useTranslations()
@@ -19,6 +21,7 @@ export const LoginForm = () => {
         email: z.string().email(),
         password: z.string().min(2).max(50),
     })
+    const {registerUser} = useAuth()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -28,11 +31,15 @@ export const LoginForm = () => {
         },
     })
 
-  
-
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const user = await login(values)
-        router.push(APP_LINKS.HOMEPAGE())
+        try{
+            const user: User = await login(values)
+            console.log("AQUI", user)
+            registerUser(user)
+            router.push(APP_LINKS.HOMEPAGE())
+        } catch{
+            console.error("error")
+        }
     }
 
     return (
