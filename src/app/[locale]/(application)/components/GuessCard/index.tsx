@@ -135,7 +135,7 @@ export const GuessCard = ( {
         {isCoppalsed && (
             <Card className='flex  gap-2 py-3 px-2 bg-[#2D3745]'>
                 <div className='flex justify-start items-center' >
-                    <span className='w-[150px]'>
+                    <span className='min-[320px]:w-[90px] min-[375px]:w-[130px] min-[425px]:w-[150px] overflow-hidden text-ellipsis text-nowrap'>
                         {fixture.homeTeam.name}
                     </span>
                     <Image src={fixture.homeTeam.image} width={25} height={25} alt=''/>
@@ -143,7 +143,7 @@ export const GuessCard = ( {
                 
                 X
                 <div className='flex justify-center flex-row-reverse items-center'>
-                    <span className=' ml-4 overflow-hidden text-ellipsis text-nowrap'>
+                    <span className='min-[320px]:w-[90px] min-[375px]:w-[130px] min-[425px]:w-[150px] ml-4 overflow-hidden text-ellipsis text-nowrap'>
                         {fixture.awayTeam.name}
                     </span>
                     <Image src={fixture.awayTeam.image} width={25} height={25} alt=''/>

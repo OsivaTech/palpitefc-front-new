@@ -175,7 +175,6 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                         control={form.control}
                         name="birthday"
                         render={({ field }) => {
-                            console.log('asdfasdfasdfasdfasdfasdf', field.value)
                             return (
                                 <FormItem>
                                     <FormControl>
