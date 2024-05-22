@@ -21,7 +21,7 @@ export default function AppLayout({
   
   return (
     <div className={cn(
-          "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
+          "min-h-screen bg-background font-sans antialiased text-white bg-app-background h-full",
           fontSans.variable
         )}>
         <ApplicationHeader />

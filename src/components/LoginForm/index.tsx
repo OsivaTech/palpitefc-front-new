@@ -34,7 +34,6 @@ export const LoginForm = () => {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try{
             const user: User = await login(values)
-            console.log("AQUI", user)
             registerUser(user)
             router.push(APP_LINKS.HOMEPAGE())
         } catch{

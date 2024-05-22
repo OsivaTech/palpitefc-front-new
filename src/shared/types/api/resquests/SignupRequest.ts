@@ -3,11 +3,12 @@ export type SignupRequest = {
     email: string,
     password: string,
     document: string,
-    team: string,
+    teamId: number,
     info: string,
     phoneNumber: string,
     birthday: string
-    address: {
+    genre: string
+    address?: {
         street: string,
         number: string,
         complement: string,

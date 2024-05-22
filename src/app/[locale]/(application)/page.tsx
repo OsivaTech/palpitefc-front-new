@@ -14,7 +14,7 @@ export default async function LandingPage() {
   const guess = await getMyGuesses();
   const news = await getNews();
   const rank = await getRank();
-  console.log(guess)
+  
   return (
     <>
       <div className="w-screen">

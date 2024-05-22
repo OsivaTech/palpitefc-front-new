@@ -52,7 +52,7 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
                   
                 </div>
 
-                <div className="pt-5 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-start max-h-[500px] gap-2 overflow-auto">
+                <div className="pt-5 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-start  gap-2 overflow-auto">
                    {filteredOption?.map( fixture => (
                        <GuessCard key={fixture.id} fixture={fixture} league={leagues.filter(l => l.id === fixture.leagueId)[0]} guess={guess?.find(g => g.fixtureId === fixture.id) } />
                    ))}

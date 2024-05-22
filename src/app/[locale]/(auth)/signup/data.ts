@@ -6,7 +6,7 @@ import { TeamResponse } from "@/shared/types/api/responses/TeamsResponse";
 
 export async function getTeams(){
     const response = await api(API_ROUTE.getTeams, {
-        method: 'GET'
+        method: 'GET',
     })
     const teams: TeamResponse = await response.json();
 

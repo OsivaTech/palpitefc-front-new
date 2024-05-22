@@ -21,7 +21,6 @@ export function AuthProvider({children}: {children: ReactNode} ) {
     }, [user])
 
     const registerUser = useCallback( (user:User|null) => {
-        console.log(user)
         setUser(user)
     }, [setUser])
 

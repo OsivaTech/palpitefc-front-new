@@ -42,7 +42,6 @@ export function Combobox({data, errorLabel, searchLabel, onChange, value}: Combo
     const handleChange = React.useCallback((item: ComboboxData) => {
         setOpen(false)
         onChange(item.value === value ? "" : item.value)
-        console.log(item)
     }, [onChange, value])
 
     return (

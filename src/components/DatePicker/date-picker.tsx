@@ -20,27 +20,25 @@ type DatePickerProps = {
     onSelect: any
 }
 export function DatePicker({label, onSelect, selected}: DatePickerProps) {
-  const [date, setDate] = React.useState<Date>()
          
-
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           className={cn(
             "justify-start w-full bg-app-background h-[38px] rounded-full placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs ",
-            !date && "text-muted-foreground"
+            !selected && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>{label || 'Pick a date'} </span>}
+          {selected ? format(selected, "PPP") : <span>{label || 'Pick a date'} </span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
          className="bg-transparent"
-          selected={date}
-          onSelect={setDate}
+          selected={selected}
+          onSelect={onSelect}
           fromYear={1960}
           toYear={new Date().getFullYear()}
           mode="single"

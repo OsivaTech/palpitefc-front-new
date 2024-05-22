@@ -23,3 +23,9 @@ export const ROLE ={
     'JOURNALIST': 200,
     'USER': 300,
 } as const
+
+export const RANKING_TYPE = {
+    YEAR: 'Year',
+    MONTH: 'Month',
+    LEAGUE: 'League'
+}

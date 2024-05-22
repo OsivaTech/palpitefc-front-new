@@ -8,7 +8,7 @@ export const BottonMenu = () => {
     const t = useTranslations()
 
     return (
-        <div className=" mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] fixed bottom-0 ">
+        <div className=" mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
             <BottomMenuItem icon={<Image className="self-center" src={'/assets/survey.svg'} height={20} width={20}  alt="" />} label="Enquete" onClick={() => console.log('premio')} />
             <BottomMenuItem icon={<Image className="self-center" src={'/assets/trophy.svg'} height={20} width={20}  alt="" />} label="Premios e Regras" onClick={() => console.log('premio')} />
             <BottomMenuItem icon={<Image className="self-center" src={'/assets/user.svg'} height={20} width={20}  alt="" />} label="Minha conta" onClick={() => console.log('premio')} />

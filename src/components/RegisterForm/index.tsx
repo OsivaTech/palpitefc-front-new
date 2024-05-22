@@ -17,11 +17,13 @@ import { SignupRequest } from "@/shared/types/api/resquests/SignupRequest"
 import { useRouter } from "next/navigation"
 import { APP_LINKS } from "@/shared/constants"
 import { useToast } from "@/components/ui/use-toast"
+import { useAuth } from "@/context/auth-context"
 
 export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const t = useTranslations()
     const {push} = useRouter()
     const { toast } = useToast()
+    const { registerUser} = useAuth()
 
     const formSchema = z.object({
         email: z.string().email(),
@@ -32,12 +34,12 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
         info: z.string().optional(),
         phoneNumber: z.string().min(2).max(50),
         birthday: z.date(),
-        sex: z.enum(["male", "female", "other", ""]),
-        street: z.string().min(2).max(50).optional(),
-        number: z.string().optional(),
-        complement: z.string().min(2).max(50).optional(),
-        city: z.string().min(2).max(50).optional(),
-        postalCode: z.string().min(2).max(50).optional(),
+        genre: z.enum(["m", "f", "o", ""]),
+        // street: z.string().min(2).max(50).optional(),
+        // number: z.string().optional(),
+        // complement: z.string().min(2).max(50).optional(),
+        // city: z.string().min(2).max(50).optional(),
+        // postalCode: z.string().min(2).max(50).optional(),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -51,43 +53,43 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             info: "",
             phoneNumber: "",
             birthday: undefined,
-            sex: "",
-            street: "",
-            number: "",
-            complement: "",
-            city: "",
-            postalCode: "",
+            genre: "",
+            // street: "",
+            // number: "",
+            // complement: "",
+            // city: "",
+            // postalCode: "",
         },
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        
+
         const user:SignupRequest = {
             name: values.name,
             email: values.email,
             password: values.password,
             document: values.document,
-            team: values.team.toString(),
+            teamId: values.team,
+            genre: values.genre,
             info: "",
             phoneNumber: values.phoneNumber,
-            birthday: new Date(values.birthday).toISOString(),
-            address: {
-                street: values.street || '',
-                number: values.number || '',
-                complement: values.complement || '',
-                neighborhood:  '',
-                city: values.city || '',
-                state: '',
-                country: '',
-                postalCode: values.postalCode || '',
-            }
+            birthday: format(new Date(values.birthday), 'y-MM-dd'),
+            // address: {
+            //     street: values.street || '',
+            //     number: values.number || '',
+            //     complement: values.complement || '',
+            //     neighborhood:  '',
+            //     city: values.city || '',
+            //     state: '',
+            //     country: '',
+            //     postalCode: values.postalCode || '',
+            // }
         }
-        
 
         try{
-            console.log(user)
             await createUser(user);
-            await login({email: user.email, password: user.password});
+            const userResponse = await login({email: user.email, password: user.password});
+            registerUser(userResponse)
             push(APP_LINKS.HOMEPAGE());
         }catch(error){
             console.log("erro", error)
@@ -96,7 +98,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                 description: t("common.genericErrorMessage"),
                 variant: "destructive"
               })
-            
+
         }
     }
 
@@ -125,7 +127,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Senha" type="password" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -138,7 +140,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Email" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -151,7 +153,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Telefone" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -164,7 +166,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="CPF" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -172,29 +174,34 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                     <FormField
                         control={form.control}
                         name="birthday"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                <DatePicker
-                                        label={
-                                            field.value ? (
-                                                format(field.value, "PPP")
-                                            ) : (
-                                                "DATA DE NASCIMENTO"
-                                            )
-                                        }
-                                        selected={field.value}
-                                        onSelect={field.onChange}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+                        render={({ field }) => {
+                            console.log('asdfasdfasdfasdfasdfasdf', field.value)
+                            return (
+                                <FormItem>
+                                    <FormControl>
+                                        <DatePicker
+                                            label={
+                                                field.value ? (
+                                                    format(field.value, "PPP")
+                                                ) : (
+                                                    "DATA DE NASCIMENTO"
+                                                )
+                                            }
+
+                                            selected={field.value}
+                                            onSelect={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )
+                        }
+                    }
                     />
                     <h4 className="font-medium text-xs" >{t("common.sex")}</h4>
                     <FormField
                         control={form.control}
-                        name="sex"
+                        name="genre"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
@@ -205,7 +212,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                     >
                                         <FormItem className="flex items-center space-x-3 space-y-0">
                                             <FormControl>
-                                            <RadioGroupItem value="male" />
+                                            <RadioGroupItem value="m" />
                                             </FormControl>
                                             <FormLabel className="font-medium text-xs">
                                                 {t("common.male")}
@@ -213,7 +220,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                         </FormItem>
                                         <FormItem className="flex items-center space-x-3 space-y-0">
                                             <FormControl>
-                                            <RadioGroupItem value="female" />
+                                            <RadioGroupItem value="f" />
                                             </FormControl>
                                             <FormLabel className="font-medium text-xs">
                                             {t("common.female")}
@@ -221,7 +228,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                         </FormItem>
                                         <FormItem className="flex items-center space-x-3 space-y-0">
                                             <FormControl>
-                                            <RadioGroupItem value="other" />
+                                            <RadioGroupItem value="o" />
                                             </FormControl>
                                             <FormLabel className="font-medium text-xs">{t("common.other")}</FormLabel>
                                         </FormItem>
@@ -231,7 +238,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                             </FormItem>
                         )}
                     />
-                    
+
                     <h4 className="font-medium text-xs" >{t("common.favoriteTeam")}</h4>
                     <FormField
                         control={form.control}
@@ -239,25 +246,25 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                   <Combobox 
+                                   <Combobox
                                         onChange={field.onChange}
                                         value={field.value}
                                         data={teams.map(t => ({
                                                 label: t.name,
                                                 value: t.id,
                                                 imageLink: t.image
-                                        }))} 
+                                        }))}
                                         errorLabel="Não foi encontrado esse time"
                                         searchLabel="Selecione seu time do coração"
                                     />
 
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                     <h4 className="font-medium text-xs" >{t("common.address")}</h4>
+                     {/* <h4 className="font-medium text-xs" >{t("common.address")}</h4>
                     <FormField
                         control={form.control}
                         name="street"
@@ -266,7 +273,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Rua" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -280,7 +287,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                     <FormControl>
                                         <CustomInput placeholder="Número" {...field} />
                                     </FormControl>
-                                
+
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -294,7 +301,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                     <FormControl >
                                         <CustomInput placeholder="Complemento" {...field} />
                                     </FormControl>
-                                
+
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -309,7 +316,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="CEP" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -322,11 +329,11 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Cidade" {...field} />
                                 </FormControl>
-                            
+
                                 <FormMessage />
                             </FormItem>
                         )}
-                    />
+                    /> */}
                     <CustomButton className="w-[267px] self-center" type="submit" >
                         {t("common.signIn")}
                     </CustomButton>
