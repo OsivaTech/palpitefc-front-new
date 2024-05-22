@@ -5,6 +5,7 @@ import { League } from "@/shared/types/League";
 import { FixtureResponse } from "@/shared/types/api/responses/FixtureResponse";
 import { GuessResponse } from "@/shared/types/api/responses/GessResponse";
 import { NewsResponse } from "@/shared/types/api/responses/NewsResponse";
+import { RankingResponse } from "@/shared/types/api/responses/RankResponse";
 
 
 export async function getFixture(){
@@ -65,6 +66,19 @@ export async function getNews(){
 
 
         return news
+    }catch(error){
+        console.log(error)
+        return null
+    }
+}
+
+export async function getRank() {
+    try{
+        const response = await api(API_ROUTE.rankings)
+
+        const ranks : RankingResponse[] = await response.json();
+
+        return ranks
     }catch(error){
         console.log(error)
         return null

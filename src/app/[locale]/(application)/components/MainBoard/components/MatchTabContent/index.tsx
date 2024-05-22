@@ -37,6 +37,7 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
     const filteredOption = data
         ?.filter(d => filter.onlyGuesses ? guess?.find(g => g.fixtureId === d.id) : d )
         ?.filter(d => filter.selectedLeague === '0' ? d : d.leagueId.toString() === filter.selectedLeague)
+        
     
     return (
         //FILTER

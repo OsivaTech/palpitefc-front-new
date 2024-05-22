@@ -6,17 +6,16 @@ export const API_ROUTE = {
     guesses: '/guesses',
     getMyGuesses: '/guesses/me',
     legues: '/leagues',
-    rank: '/rangings',
     getNews: '/news',
     getTeams: '/teams',
-    signUp: '/signup'
+    signUp: '/signup',
+    rankings:'/rankings/mock'
 }
 
 export const APP_LINKS = {
     HOMEPAGE: () => `/`,
     SIGNIN: () => `/signin`,
     SIGNUP: () => `/signup`
-    
 }
 
 export const ROLE ={

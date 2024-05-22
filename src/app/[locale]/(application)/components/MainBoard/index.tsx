@@ -13,6 +13,7 @@ import { GuessResponse } from "@/shared/types/api/responses/GessResponse"
 import { League } from "@/shared/types/League"
 import { FixtureResponse } from "@/shared/types/api/responses/FixtureResponse"
 import { NewsResponse } from "@/shared/types/api/responses/NewsResponse"
+import { RankingResponse } from "@/shared/types/api/responses/RankResponse"
 
 
 type MainBoardProps = {
@@ -20,8 +21,9 @@ type MainBoardProps = {
     leagues: League[]
     guess: GuessResponse | null
     news: NewsResponse | null
+    rankings: RankingResponse[] | null
 }
-export const MainBoard =  ({fixtures, leagues, guess, news}: MainBoardProps) => {
+export const MainBoard =  ({fixtures, leagues, guess, news, rankings}: MainBoardProps) => {
     const t = useTranslations("components.MainBoard.tabs")
 
     return (
@@ -34,7 +36,7 @@ export const MainBoard =  ({fixtures, leagues, guess, news}: MainBoardProps) => 
                 </TabsList>
                 <MatchTabContent data={fixtures} leagues={leagues} guess={guess as unknown as Guess[]} />
                 <NewsTabContent data={news as unknown as News[]} />
-                <RankTabContent  />
+                <RankTabContent data={rankings as RankingResponse[]}  />
             </Tabs>
         </main>
     )

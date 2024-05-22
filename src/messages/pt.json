@@ -35,6 +35,8 @@
     "other": "Outro",
     "sex": "Sexo",
     "favoriteTeam": "Time do coração",
-    "signUp": "Cadastrar-se"
+    "signUp": "Cadastrar-se",
+    "address": "Endereço",
+    "cancel": "Cancelar"
   }
 }

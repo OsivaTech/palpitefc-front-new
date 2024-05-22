@@ -1,6 +1,6 @@
 import { AdBanner, Banner } from "@/app/[locale]/(application)/components/AdBanner";
 import { MainBoard } from "@/app/[locale]/(application)/components/MainBoard";
-import { getFixture, getLeagues, getMyGuesses, getNews } from "@/app/[locale]/(application)/components/MainBoard/data";
+import { getFixture, getLeagues, getMyGuesses, getNews, getRank } from "@/app/[locale]/(application)/components/MainBoard/data";
 
 export default async function LandingPage() {
   const mockBanner: Banner[] = [
@@ -13,13 +13,14 @@ export default async function LandingPage() {
   const leagues = await getLeagues();
   const guess = await getMyGuesses();
   const news = await getNews();
-
+  const rank = await getRank();
+  console.log(guess)
   return (
     <>
       <div className="w-screen">
         <AdBanner banners={mockBanner}  />
       </div>
-      <MainBoard fixtures={fixtures} leagues={leagues} guess={guess} news={news}  />
+      <MainBoard fixtures={fixtures} leagues={leagues} guess={guess} news={news} rankings={rank}  />
     </>
   );
 }

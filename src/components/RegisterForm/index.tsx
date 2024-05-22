@@ -1,7 +1,7 @@
 'use client'
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { z } from "zod"
+import { Schema, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { login } from "@/components/LoginForm/data"
 import { useTranslations } from "next-intl"
@@ -13,7 +13,6 @@ import { format } from "date-fns"
 import { Combobox } from "@/components/Combobox/combobox"
 import { Team } from "@/shared/types/Team"
 import { createUser } from "@/components/RegisterForm/data"
-import { User } from "@/shared/types/User"
 import { SignupRequest } from "@/shared/types/api/resquests/SignupRequest"
 import { useRouter } from "next/navigation"
 import { APP_LINKS } from "@/shared/constants"
@@ -34,6 +33,11 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
         phoneNumber: z.string().min(2).max(50),
         birthday: z.date(),
         sex: z.enum(["male", "female", "other", ""]),
+        street: z.string().min(2).max(50).optional(),
+        number: z.string().optional(),
+        complement: z.string().min(2).max(50).optional(),
+        city: z.string().min(2).max(50).optional(),
+        postalCode: z.string().min(2).max(50).optional(),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -46,8 +50,13 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             team: 0,
             info: "",
             phoneNumber: "",
-            birthday: new Date(),
+            birthday: undefined,
             sex: "",
+            street: "",
+            number: "",
+            complement: "",
+            city: "",
+            postalCode: "",
         },
     })
 
@@ -62,10 +71,21 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             info: "",
             phoneNumber: values.phoneNumber,
             birthday: new Date(values.birthday).toISOString(),
+            address: {
+                street: values.street || '',
+                number: values.number || '',
+                complement: values.complement || '',
+                neighborhood:  '',
+                city: values.city || '',
+                state: '',
+                country: '',
+                postalCode: values.postalCode || '',
+            }
         }
         
 
         try{
+            console.log(user)
             await createUser(user);
             await login({email: user.email, password: user.password});
             push(APP_LINKS.HOMEPAGE());
@@ -93,7 +113,6 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Nome" {...field} />
                                 </FormControl>
-                            
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -161,7 +180,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                             field.value ? (
                                                 format(field.value, "PPP")
                                             ) : (
-                                                "Pick a date"
+                                                "DATA DE NASCIMENTO"
                                             )
                                         }
                                         selected={field.value}
@@ -232,6 +251,76 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                                         searchLabel="Selecione seu time do coração"
                                     />
 
+                                </FormControl>
+                            
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                     <h4 className="font-medium text-xs" >{t("common.address")}</h4>
+                    <FormField
+                        control={form.control}
+                        name="street"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <CustomInput placeholder="Rua" {...field} />
+                                </FormControl>
+                            
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <div className="flex gap-2 justify-between w-full">
+                        <FormField
+                            control={form.control}
+                            name="number"
+                            render={({ field }) => (
+                                <FormItem >
+                                    <FormControl>
+                                        <CustomInput placeholder="Número" {...field} />
+                                    </FormControl>
+                                
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="complement"
+                            render={({ field }) => (
+                                <FormItem className="flex-1">
+                                    <FormControl >
+                                        <CustomInput placeholder="Complemento" {...field} />
+                                    </FormControl>
+                                
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+                    <FormField
+                        control={form.control}
+                        name="postalCode"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <CustomInput placeholder="CEP" {...field} />
+                                </FormControl>
+                            
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <CustomInput placeholder="Cidade" {...field} />
                                 </FormControl>
                             
                                 <FormMessage />
