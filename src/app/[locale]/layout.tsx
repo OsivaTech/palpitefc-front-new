@@ -5,7 +5,8 @@ import { cn } from "../../lib/utils";
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth-context";
-
+import { cookies } from "next/headers"
+import { decrypt } from "@/lib/session";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,14 +26,21 @@ export default function RootLayout({
   params: {locale: string};
 }>) {
   const messages = useMessages();
+
+  async function  loadToken(){
+    const token = await decrypt(cookies().get('session')?.value)
+    return token?.token
+  }
+  
+
   return (
     <html lang={locale} className="dark">
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased text-white bg-app-background",
           fontSans.variable
         )}>
-      <AuthProvider>
 
+      <AuthProvider token={loadToken()} >
         <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
         </NextIntlClientProvider>

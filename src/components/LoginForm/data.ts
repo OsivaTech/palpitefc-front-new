@@ -22,5 +22,5 @@ export async function login({email, password}: LoginFormData){
 
     createSession(accessToken)
 
-    return user
+    return {accessToken, user}
 }

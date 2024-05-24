@@ -13,11 +13,11 @@ export const SideMenu = () => {
     const {  getUser } = useAuth()
     const user = getUser()
 
-    const {  registerUser } = useAuth()
+    const { signOut } = useAuth()
 
     const handleLogout = async () => {
         await signout()
-        registerUser(null)
+        signOut()
     }
 
     return ( 

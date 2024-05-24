@@ -33,8 +33,8 @@ export const LoginForm = () => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try{
-            const user: User = await login(values)
-            registerUser(user)
+            const { accessToken , user} = await login(values)
+            registerUser(user, accessToken)
             router.push(APP_LINKS.HOMEPAGE())
         } catch{
             console.error("error")
