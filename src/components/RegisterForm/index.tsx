@@ -88,8 +88,8 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
 
         try{
             await createUser(user);
-            const userResponse = await login({email: user.email, password: user.password});
-            registerUser(userResponse)
+            const { accessToken, user:userResponse } = await login({email: user.email, password: user.password});
+            registerUser(userResponse, accessToken)
             push(APP_LINKS.HOMEPAGE());
         }catch(error){
             console.log("erro", error)
