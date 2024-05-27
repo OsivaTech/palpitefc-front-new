@@ -7,7 +7,7 @@ export type SignupRequest = {
     info: string,
     phoneNumber: string,
     birthday: string
-    genre: string
+    gender: string
     address?: {
         street: string,
         number: string,

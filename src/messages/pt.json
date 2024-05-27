@@ -38,5 +38,10 @@
     "signUp": "Cadastrar-se",
     "address": "Endereço",
     "cancel": "Cancelar"
+  },
+  "pages": {
+    "login": {
+      "usernameOrPasswordWrong": "Usuário ou senha inválidos!"
+    }
   }
 }

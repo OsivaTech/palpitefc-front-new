@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth-context";
 import { cookies } from "next/headers"
 import { decrypt } from "@/lib/session";
+import {  DrawerProvider } from "@/context/drawer-context";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -41,10 +42,13 @@ export default function RootLayout({
         )}>
 
       <AuthProvider token={loadToken()} >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-        </NextIntlClientProvider>
-        <Toaster />
+        <DrawerProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+              {children}
+          </NextIntlClientProvider>
+          
+          <Toaster />
+        </DrawerProvider>
       </AuthProvider>
 
     </body>

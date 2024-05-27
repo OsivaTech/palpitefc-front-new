@@ -9,7 +9,8 @@ export const API_ROUTE = {
     getNews: '/news',
     getTeams: '/teams',
     signUp: '/signup',
-    rankings:'/rankings/mock'
+    rankings:'/rankings/mock',
+    quiz: '/polls'
 }
 
 export const APP_LINKS = {

@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button"
 import { useTranslations } from "next-intl"
 import { ReactNode } from "react"
 import Image from "next/image"
+import { useDrawer } from "@/context/drawer-context"
 
 export const BottonMenu = () => {
     const t = useTranslations()
-
+    const {setIsOpen, setIsQuiz} = useDrawer()
     return (
         <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
             <BottomMenuItem 
@@ -17,9 +18,12 @@ export const BottonMenu = () => {
                     alt="" />
                 } 
                 label="Enquete" 
-                onClick={() => console.log('premio')} />
+                onClick={() => {
+                    setIsOpen(true)
+                    setIsQuiz(true)
+                }} />
             <BottomMenuItem icon={<Image className="self-center" src={'/assets/trophy.svg'} height={20} width={20}  alt="" />} label="Premios e Regras" onClick={() => console.log('premio')} />
-            <BottomMenuItem icon={<Image className="self-center" src={'/assets/user.svg'} height={20} width={20}  alt="" />} label="Minha conta" onClick={() => console.log('premio')} />
+            <BottomMenuItem icon={<Image className="self-center" src={'/assets/user.svg'} height={20} width={20}  alt="" />} label="Minha conta" onClick={() => setIsOpen(true)} />
         </div>
     )
 }

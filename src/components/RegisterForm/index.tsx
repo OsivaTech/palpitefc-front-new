@@ -34,7 +34,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
         info: z.string().optional(),
         phoneNumber: z.string().min(2).max(50),
         birthday: z.date(),
-        genre: z.enum(["m", "f", "o", ""]),
+        gender: z.enum(["m", "f", "o", ""]),
         // street: z.string().min(2).max(50).optional(),
         // number: z.string().optional(),
         // complement: z.string().min(2).max(50).optional(),
@@ -53,7 +53,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             info: "",
             phoneNumber: "",
             birthday: undefined,
-            genre: "",
+            gender: "",
             // street: "",
             // number: "",
             // complement: "",
@@ -70,7 +70,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             password: values.password,
             document: values.document,
             teamId: values.team,
-            genre: values.genre,
+            gender: values.gender,
             info: "",
             phoneNumber: values.phoneNumber,
             birthday: format(new Date(values.birthday), 'y-MM-dd'),
@@ -88,7 +88,19 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
 
         try{
             await createUser(user);
-            const { accessToken, user:userResponse } = await login({email: user.email, password: user.password});
+            const response =  await login({email: user.email, password: user.password});
+            
+            if(response === false){
+                toast({
+                    title: t("common.error"),
+                    description: t("pages.login.usernameOrPasswordWrong"),
+                    variant: "destructive"
+                  })
+                  return;
+            }
+
+            const { accessToken, user:userResponse } = response;
+
             registerUser(userResponse, accessToken)
             push(APP_LINKS.HOMEPAGE());
         }catch(error){
@@ -200,7 +212,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                     <h4 className="font-medium text-xs" >{t("common.sex")}</h4>
                     <FormField
                         control={form.control}
-                        name="genre"
+                        name="gender"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
