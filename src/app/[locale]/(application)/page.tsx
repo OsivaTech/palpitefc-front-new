@@ -16,11 +16,9 @@ export default async function LandingPage() {
   const rank = await getRank();
   
   return (
-    <>
-      <div className="w-screen">
+      <div className="w-screen flex-1">
         <AdBanner banners={mockBanner}  />
+        <MainBoard fixtures={fixtures} leagues={leagues} guess={guess} news={news} rankings={rank}  />
       </div>
-      <MainBoard fixtures={fixtures} leagues={leagues} guess={guess} news={news} rankings={rank}  />
-    </>
   );
 }

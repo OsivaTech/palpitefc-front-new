@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export const NewsTabContent = ({ data }: NewsProps) => {
     return (
-            <TabsContent value="news" className="bg-slate-200 h-full">
+            <TabsContent value="news" className=" h-full">
                 {/* CARD CONTAINER */}
             <div className="flex flex-col gap-2 h-full overflow-scroll">
 

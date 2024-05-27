@@ -27,16 +27,18 @@ export const MainBoard =  ({fixtures, leagues, guess, news, rankings}: MainBoard
     const t = useTranslations("components.MainBoard.tabs")
 
     return (
-        <main className="w-full">
-            <Tabs defaultValue="match" className="max-w-[800px] ml-auto mr-auto">
+        <main className="w-full overflow-scroll">
+            <Tabs defaultValue="match" className="max-w-[800px]  min-h-full ml-auto mr-auto">
                 <TabsList className="p-0 grid w-full grid-cols-3 text-white bg-app-background border-b border-b-white rounded-none">
                     <TabsTrigger  value="match">{t('match.title')}</TabsTrigger>
                     <TabsTrigger value="news">{t('news.title')}</TabsTrigger>
                     <TabsTrigger value="rank">{t('rank.title')}</TabsTrigger>
                 </TabsList>
-                <MatchTabContent data={fixtures} leagues={leagues} guess={guess as unknown as Guess[]} />
-                <NewsTabContent data={news as unknown as News[]} />
-                <RankTabContent data={rankings as RankingResponse[]}  />
+                <div>
+                    <MatchTabContent data={fixtures} leagues={leagues} guess={guess as unknown as Guess[]} />
+                    <NewsTabContent data={news as unknown as News[]} />
+                    <RankTabContent data={rankings as RankingResponse[]} leagues={leagues}  />
+                </div>
             </Tabs>
         </main>
     )

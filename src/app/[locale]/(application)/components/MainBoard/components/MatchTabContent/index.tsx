@@ -42,7 +42,7 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
     return (
         //FILTER
         <div>
-            <TabsContent value="match" className="py-3 px-2">
+            <TabsContent value="match" className="py-3 px-2 overflow-hidden">
                 <div className="flex items-center gap-3 pb-2">
                     {filter.onlyGuesses && (
                         <Badge onClick={() => setFilter(old => ({...old, onlyGuesses: false }))}  className="cursor-pointer p-0" ><X size={20} /></Badge>

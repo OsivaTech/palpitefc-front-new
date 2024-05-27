@@ -27,7 +27,6 @@ export const SideMenu = () => {
                 {user?.name}
             </SheetTrigger>
             <SheetContent side='left'>
-
                 <div className="flex justify-start gap-3 items-end">
                     <Image src={user?.team.image || ''} height={45} width={45} alt="" />
                     <span className="h-full">{user?.name}</span>
