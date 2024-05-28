@@ -1,12 +1,13 @@
 export type Quiz = {
-    id: string
+    id: number
     title: string
+    yourVote?: number
     options: QuizOptions[]
 }
 
 export type QuizOptions = {
-    id: string
+    id: number
     title: string
-    count: string
-    pollId: string
+    count: number
+    pollId: number
 }

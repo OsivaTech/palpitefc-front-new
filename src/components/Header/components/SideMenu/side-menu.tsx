@@ -17,7 +17,7 @@ export const SideMenu = () => {
     const {  getUser } = useAuth()
     const user = getUser()
     const [quiz, setQuiz] = useState<Quiz[]>()
-    const { signOut } = useAuth()
+    const { signOut, isUserLogged } = useAuth()
 
     const handleLogout = async () => {
         await signout()
@@ -28,12 +28,12 @@ export const SideMenu = () => {
     useEffect(() => {
         const loadQuiz = async () => {
             if(isQuiz){
-                const response = await getQuiz()
+                const response = await getQuiz(isUserLogged())
                 setQuiz(response)
             }
         }
         loadQuiz()
-    }, [isQuiz])
+    }, [isQuiz, isUserLogged])
     
     return ( 
         <Sheet open={isOpen} modal>

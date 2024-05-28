@@ -4,7 +4,7 @@ import { authorizedApi } from "@/data/api"
 import { API_ROUTE } from "@/shared/constants"
 import { Quiz } from "@/shared/types/Quiz"
 
-export async function vote(pollId:string, optionId:string){
+export async function vote(pollId:number, optionId:string){
     console.log(pollId, optionId)
 
     try{

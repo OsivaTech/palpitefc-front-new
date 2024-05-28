@@ -11,7 +11,7 @@ export const API_ROUTE = {
     signUp: '/signup',
     rankings:'/rankings/mock',
     quiz: '/polls',
-    vote: (pollI:string, optionId: string) => `/polls/${pollI}/vote/${optionId}`
+    vote: (pollI:number, optionId: string) => `/polls/${pollI}/vote/${optionId}`
 }
 
 export const APP_LINKS = {
