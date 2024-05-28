@@ -1,6 +1,5 @@
 'use server'
 import { env } from "@/env"
-import { decrypt } from "@/lib/session"
 import { cookies } from "next/headers"
 
 export async function api(path: string, init?: RequestInit){
@@ -24,9 +23,8 @@ export async function authorizedApi(path: string, init?: RequestInit){
         return null
     }
     
-    const decryptedToken = await decrypt(session.value)
 
-    if(!decryptedToken?.token){
+    if(!session.value){
         return null
     }
 
@@ -34,7 +32,7 @@ export async function authorizedApi(path: string, init?: RequestInit){
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            'Authorization': `Bearer ${decryptedToken.token}`
+            'Authorization': `Bearer ${session.value}`
         }
     })
 }
