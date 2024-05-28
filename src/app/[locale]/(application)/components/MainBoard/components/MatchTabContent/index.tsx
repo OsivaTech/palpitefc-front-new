@@ -9,7 +9,8 @@ import { GuessCard } from "@/app/[locale]/(application)/components/GuessCard"
 import { Guess } from "@/shared/types/Guess"
 import { Badge } from "@/components/ui/badge"
 import { CustomSelect } from "@/components/CustomSelect/custom-select"
-import { X } from "lucide-react"
+import { CalendarDays, X } from "lucide-react"
+import { format } from "date-fns"
 
 type MatchTabContentProps = {
     data: Fixture[] | null
@@ -37,7 +38,25 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
     const filteredOption = data
         ?.filter(d => filter.onlyGuesses ? guess?.find(g => g.fixtureId === d.id) : d )
         ?.filter(d => filter.selectedLeague === '0' ? d : d.leagueId.toString() === filter.selectedLeague)
-        
+        .map( f=> ({...f, startDateFormated: format(f.start, 'dd/MM/yyyy')}))
+    
+    function groupBy(collection: any, property: any) {
+        var i = 0, val, index,
+            values = [], result = [];
+        for (; i < collection.length; i++) {
+            val = collection[i][property];
+            index = values.indexOf(val);
+            if (index > -1)
+                result[index].push(collection[i]);
+            else {
+                values.push(val);
+                result.push([collection[i]]);
+            }
+        }
+        return result;
+    }
+    
+    const groupByStartDate = groupBy(filteredOption, 'startDateFormated')
     
     return (
         //FILTER
@@ -53,9 +72,18 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
                 </div>
 
                 <div className="pt-5 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-start  gap-2 overflow-auto">
-                   {filteredOption?.map( fixture => (
-                       <GuessCard key={fixture.id} fixture={fixture} league={leagues.filter(l => l.id === fixture.leagueId)[0]} guess={guess?.find(g => g.fixtureId === fixture.id) } />
-                   ))}
+                   {groupByStartDate.map(g => (
+                    <>
+                    <span className="text-sm flex items-center gap-2 font-medium mb-2">
+                        <CalendarDays size={16} />
+                        {g[0].startDateFormated}
+                    </span>
+                        {g?.map( fixture => (
+                            <GuessCard key={fixture.id} fixture={fixture} league={leagues.filter(l => l.id === fixture.leagueId)[0]} guess={guess?.find(g => g.fixtureId === fixture.id) } />
+                        ))}
+                    </>
+
+                    ))}
                 </div>
             </TabsContent>
         </div>
