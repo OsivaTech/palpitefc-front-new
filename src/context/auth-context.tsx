@@ -28,17 +28,22 @@ export function AuthProvider({children, token}: {children: ReactNode, token?: Pr
             if(!loadedToken){
                 return 
             }
+           try{
 
-            const baseUrl = env.NEXT_PUBLIC_API_BASE_URL
-            const response = await fetch(`${baseUrl}${API_ROUTE.getSelf}`, {
-                headers: {
-                    "Authorization": `Bearer ${await token}`
-                },
-                method: "GET"
-            })
-            const user: User = await response?.json()
-            cookies.set('session', token)
-            setUser(user)
+               const baseUrl = env.NEXT_PUBLIC_API_BASE_URL
+               const response = await fetch(`${baseUrl}${API_ROUTE.getSelf}`, {
+                   headers: {
+                       "Authorization": `Bearer ${await token}`
+                    },
+                    method: "GET"
+                })
+                console.log(response)
+                const user: User = await response?.json()
+                cookies.set('session', token)
+                setUser(user)
+            }catch{
+                cookies.remove('session')
+            }
         }
         fetchUser()
     }, [token])

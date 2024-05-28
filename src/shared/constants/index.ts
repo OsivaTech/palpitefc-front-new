@@ -10,7 +10,8 @@ export const API_ROUTE = {
     getTeams: '/teams',
     signUp: '/signup',
     rankings:'/rankings/mock',
-    quiz: '/polls'
+    quiz: '/polls',
+    vote: (pollI:string, optionId: string) => `/polls/${pollI}/vote/${optionId}`
 }
 
 export const APP_LINKS = {
