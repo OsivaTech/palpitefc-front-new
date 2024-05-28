@@ -1,6 +1,6 @@
 'use client'
 import { Fixture } from "@/shared/types/Fixture"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
 import { useTranslations } from 'next-intl'
 import { League } from "@/shared/types/League"
@@ -72,17 +72,16 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
                 </div>
 
                 <div className="pt-5 grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-start  gap-2 overflow-auto">
-                   {groupByStartDate.map(g => (
-                    <>
-                    <span className="text-sm flex items-center gap-2 font-medium mb-2">
-                        <CalendarDays size={16} />
-                        {g[0].startDateFormated}
-                    </span>
-                        {g?.map( fixture => (
-                            <GuessCard key={fixture.id} fixture={fixture} league={leagues.filter(l => l.id === fixture.leagueId)[0]} guess={guess?.find(g => g.fixtureId === fixture.id) } />
-                        ))}
-                    </>
-
+                   {groupByStartDate.map((g, index) => (
+                        <React.Fragment key={index}>
+                            <span className="text-sm flex items-center gap-2 font-medium mb-2">
+                                <CalendarDays size={16} />
+                                {g[0].startDateFormated}
+                            </span>
+                                {g?.map( fixture => (
+                                    <GuessCard key={fixture.id} fixture={fixture} league={leagues.filter(l => l.id === fixture.leagueId)[0]} guess={guess?.find(g => g.fixtureId === fixture.id) } />
+                                ))}
+                        </React.Fragment>
                     ))}
                 </div>
             </TabsContent>

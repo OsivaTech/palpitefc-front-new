@@ -90,13 +90,11 @@ export const RankTabContent = ({data, leagues}:RankTabContentProp) => {
                             </TableRow>
                         )}
                         {filteredContent?.placings?.map(p => (
-                            <>
-                                <TableRow key={p.id} className="border-b border-black h-8">
-                                    <TableCell className="p-0 pl-[10px]" >{p.name}</TableCell >
-                                    <TableCell className="p-0">{p.points}</TableCell >
-                                    <TableCell className="p-0">{p.place}</TableCell >
-                                </TableRow>
-                            </>
+                            <TableRow key={p.id} className="border-b border-black h-8">
+                                <TableCell className="p-0 pl-[10px]" >{p.name}</TableCell >
+                                <TableCell className="p-0">{p.points}</TableCell >
+                                <TableCell className="p-0">{p.place}</TableCell >
+                            </TableRow>
                         ))}
                         
                     </TableBody>

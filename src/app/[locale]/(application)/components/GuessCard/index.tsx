@@ -119,7 +119,7 @@ export const GuessCard = ( {
                         <GuessCardContent disabled={!!guess} value={guessForm} match={fixture.awayTeam} reverse={true} onChange={(evt) => handleChange(evt, 'awayTeam')} />
                     </div>
                 </CardContent>
-
+                
                 <CardFooter className="flex flex-col justify-center items-center p-0 mt-8 ">
                     <Button type='submit' onClick={onSubmit} disabled={!(guessForm.awayTeam.length > 0 && guessForm.homeTeam.length > 0)}
                             className={cn(!!guess && 'hidden', "uppercase gap-2 bg-white w-full h-[30px] hover:bg-none disabled:text-[#A4A4AC] disabled:bg-[#E9E9EF] ")}>
@@ -177,4 +177,3 @@ export const GuessCardContent = ({match, reverse,onChange, value, ...rest}: Gues
         </div>
     )
 }
-
