@@ -6,6 +6,7 @@ import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth-context";
 import { cookies } from "next/headers"
+import { decrypt } from "@/lib/session";
 import {  DrawerProvider } from "@/context/drawer-context";
 
 export const metadata: Metadata = {
@@ -28,8 +29,8 @@ export default function RootLayout({
   const messages = useMessages();
 
   async function  loadToken(){
-    const token = cookies().get('token')?.value
-    return token
+    const token = await decrypt(cookies().get('session')?.value)
+    return token?.token
   }
   
 

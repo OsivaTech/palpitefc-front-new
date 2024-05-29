@@ -40,10 +40,10 @@ export function AuthProvider({children, token}: {children: ReactNode, token?: Pr
                 console.log(response)
                 const user: User = await response?.json()
                 
-                cookies.set('token', loadedToken)
+                cookies.set('session', loadedToken)
                 setUser(user)
             }catch{
-                cookies.remove('token')
+                cookies.remove('session')
             }
         }
         fetchUser()
@@ -59,13 +59,13 @@ export function AuthProvider({children, token}: {children: ReactNode, token?: Pr
     const registerUser = useCallback( (user:User|null, accessToken:string) => {
         setUser(user)
         const cookies = new Cookie();
-        cookies.set('token', accessToken)
+        cookies.set('session', accessToken)
     }, [setUser])
 
     const signOut = useCallback(() => {
         setUser(null)
         const cookies = new Cookie();
-        cookies.remove('token')
+        cookies.remove('session')
     }, [])
 
     const isUserLogged = () => {
