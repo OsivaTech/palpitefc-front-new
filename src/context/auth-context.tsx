@@ -39,7 +39,8 @@ export function AuthProvider({children, token}: {children: ReactNode, token?: Pr
                 })
                 console.log(response)
                 const user: User = await response?.json()
-                cookies.set('token', token)
+                
+                cookies.set('token', loadedToken)
                 setUser(user)
             }catch{
                 cookies.remove('token')
