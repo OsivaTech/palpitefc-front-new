@@ -17,7 +17,7 @@ export async function api(path: string, init?: RequestInit){
 export async function authorizedApi(path: string, init?: RequestInit){
     const baseUrl = env.NEXT_PUBLIC_API_BASE_URL
     const url = new URL(path, baseUrl)
-    const session = cookies().get('session')
+    const session = await cookies().get('session')
     
     if(!session) {
         return null
@@ -27,7 +27,7 @@ export async function authorizedApi(path: string, init?: RequestInit){
     if(!session.value){
         return null
     }
-
+    
     return fetch(url, {...init,
         mode: 'cors',
         headers: {
