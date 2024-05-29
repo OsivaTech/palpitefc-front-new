@@ -28,7 +28,7 @@ export default function RootLayout({
   const messages = useMessages();
 
   async function  loadToken(){
-    const token = cookies().get('session')?.value
+    const token = cookies().get('token')?.value
     return token
   }
   

@@ -17,7 +17,7 @@ export async function api(path: string, init?: RequestInit){
 export async function authorizedApi(path: string, init?: RequestInit){
     const baseUrl = env.NEXT_PUBLIC_API_BASE_URL
     const url = new URL(path, baseUrl)
-    const session = await cookies().get('session')
+    const session = await cookies().get('token')
     
     if(!session) {
         return null
