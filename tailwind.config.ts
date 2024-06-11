@@ -21,7 +21,7 @@ const config = {
       colors: {
         app: {
           background: '#1C2026',
-          
+          secondary: '#2D3745',
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -78,6 +78,7 @@ const config = {
       },
     },
   },
+  mode: 'jit',
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 

@@ -6,7 +6,7 @@ export const env = createEnv({
   
   server: {
     ACCESS_TOKEN: z.string().min(1),
-    SESSION_SECRET: z.string().min(1)
+    SESSION_SECRET: z.string().min(1),
   },
   
   client: {

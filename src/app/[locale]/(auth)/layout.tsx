@@ -1,24 +1,23 @@
-import { ApplicationHeader } from "@/components/Header";
-import { getSelf } from "@/data/getSelf";
-import { APP_LINKS } from "@/shared/constants";
+import { isAuthenticated } from "@/lib/session";
 import { redirect } from "next/navigation";
 
 export default async function AuthLayout({
   children,
+  params: {locale}
 }: Readonly<{
   children: React.ReactNode;
+  params: {locale: string};
 }>) {
+  const authenticated = await isAuthenticated();
 
-  // const self = await getSelf()
-
-  // if (self){
-  //   redirect(APP_LINKS.HOMEPAGE())
-  // }
+  if(authenticated) {
+    redirect('/')
+  }
 
   return (
-    <div>
-      <ApplicationHeader hideMenu />
-      {children}
-    </div>
+      <main className="mx-auto w-full">
+        {children}
+      </main>
   );
 }
+

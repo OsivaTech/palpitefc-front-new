@@ -1,8 +1,8 @@
-import { LoginForm } from "@/components/LoginForm";
+import { LoginForm } from "@/components/login-form";
 
-export default async function RegisterPage({params: {locale}}: {params: {locale: any}}) {
+export default async function RegisterPage() {
     return (
-        <main className="bg-[#2D3745] h-screen">
+        <main className="bg-[#2D3745]  h-[calc(100vh-50px)]">
             <LoginForm />
         </main>
     )

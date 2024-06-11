@@ -1,32 +1,14 @@
-import type { Metadata } from "next";
-import { Rubik} from "next/font/google";
-import { cn } from "@/lib/utils";
-import { ApplicationHeader } from "@/components/Header";
-import { BottonMenu } from "@/components/BottomMenu";
-
-export const metadata: Metadata = {
-  title: "Palpite.com",
-};
-
-const fontSans = Rubik({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
-export default function AppLayout({
+export default function ApplicationLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+
   return (
-    <div className={cn(
-          "min-h-screen bg-background font-sans antialiased text-white flex flex-col justify-between",
-          fontSans.variable
-        )}>
-        <ApplicationHeader />
-          {children}
-        <BottonMenu />
-    </div>
-  )
+        <main className="h-[calc(100vh-50px)] overflow-auto">
+            {children}
+        </main>
+    );
 }
+//max-w-[1600px]
+

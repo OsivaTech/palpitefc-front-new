@@ -22,6 +22,7 @@ export async function decrypt(session: string | undefined = '') {
     return payload
   } catch (error) {
     console.log('Failed to verify session')
+    logout();
   }
 }
 
@@ -38,28 +39,15 @@ export async function createSession(token: string) {
     })
 }
 
-export async function updateSession() {
-    const session = cookies().get('session')?.value
-    const payload = await decrypt(session)
-
-    if (!session || !payload) {
-        return null
-    }
-
-    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-    cookies().set('session', session, {
-        httpOnly: true,
-        secure: true,
-        expires: expires,
-        sameSite: 'lax',
-        path: '/',
-    })
-}
-
 export async function deleteSession() {
-    cookies().delete('session')
+  cookies().delete('session')
 }
 
 export async function logout() {
     deleteSession()
+}
+
+export async function isAuthenticated(){
+  const session = cookies().get('session')
+  return !!session
 }

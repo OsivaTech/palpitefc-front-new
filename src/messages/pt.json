@@ -1,28 +1,21 @@
 {
   "components": {
-    "MainBoard": {
-      "tabs": {
-        "match": {
-          "title": "Partidas",
-          "errorMessage": "Não foi possivel carregar as partidas",
-          "filter": {
-            "myGuesses": "Meus palpites"
-          }
-        },
-        "news": {
-          "title": "Notícias"
-        },
-        "rank": {
-          "title": "Ranking"
-        }
+    "matchboard-tab": {
+      "match": {
+        "title": "Partida",
+        "error": "Não foi possivel carregar as partidas",
+        "myGuesses": "Meus Palpites"
+      },
+      "news": {
+        "title": "Notícias"
+      },
+      "rank": {
+        "title": "Ranking"
       }
     },
-    "GuessCard": {
-      "myGuesses": "Meus palpites",
-      "guess": "Mandar Palpite"
-    },
-    "Header": {
-      "signInSignUp": "Entrar/Cadastrar"
+    "guess-card": {
+      "submit": "Lançar palpite",
+      "title": "Qual o seu palpite?"
     }
   },
   "common": {
@@ -37,11 +30,8 @@
     "favoriteTeam": "Time do coração",
     "signUp": "Cadastrar-se",
     "address": "Endereço",
-    "cancel": "Cancelar"
-  },
-  "pages": {
-    "login": {
-      "usernameOrPasswordWrong": "Usuário ou senha inválidos!"
-    }
+    "cancel": "Cancelar",
+    "invalidCredentials": "Usuário ou senha inválidos",
+    "save": "Salvar"
   }
 }

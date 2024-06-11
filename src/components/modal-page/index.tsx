@@ -1,0 +1,15 @@
+'use client'
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { usePageModal } from "@/context/usePageModal";
+
+
+export const ModalPage = () => {
+    const { isOpen, renderPageModal } = usePageModal();
+    return (
+        <Sheet modal open={isOpen}  >
+            <SheetContent side='left' className="h-full w-screen bg-app-secondary">
+              {renderPageModal}
+            </SheetContent>
+        </Sheet>
+    );
+}
