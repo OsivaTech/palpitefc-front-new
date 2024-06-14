@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { vote } from "@/http/pool"
 import { Quiz, QuizOptions } from "@/types/Quiz"
 import { CircleCheck } from "lucide-react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 
 type QuizCardProps = {
@@ -14,7 +14,7 @@ type QuizCardProps = {
 
 export const QuizCard = ({data}: QuizCardProps) => {
     const [value, setValue] = useState<string>()
-    const [alreadyVoted, setAlreadyVoted] = useState(false)
+    const [ alreadyVoted, setAlreadyVoted] = useState(false)
 
     useEffect(() => {
         if(data.yourVote){
@@ -35,14 +35,14 @@ export const QuizCard = ({data}: QuizCardProps) => {
             <p className="text-white font-medium mb-6">{data.title}</p>
             <RadioGroup className="flex flex-col gap-4" defaultValue={value} onValueChange={evt => setValue(evt)} >
                 {data.options.map(o => (
-                    <>
+                    <React.Fragment key={o.id}>
                         {alreadyVoted ? (
                             <div>
                                 <span className="text-sm font-medium flex items-center gap-2">
                                     {o.title} 
                                     {data.yourVote && o.id === data?.yourVote && (<CircleCheck size={16} />)} 
                                 </span>
-                                <ProgressItem key={o.id} options={data.options} currentOptions={o} />
+                                <ProgressItem key={o.id} options={data.options} currentOptions={o} votedId={value || '0'} />
                             </div>
                         ) : (
                             <div key={o.id} className="flex items-center space-x-2">
@@ -50,7 +50,7 @@ export const QuizCard = ({data}: QuizCardProps) => {
                                 <span className="text-sm font-medium">{o.title}</span>
                             </div>
                         )}
-                    </>
+                    </React.Fragment>
                 ))}
             </RadioGroup>
             {!alreadyVoted && (
@@ -62,16 +62,19 @@ export const QuizCard = ({data}: QuizCardProps) => {
     )
 }
 
-const ProgressItem = ({options, currentOptions}: {options: QuizOptions[], currentOptions: QuizOptions}) => {
+const ProgressItem = ({options, currentOptions, votedId}: {options: QuizOptions[], currentOptions: QuizOptions, votedId:string}) => {
     const [progress, setProgress] = useState(0)
 
     useEffect(() => {
         if(!options && !currentOptions ) return 
-        
         const totalCount = options?.map(o => o.count).reduce((acc,curr) => acc + curr, 0)
+       
         const result = Math.floor((currentOptions?.count * 100) / totalCount)
-        setProgress(result)
-    }, [currentOptions, currentOptions?.count, options])
+        if(isNaN(result) && currentOptions.id.toString() === votedId ) setProgress(100)
+        else if (isNaN(result)) setProgress(0)
+        else  setProgress(result)
+
+    }, [currentOptions, currentOptions?.count, options, votedId])
 
 
     return (

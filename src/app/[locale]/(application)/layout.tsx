@@ -5,7 +5,7 @@ export default function ApplicationLayout({
 }>) {
 
   return (
-        <main className="h-[calc(100vh-50px)] overflow-auto">
+        <main className="h-[calc(100vh-50px)] overflow-auto ">
             {children}
         </main>
     );

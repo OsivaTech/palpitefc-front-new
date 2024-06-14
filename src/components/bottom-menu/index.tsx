@@ -24,6 +24,7 @@ export const BottonMenu = () => {
         render(<ModalPageProfile user={user ?? {} as User} />)
         openPageModal()
     }
+    
     return (
         <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
             <BottomMenuItem 

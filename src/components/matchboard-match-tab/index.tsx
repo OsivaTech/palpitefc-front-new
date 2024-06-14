@@ -98,3 +98,4 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
         </div>
     )
 }
+

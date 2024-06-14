@@ -7,12 +7,14 @@ import { QuizResponse } from "@/types/api/responses/QuizResponse";
 export async function vote(pollId:number, optionId:string){
     try{
         const request = await post(VoteEndpoint(pollId, optionId), {}, true)
+        console.log(request)
         if(request === null){
             return false    
         }
         const vote: Quiz = await request.json()
         return vote;
-    }catch{
+    }catch(error){
+        console.log(error)
         return false
     }
 }

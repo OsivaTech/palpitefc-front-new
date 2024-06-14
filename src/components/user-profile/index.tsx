@@ -1,5 +1,4 @@
 'use client'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { usePageModal } from '@/context/usePageModal';
 import { User } from '@/types/User';
 import React from 'react';
@@ -18,7 +17,9 @@ const UserProfile = ({user}: {user:User}) => {
 
     return (
         <div onClick={handleOpenProfile} className="flex flex-col justify-center items-center cursor-pointer">
-            <Image src={user?.team.image || ''} height={20} width={20} alt="" />
+            {user?.team.image && (
+                <Image src={user?.team.image} height={20} width={20} alt="" />
+            )}
             <span className='font-normal text-xs'>
                 {user?.name}
             </span>
