@@ -10,6 +10,7 @@ export interface User {
     phoneNumber: string
     info: string
     team: Team
+    gender: "m"| "f"| "o"| ""
     address: {
         street: string,
         number: string,
@@ -17,6 +18,7 @@ export interface User {
         neighborhood: string,
         city: string,
         state: number,
-        country: number,   
+        country: number, 
+        postalCode: string  
     }
 }

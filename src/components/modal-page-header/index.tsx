@@ -9,7 +9,7 @@ export const ModalPageHeader =  ({user}: {user: User}) => {
     return (
         <div className="flex justify-between items-start">
         <div className="flex justify-start items-end gap-3">
-            <Image src={user?.team.image || ''} height={45} width={45} alt="" />
+            <Image src={user?.team?.image || ''} height={45} width={45} alt="" />
             <span className="h-full">{user?.name}</span>
         </div>
         <X className="cursor-pointer"  onClick={closePageModal}/>

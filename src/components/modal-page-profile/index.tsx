@@ -1,4 +1,5 @@
 'use client'
+import { ChangePasswordForm } from "@/components/change-password-form";
 import { ModalPageHeader } from "@/components/modal-page-header";
 import { Separator } from "@/components/ui/separator";
 import { usePageModal } from "@/context/usePageModal";
@@ -8,11 +9,15 @@ import { LockKeyhole, LogOut, Settings, UserRound } from "lucide-react";
 
 
 export const ModalPageProfile = ({user}: {user: User}) => {
-    const { closePageModal} = usePageModal();
+    const { closePageModal, render} = usePageModal();
 
     const handleLogout = async () => {
         logout();
         closePageModal();
+    }
+
+    const handleChangeEmailAndPassword = () => {
+        //render(<ChangePasswordForm />)
     }
   
     return (
@@ -24,7 +29,7 @@ export const ModalPageProfile = ({user}: {user: User}) => {
                     <Settings size={20} />
                     Configurações de conta
                 </li>
-                <li onClick={handleLogout} className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs">
+                <li onClick={handleChangeEmailAndPassword} className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs">
                     <LockKeyhole  size={20} />
                     Alterar senha ou e-mail
                 </li>

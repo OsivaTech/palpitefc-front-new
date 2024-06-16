@@ -18,7 +18,7 @@ const UserProfile = ({user}: {user:User}) => {
     return (
         <div onClick={handleOpenProfile} className="flex flex-col justify-center items-center cursor-pointer">
             {user?.team.image && (
-                <Image src={user?.team.image} height={20} width={20} alt="" />
+                <Image src={user?.team?.image} height={20} width={20} alt="" />
             )}
             <span className='font-normal text-xs'>
                 {user?.name}

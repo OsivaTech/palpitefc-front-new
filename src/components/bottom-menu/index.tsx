@@ -1,6 +1,6 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { ReactNode } from "react"
 import Image from "next/image"
 import { usePageModal } from "@/context/usePageModal"
@@ -8,12 +8,15 @@ import { ModalPageQuiz } from "@/components/modal-page-quiz"
 import { useAuth } from "@/context/useAuth"
 import { User } from "@/types/User"
 import { ModalPageProfile } from "@/components/modal-page-profile"
+import { useRouter } from "next/navigation"
+import { APP_LINKS } from "@/constants"
 
 export const BottonMenu = () => {
     const t = useTranslations()
     const {render, openPageModal} = usePageModal()
-    const { user } = useAuth()
-  
+    const { user, isAuthenticated } = useAuth()
+    const router = useRouter()
+    const locale = useLocale()
 
     const handleOpenQuiz = () => {
         render(<ModalPageQuiz user={user ?? {} as User} />)
@@ -21,6 +24,10 @@ export const BottonMenu = () => {
     }
 
     const hadnleOpenProfile = () => {
+        if(!isAuthenticated) {
+            router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
+            return
+        }
         render(<ModalPageProfile user={user ?? {} as User} />)
         openPageModal()
     }
