@@ -36,7 +36,7 @@ export const LoginForm = () => {
                 const response = await login(values)
                 if(response){
                     registerUser(response.user)
-                    router.refresh()
+                    
                     router.push(APP_LINKS.HOMEPAGE())
                 }else{
                     toast({

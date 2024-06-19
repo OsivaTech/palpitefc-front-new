@@ -13,16 +13,15 @@ export const AuthContext = createContext<{
 
 export const AuthProvider= ({ children, token }:{children:ReactNode, token?: string}) => {
     const [user, setUser] = useState<User | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+        return token ? true : false
+    });
     const cookies = useCookies();
     
-    console.log('isAuthenticated', isAuthenticated)
 
     useEffect(() => {
         const loadUser = async () => {
-            if(isAuthenticated){
-                setUser(await getSelf())
-            }
+            setUser(await getSelf())
         }
         if(token){
             setIsAuthenticated(true);
@@ -35,8 +34,10 @@ export const AuthProvider= ({ children, token }:{children:ReactNode, token?: str
   
     
     const registerUser = useCallback((user: User) => {
-        setUser(user);
-        setIsAuthenticated(true);
+        setUser(() => {
+            setIsAuthenticated(true);
+            return user
+        })
     }, [])
 
     return (

@@ -28,8 +28,6 @@ export const BottonMenu = () => {
             router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
             return
         }
-        render(<ModalPageProfile user={user ?? {} as User} />)
-        openPageModal()
     }
     
     return (
