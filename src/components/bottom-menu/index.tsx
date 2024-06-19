@@ -7,7 +7,6 @@ import { usePageModal } from "@/context/usePageModal"
 import { ModalPageQuiz } from "@/components/modal-page-quiz"
 import { useAuth } from "@/context/useAuth"
 import { User } from "@/types/User"
-import { ModalPageProfile } from "@/components/modal-page-profile"
 import { useRouter } from "next/navigation"
 import { APP_LINKS } from "@/constants"
 
@@ -28,6 +27,7 @@ export const BottonMenu = () => {
             router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
             return
         }
+        router.push(`${locale}/profile`)
     }
     
     return (

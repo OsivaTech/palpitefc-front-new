@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/context/useAuth"
 import { APP_LINKS } from "@/constants"
-import { useTransition } from "react"
 
 export const LoginForm = () => {
     const t = useTranslations()
@@ -36,7 +35,7 @@ export const LoginForm = () => {
                 const response = await login(values)
                 if(response){
                     registerUser(response.user)
-                    
+
                     router.push(APP_LINKS.HOMEPAGE())
                 }else{
                     toast({
@@ -88,6 +87,5 @@ export const LoginForm = () => {
                 </form>
             </Form>
         </div>
-
     )
 }

@@ -26,6 +26,7 @@ export async function createUser(user: SignupRequest){
         return false
     }
 }
+
 export async function updateUser(user: SignupRequest){
     try{
         await post(UpdateUser, {
