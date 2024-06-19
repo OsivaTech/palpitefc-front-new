@@ -1,62 +1,96 @@
-import { Combobox } from "@/components/combobox"
-import { CustomButton } from "@/components/custom-button"
-import { CustomInput } from "@/components/custom-input"
-import { DatePicker } from "@/components/date-picker"
-import { FormField, FormItem, FormControl, FormMessage, FormLabel } from "@/components/ui/form"
-import { Team } from "@/types/Team"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group"
-import { format } from "date-fns"
-import { useTranslations } from "next-intl"
-import { Form, useForm } from "react-hook-form"
+'use client'
+import { useForm } from "react-hook-form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { format } from "date-fns"
+import { CustomInput } from "@/components/custom-input"
+import { Team } from "@/types/Team"
+import { SignupRequest } from "@/types/api/resquests/SignupRequest"
+import { DatePicker } from "@/components/date-picker"
+import { Combobox } from "@/components/combobox"
+import { User } from "@/types/User"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@radix-ui/react-select"
+import { updateUser } from "@/http/user"
 
-export const ProfileForm = ({teams}: {teams:Team[]}) => {
+
+export const EditForm = ({ teams, user }: { teams: Team[], user?: User }) => {
     const t = useTranslations()
-    
+    console.log(user)
     const formSchema = z.object({
         email: z.string().email(),
-        password: z.string().min(2).max(50),
         name: z.string().min(2).max(50),
         document: z.string().min(2).max(50),
-        team: z.number(),
+        team: z.number().optional().nullable(),
         info: z.string().optional(),
         phoneNumber: z.string().min(2).max(50),
-        birthday: z.date(),
-        gender: z.enum(["m", "f", "o", ""]),
-         street: z.string().min(2).max(50).optional(),
-        number: z.string().optional(),
-        complement: z.string().min(2).max(50).optional(),
-        city: z.string().min(2).max(50).optional(),
-        postalCode: z.string().min(2).max(50).optional(),
+        birthday: z.date().transform((value) => new Date(value)),
+        gender: z.enum(["M", "F", "O", ""]),
+        street: z.string().min(2).max(50),
+        number: z.string(),
+        complement: z.string().max(50),
+        city: z.string().min(2).max(50),
+        postalCode: z.string().min(2).max(50),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: "",
-            email: "",
-            password: "",
-            document: "",
-            team: 0,
-            info: "",
-            phoneNumber: "",
-            birthday: undefined,
-            gender: "",
-            street: "",
-            number: "",
-            complement: "",
-            city: "",
-            postalCode: "",
-        },
+            name: user?.name || "",
+            email: user?.email || "",
+            document: user?.document || "",
+            team: parseInt(user?.team.id ?? "0"),
+            info: user?.info || "",
+            phoneNumber: user?.phoneNumber || "",
+            birthday: user?.birthday ? new Date(user?.birthday) : undefined,
+            gender: user?.gender || "",
+            street: user?.address?.street || "",
+            number: user?.address?.number || "",
+            complement: user?.address?.complement || "",
+            city: user?.address?.city || "",
+            postalCode: user?.address?.postalCode || "",
+        }
     })
 
-    const onSubmit = (data: z.infer<typeof formSchema>) => {
-        console.log(data)
+    async function onSubmit(values:any) {
+        const user: SignupRequest = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            document: values.document,
+            teamId: values?.team || 0,
+            gender: values?.gender,
+            info: values.info || '',
+            phoneNumber: values.phoneNumber,
+            birthday: format(new Date(values.birthday), 'y-MM-dd'),
+            address: {
+                street: values.street || '',
+                number: values.number || '',
+                complement: values.complement || '',
+                neighborhood: '',
+                city: values.city || '',
+                state: '',
+                country: '',
+                postalCode: values.postalCode || '',
+            }
+        }
+        try{
+            if(await updateUser(user)){
+                console.log('sucesso')
+            }
+        }catch{
+            console.log('erro')
+        }
     }
 
     return (
-        <Form {...form} >
+        <div className="max-w-[500px] mx-auto pt-10 px-3  ">
+            <h1 className="mb-4 text-center text-[16px] font-medium">Configurações de conta</h1>
+            <Separator className="mb-6 border border-white/50" />
+            <Form {...form} >
                 <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col  gap-3">
                     <FormField
                         control={form.control}
@@ -66,19 +100,6 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="Nome" {...field} />
                                 </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <CustomInput placeholder="Senha" type="password" {...field} />
-                                </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -96,7 +117,7 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                             </FormItem>
                         )}
                     />
-                     <FormField
+                    <FormField
                         control={form.control}
                         name="phoneNumber"
                         render={({ field }) => (
@@ -146,7 +167,7 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                                 </FormItem>
                             )
                         }
-                    }
+                        }
                     />
                     <h4 className="font-medium text-xs" >{t("common.sex")}</h4>
                     <FormField
@@ -156,13 +177,13 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                             <FormItem>
                                 <FormControl>
                                     <RadioGroup
-                                    onValueChange={field.onChange}
-                                    defaultValue={field.value}
-                                    className="flex items-center gap-3"
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        className="flex items-center gap-3"
                                     >
                                         <FormItem className="flex items-center space-x-3 space-y-0">
                                             <FormControl>
-                                            <RadioGroupItem value="m" />
+                                                <RadioGroupItem value="M" />
                                             </FormControl>
                                             <FormLabel className="font-medium text-xs">
                                                 {t("common.male")}
@@ -170,15 +191,15 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                                         </FormItem>
                                         <FormItem className="flex items-center space-x-3 space-y-0">
                                             <FormControl>
-                                            <RadioGroupItem value="f" />
+                                                <RadioGroupItem value="F" />
                                             </FormControl>
                                             <FormLabel className="font-medium text-xs">
-                                            {t("common.female")}
+                                                {t("common.female")}
                                             </FormLabel>
                                         </FormItem>
                                         <FormItem className="flex items-center space-x-3 space-y-0">
                                             <FormControl>
-                                            <RadioGroupItem value="o" />
+                                                <RadioGroupItem value="O" />
                                             </FormControl>
                                             <FormLabel className="font-medium text-xs">{t("common.other")}</FormLabel>
                                         </FormItem>
@@ -196,13 +217,13 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                   <Combobox
+                                    <Combobox
                                         onChange={field.onChange}
                                         value={field.value}
                                         data={teams.map(t => ({
-                                                label: t.name,
-                                                value: t.id,
-                                                imageLink: t.image
+                                            label: t.name,
+                                            value: t.id,
+                                            imageLink: t.image
                                         }))}
                                         errorLabel="Não foi encontrado esse time"
                                         searchLabel="Selecione seu time do coração"
@@ -214,7 +235,7 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                             </FormItem>
                         )}
                     />
-                     <h4 className="font-medium text-xs" >{t("common.address")}</h4>
+                    <h4 className="font-medium text-xs" >{t("common.address")}</h4>
                     <FormField
                         control={form.control}
                         name="street"
@@ -251,13 +272,11 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                                     <FormControl >
                                         <CustomInput placeholder="Complemento" {...field} />
                                     </FormControl>
-
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </div>
-
                     <FormField
                         control={form.control}
                         name="postalCode"
@@ -266,7 +285,6 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                                 <FormControl>
                                     <CustomInput placeholder="CEP" {...field} />
                                 </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -284,10 +302,17 @@ export const ProfileForm = ({teams}: {teams:Team[]}) => {
                             </FormItem>
                         )}
                     />
-                    <CustomButton className="w-[267px] self-center" type="submit" >
+
+                    <Button className="w-[86px] self-center mb-4" type="submit" >
                         {t("common.save")}
-                    </CustomButton>
+                    </Button>
                 </form>
             </Form>
+            <Separator className="mb-4 border border-white/50" />
+            <Button variant="outline" className="mb-6" >
+                {t("common.removeMyAccount")}
+            </Button>
+        </div>
+
     )
 }

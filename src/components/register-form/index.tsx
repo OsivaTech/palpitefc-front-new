@@ -22,7 +22,7 @@ import { Combobox } from "@/components/combobox"
 
 export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const t = useTranslations()
-    const {push} = useRouter()
+    const {push, refresh} = useRouter()
     const { toast } = useToast()
     const { registerUser} = useAuth()
 
@@ -36,11 +36,6 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
         phoneNumber: z.string().min(2).max(50),
         birthday: z.date(),
         gender: z.enum(["m", "f", "o", ""]),
-        // street: z.string().min(2).max(50).optional(),
-        // number: z.string().optional(),
-        // complement: z.string().min(2).max(50).optional(),
-        // city: z.string().min(2).max(50).optional(),
-        // postalCode: z.string().min(2).max(50).optional(),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -55,11 +50,6 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             phoneNumber: "",
             birthday: undefined,
             gender: "",
-            // street: "",
-            // number: "",
-            // complement: "",
-            // city: "",
-            // postalCode: "",
         },
     })
 
@@ -75,16 +65,6 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             info: "",
             phoneNumber: values.phoneNumber,
             birthday: format(new Date(values.birthday), 'y-MM-dd'),
-            // address: {
-            //     street: values.street || '',
-            //     number: values.number || '',
-            //     complement: values.complement || '',
-            //     neighborhood:  '',
-            //     city: values.city || '',
-            //     state: '',
-            //     country: '',
-            //     postalCode: values.postalCode || '',
-            // }
         }
 
         try{
@@ -100,9 +80,10 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                   return;
             }
 
-            const { accessToken, user:userResponse } = response;
+            const { user:userResponse } = response;
 
             registerUser(userResponse)
+            refresh();
             push(APP_LINKS.HOMEPAGE());
         }catch(error){
             console.log("erro", error)
@@ -250,7 +231,6 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                             </FormItem>
                         )}
                     />
-
                     <h4 className="font-medium text-xs" >{t("common.favoriteTeam")}</h4>
                     <FormField
                         control={form.control}
@@ -276,78 +256,8 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                             </FormItem>
                         )}
                     />
-                     {/* <h4 className="font-medium text-xs" >{t("common.address")}</h4>
-                    <FormField
-                        control={form.control}
-                        name="street"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <CustomInput placeholder="Rua" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <div className="flex gap-2 justify-between w-full">
-                        <FormField
-                            control={form.control}
-                            name="number"
-                            render={({ field }) => (
-                                <FormItem >
-                                    <FormControl>
-                                        <CustomInput placeholder="Número" {...field} />
-                                    </FormControl>
-
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="complement"
-                            render={({ field }) => (
-                                <FormItem className="flex-1">
-                                    <FormControl >
-                                        <CustomInput placeholder="Complemento" {...field} />
-                                    </FormControl>
-
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-
-                    <FormField
-                        control={form.control}
-                        name="postalCode"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <CustomInput placeholder="CEP" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="city"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <CustomInput placeholder="Cidade" {...field} />
-                                </FormControl>
-
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    /> */}
                     <CustomButton className="w-[267px] self-center" type="submit" >
-                        {t("common.signIn")}
+                        {t("common.register")}
                     </CustomButton>
                 </form>
             </Form>

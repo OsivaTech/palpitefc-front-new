@@ -1,15 +1,19 @@
 'use client'
-import { ChangePasswordForm } from "@/components/change-password-form";
 import { ModalPageHeader } from "@/components/modal-page-header";
 import { Separator } from "@/components/ui/separator";
+import { APP_LINKS } from "@/constants";
 import { usePageModal } from "@/context/usePageModal";
+import { getTeams } from "@/http/team";
+import { getSelf } from "@/http/user";
 import { logout } from "@/lib/session";
 import { User } from "@/types/User";
-import { LockKeyhole, LogOut, Settings, UserRound } from "lucide-react";
+import { LockKeyhole, LogOut, Router, Settings, UserRound } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
 export const ModalPageProfile = ({user}: {user: User}) => {
-    const { closePageModal, render} = usePageModal();
+    const { closePageModal} = usePageModal();
+    const router = useRouter();
 
     const handleLogout = async () => {
         logout();
@@ -19,13 +23,22 @@ export const ModalPageProfile = ({user}: {user: User}) => {
     const handleChangeEmailAndPassword = () => {
         //render(<ChangePasswordForm />)
     }
-  
+
+    const handleAccountSettings = async () => {
+        const user = await getSelf();
+        if(!user) {
+            router.push(APP_LINKS.SIGNIN())
+            return
+        }
+        const teams = await getTeams();
+    }
+
     return (
         <>
             <ModalPageHeader user={user} />
             <Separator className="my-6 border border-white/50" />
             <ol className="flex flex-col gap-3">
-                <li onClick={handleLogout} className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs">
+                <li onClick={handleAccountSettings} className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs">
                     <Settings size={20} />
                     Configurações de conta
                 </li>

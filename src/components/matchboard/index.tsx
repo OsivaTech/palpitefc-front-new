@@ -27,7 +27,7 @@ export const MatchBoard =  ({fixtures, leagues, guess, news, rankings}:MatchBoar
     const t = useTranslations("components.matchboard-tab")
 
     return (
-        <div className="w-full overflow-auto">
+        <div className="w-full overflow-auto h-full">
             <Tabs defaultValue="match" className="max-w-[800px]  min-h-full ml-auto mr-auto">
                 <TabsList className="p-0 grid w-full grid-cols-3 text-white bg-app-background border-b border-b-white rounded-none">
                     <TabsTrigger  value="match">{t('match.title')}</TabsTrigger>

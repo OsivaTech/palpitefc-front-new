@@ -8,9 +8,10 @@ export interface User {
     points: number
     birthday: string
     phoneNumber: string
+    document: string
     info: string
     team: Team
-    gender: "m"| "f"| "o"| ""
+    gender: "M"| "F"| "O"| ""
     address: {
         street: string,
         number: string,

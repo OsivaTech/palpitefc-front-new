@@ -15,6 +15,8 @@ export const AuthProvider= ({ children, token }:{children:ReactNode, token?: str
     const [user, setUser] = useState<User | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const cookies = useCookies();
+    
+    console.log('isAuthenticated', isAuthenticated)
 
     useEffect(() => {
         const loadUser = async () => {

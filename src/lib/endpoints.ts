@@ -4,6 +4,7 @@ const apiBaseUrl = env.NEXT_PUBLIC_API_BASE_URL
 
 export const LoginEndpoint =  `${apiBaseUrl}/api/signin`
 export const SelfEndpoint = `${apiBaseUrl}/users/me`
+export const UpdateUser = `${apiBaseUrl}/users`
 export const FixturesEndpoint = `${apiBaseUrl}/fixtures`
 export const GuessEndpoint = `${apiBaseUrl}/guesses`
 export const MyGuessEndpoint = `${apiBaseUrl}/guesses/me`

@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/context/useAuth"
 import { APP_LINKS } from "@/constants"
+import { useTransition } from "react"
 
 export const LoginForm = () => {
     const t = useTranslations()
@@ -31,22 +32,22 @@ export const LoginForm = () => {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        try{
-            const response = await login(values)
-            if(response){
-                registerUser(response.user)
-                router.push(APP_LINKS.HOMEPAGE())
-            }else{
-                toast({
-                    title: "Erro",
-                    description: t("common.invalidCredentials"),
-                    variant: "destructive",
-                })
+            try{
+                const response = await login(values)
+                if(response){
+                    registerUser(response.user)
+                    router.refresh()
+                    router.push(APP_LINKS.HOMEPAGE())
+                }else{
+                    toast({
+                        title: "Erro",
+                        description: t("common.invalidCredentials"),
+                        variant: "destructive",
+                    })
+                }
+            } catch{
+                console.error("error")
             }
-
-        } catch{
-            console.error("error")
-        }
     }
 
     return (
@@ -83,7 +84,7 @@ export const LoginForm = () => {
                             </FormItem>
                         )}
                     />
-                    <CustomButton type="submit"  >{t("common.signIn")}</CustomButton>
+                    <CustomButton  type="submit">{t("common.signIn")}</CustomButton>
                 </form>
             </Form>
         </div>

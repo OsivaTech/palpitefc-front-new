@@ -86,23 +86,17 @@ export const GuessCard = ( {
     const handleChange = useCallback((evt: any, team: string) => {
         setGuessForm(old => ({...old, [team]: evt.target.value}))
     },[])
-    
+    console.log(guess)
     return (
     <>
+        {/* Aberto */}
         {!isCoppalsed && (
-            <Card className="bg-[#2D3745]   px-4 py-2 border-0 border-b font-medium flex flex-col justify-between">
+            <Card className="bg-[#2D3745] px-4 py-2 border-0 border-b font-medium flex flex-col justify-between w-full">
                 <span className='font-semibold text-sm' >{t('components.guess-card.title')}</span> 
                 <div className='h-[1px] bg-slate-300 my-2' />
                 <CardContent className="flex flex-col p-0 gap-2 justify-center" >
                     <div className="flex justify-between items-center text-xs  ">
                         <div className="flex w-full items-center gap-2 justify-start">
-                            {/* {guess && (
-
-                                <span className="text-[#FFFFFF]/50 flex items-center gap-1 ">
-                                <LockKeyhole size={14}  />
-                                {t('components.GuessCard.myGuesses')}
-                            </span>
-                            )} */}
                             <div className='w-5 h-5 relative flex justify-center items-center'>
                                 <Image fill src={league.image}  alt='league shield'/>
                             </div>

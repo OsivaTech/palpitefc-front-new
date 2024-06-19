@@ -32,6 +32,13 @@
     "address": "Endereço",
     "cancel": "Cancelar",
     "invalidCredentials": "Usuário ou senha inválidos",
-    "save": "Salvar"
+    "save": "Salvar",
+    "register": "Cadastrar",
+    "removeMyAccount": "Deletar minha conta"
+  },
+  "pages": {
+    "login": {
+      "usernameOrPasswordWrong": "Usuário ou senha inválidos"
+    }
   }
 }

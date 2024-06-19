@@ -9,7 +9,7 @@ type HeaderProps = {
     hideActions?: boolean;
 
 }
-const Header = ({hideActions}: HeaderProps) => {
+const Header = () => {
     const { isAuthenticated, user } = useAuth()
     
     return (

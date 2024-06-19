@@ -9,7 +9,7 @@ export default async function AuthLayout({
   params: {locale: string};
 }>) {
   const authenticated = await isAuthenticated();
-
+  
   if(authenticated) {
     redirect('/')
   }
