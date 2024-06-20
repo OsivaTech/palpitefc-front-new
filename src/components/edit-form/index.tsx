@@ -19,7 +19,7 @@ import { updateUser } from "@/http/user"
 
 export const EditForm = ({ teams, user }: { teams: Team[], user?: User }) => {
     const t = useTranslations()
-    console.log(user)
+    
     const formSchema = z.object({
         email: z.string().email(),
         name: z.string().min(2).max(50),
@@ -56,6 +56,7 @@ export const EditForm = ({ teams, user }: { teams: Team[], user?: User }) => {
     })
 
     async function onSubmit(values:any) {
+        
         const user: SignupRequest = {
             name: values.name,
             email: values.email,
@@ -77,13 +78,11 @@ export const EditForm = ({ teams, user }: { teams: Team[], user?: User }) => {
                 postalCode: values.postalCode || '',
             }
         }
-        try{
-            if(await updateUser(user)){
-                console.log('sucesso')
-            }
-        }catch{
-            console.log('erro')
+        console.log(user)
+        if(await updateUser(user)){
+            console.log('sucesso')
         }
+        console.log("erro")
     }
 
     return (

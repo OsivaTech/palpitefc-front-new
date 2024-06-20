@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { format } from "date-fns"
 import { useRouter } from "next/navigation"
@@ -18,14 +18,14 @@ import { Team } from "@/types/Team"
 import { SignupRequest } from "@/types/api/resquests/SignupRequest"
 import { DatePicker } from "@/components/date-picker"
 import { Combobox } from "@/components/combobox"
-
+import Link from 'next/link'
 
 export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const t = useTranslations()
     const {push, refresh} = useRouter()
     const { toast } = useToast()
     const { registerUser} = useAuth()
-
+    const locale = useLocale()
     const formSchema = z.object({
         email: z.string().email(),
         password: z.string().min(2).max(50),
@@ -256,9 +256,14 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                             </FormItem>
                         )}
                     />
-                    <CustomButton className="w-[267px] self-center" type="submit" >
-                        {t("common.register")}
-                    </CustomButton>
+                    <div className="flex flex-col justify-center items-center bg-[#1C2026] h-[124px] rounded-md pt-6 pb-4">
+                        <CustomButton className="mb-3 w-[267px] self-center bg-[#2D3745] hover:bg-[#2D3745] " type="submit" >
+                            {t("common.register")}
+                        </CustomButton>
+                        <span className="text-sm font-normal">Ao clicar em cadastrar concordo com os </span>
+                        <Link className="text-sm font-normal underline" href="#">Termos e Condições</Link>
+                    </div>
+                    <Link className=" self-center text-sm font-normal underline" href={`/${locale}/${APP_LINKS.SIGNIN()}`}>Já sou cadastrado</Link>
                 </form>
             </Form>
         </div>

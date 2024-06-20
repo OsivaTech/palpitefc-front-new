@@ -29,10 +29,11 @@ export async function createUser(user: SignupRequest){
 
 export async function updateUser(user: SignupRequest){
     try{
-        await post(UpdateUser, {
+        const response = await post(UpdateUser, {
             method: 'POST',
             body: JSON.stringify(user)
         },false)
+        console.log(await response.json())
         return true
     }catch{
         return false

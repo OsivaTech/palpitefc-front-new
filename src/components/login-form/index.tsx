@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { CustomInput } from "@/components/custom-input"
 import { CustomButton } from "@/components/custom-button"
 import { login } from "@/components/login-form/data"
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/context/useAuth"
 import { APP_LINKS } from "@/constants"
-
+import Link from 'next/link'
 export const LoginForm = () => {
     const t = useTranslations()
     const router = useRouter()
@@ -21,7 +21,7 @@ export const LoginForm = () => {
         email: z.string().email(),
         password: z.string().min(2).max(50),
     })
-
+    const locale = useLocale()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -86,6 +86,13 @@ export const LoginForm = () => {
                     <CustomButton  type="submit">{t("common.signIn")}</CustomButton>
                 </form>
             </Form>
+            <div className="flex flex-col align-center justify-center gap-2 mt-3">
+                <span className="self-center text-sm font-normal">
+                    Ainda não está cadastrado? 
+                    <Link className=" text-sm font-normal underline ml-1" href={`/${locale}/${APP_LINKS.SIGNUP()}`}>cadastre-se aqui!</Link>
+                </span>
+                <Link className="self-center text-sm font-normal underline" href={`/${locale}/${APP_LINKS.FORGOT()}`}>Esqueci minha senha!</Link>
+            </div>
         </div>
     )
 }
