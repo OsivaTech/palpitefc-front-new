@@ -86,7 +86,7 @@ export const MatchTabContent = ({data, leagues, guess}:MatchTabContentProps ) =>
                                 <CalendarDays size={16} />
                                 {g[0].startDateFormated}
                             </span>
-                            <div  className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div  className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
                                     {g?.map( fixture => (
                                         <GuessCard key={fixture.id} fixture={fixture} league={leagues.filter(l => l.id === fixture.leagueId)[0]} guess={guess?.find(g => g.fixtureId === fixture.id) } />
                                     ))}
