@@ -36,7 +36,7 @@ export const ChangePasswordForm = ({teams}: ChangePasswordFormProps) => {
         info: z.string().optional(),
         phoneNumber: z.string().min(2).max(50),
         birthday: z.date(),
-        gender: z.enum(["m", "f", "o", ""]),
+        gender: z.enum(["M", "F", "O", ""]),
         street: z.string().min(2).max(50).optional(),
         number: z.string().optional(),
         complement: z.string().min(2).max(50).optional(),
