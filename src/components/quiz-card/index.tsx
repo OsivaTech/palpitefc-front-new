@@ -7,7 +7,7 @@ import { useAuth } from "@/context/useAuth"
 import { vote } from "@/http/pool"
 import { Quiz, QuizOptions } from "@/types/Quiz"
 import { CircleCheck } from "lucide-react"
-import { redirect } from "next/dist/server/api-utils"
+import { redirect, useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
 
@@ -19,7 +19,7 @@ export const QuizCard = ({data}: QuizCardProps) => {
     const [value, setValue] = useState<string>()
     const [ alreadyVoted, setAlreadyVoted] = useState(false)
     const {isAuthenticated} = useAuth();
-
+    const {push} = useRouter()
     useEffect(() => {
         if(data.yourVote){
             setAlreadyVoted(true)
