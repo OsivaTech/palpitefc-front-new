@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { APP_LINKS } from "@/constants"
+import { useAuth } from "@/context/useAuth"
 import { vote } from "@/http/pool"
 import { Quiz, QuizOptions } from "@/types/Quiz"
 import { CircleCheck } from "lucide-react"
+import { redirect } from "next/dist/server/api-utils"
 import React, { useEffect, useState } from "react"
 
 
@@ -15,6 +18,7 @@ type QuizCardProps = {
 export const QuizCard = ({data}: QuizCardProps) => {
     const [value, setValue] = useState<string>()
     const [ alreadyVoted, setAlreadyVoted] = useState(false)
+    const {isAuthenticated} = useAuth();
 
     useEffect(() => {
         if(data.yourVote){
@@ -23,6 +27,10 @@ export const QuizCard = ({data}: QuizCardProps) => {
     }, [data.yourVote])
     
     const handleVote = async () => {
+        if(isAuthenticated){
+            redirect(APP_LINKS.SIGNIN())
+            return;
+        }
         if(!value){
             return false;
         }

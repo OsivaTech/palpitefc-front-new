@@ -18,6 +18,7 @@ import { useAuth } from '@/context/useAuth';
 import { makeAGuess } from '@/http/gesses';
 import { Spinner } from '@/components/spinner';
 import { APP_LINKS } from '@/constants';
+import { Separator } from '@/components/ui/separator';
 
 export const GuessCard = ( {
     fixture,
@@ -86,7 +87,7 @@ export const GuessCard = ( {
     const handleChange = useCallback((evt: any, team: string) => {
         setGuessForm(old => ({...old, [team]: evt.target.value}))
     },[])
-    console.log(guess)
+
     return (
     <>
         {/* Aberto */}
@@ -95,17 +96,17 @@ export const GuessCard = ( {
                 <span className='font-semibold text-sm' >{t('components.guess-card.title')}</span> 
                 <div className='h-[1px] bg-slate-300 my-2' />
                 <CardContent className="flex flex-col p-0 gap-2 justify-center" >
-                    <div className="flex justify-between items-center text-xs  ">
-                        <div className="flex w-full items-center gap-2 justify-start">
+                    <div className="flex justify-between items-center text-xs">
+                        <div className="flex w-full items-center gap-2 justify-start ">
                             <div className='w-5 h-5 relative flex justify-center items-center'>
                                 <Image fill src={league.image}  alt='league shield'/>
                             </div>
                             <span className="text-white">{fixture.name}</span>
                         </div>
-                        <span className="text-white min-w-[114px]">{`${day} ${dayOfWeekFormated} ${time}`}</span>
+                        <span className="flex text-white w-full self-center justify-end">{`${day} ${dayOfWeekFormated} ${time}`}</span>
                     </div>
 
-                    <div className="flex justify-between items-center text-white   mx-auto ">
+                    <div className="flex justify-between items-center text-white mt-2">
                         <GuessCardContent disabled={!!guess} value={guessForm} onChange={(evt) => handleChange(evt, 'homeTeam')}  match={fixture.homeTeam} />
                             <span className="self-center mx-8 flex justify-center items-center text-lg font-extrabold">
                                 X
@@ -114,7 +115,7 @@ export const GuessCard = ( {
                     </div>
                 </CardContent>
                 
-                <CardFooter className="flex flex-col justify-center items-center p-0 mt-8 ">
+                <CardFooter className="flex flex-col justify-center items-center p-0 mt-4 ">
                     <Button type='submit' onClick={onSubmit} disabled={!(guessForm.awayTeam.length > 0 && guessForm.homeTeam.length > 0)}
                             className={cn(!!guess && 'hidden', "uppercase gap-2 bg-white w-full h-[30px] hover:bg-none disabled:text-[#A4A4AC] disabled:bg-[#E9E9EF] ")}>
                         {isPending && (<Spinner size='xs' /> )}
@@ -129,21 +130,22 @@ export const GuessCard = ( {
         )}
         {isCoppalsed && (
             <Card onClick={() => setIsCollapsed(false)} className='flex gap-2 py-3 px-2 bg-[#2D3745] cursor-pointer max-h-[51px]'>
+                <Image src={league.image} width={25} height={25} alt=''/>
+                <Separator orientation='vertical' className='bg-slate-500' />
                 <div className='flex justify-start items-center' >
-                    <span className='min-[320px]:w-[90px] min-[375px]:w-[130px] min-[425px]:w-[150px] overflow-hidden text-ellipsis text-nowrap'>
+                    <span className='min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] overflow-hidden text-ellipsis text-nowrap'>
                         {fixture.homeTeam.name}
                     </span>
                     <Image src={fixture.homeTeam.image} width={25} height={25} alt=''/>
                 </div>
                 X
                 <div className='flex justify-center flex-row-reverse items-center'>
-                    <span className='min-[320px]:w-[90px] min-[375px]:w-[130px] min-[425px]:w-[150px] ml-4  overflow-hidden text-ellipsis text-nowrap'>
+                    <span className='min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] ml-4  overflow-hidden text-ellipsis text-nowrap'>
                         {fixture.awayTeam.name}
                     </span>
                     <Image src={fixture.awayTeam.image} width={25} height={25} alt=''/>
                 </div>
-
-                <ChevronDown className='ml-auto '/>
+                <ChevronDown size={25} className='ml-auto flex-1 '/>
             </Card>
         )}
     </>
@@ -152,12 +154,14 @@ export const GuessCard = ( {
 }
 
 
-export const GuessCardContent = ({match, reverse,onChange, value, ...rest}: GuessCardContentType) => {
+export const GuessCardContent = ({match, reverse, onChange, value, ...rest}: GuessCardContentType) => {
     return (
-        <div className={cn("flex gap-10 mt-[18px]", reverse && 'flex-row-reverse',)} >
-            <div className="flex flex-col ">
-                <Image src={match.image} width={40} height={40} alt=""  />
-                {/* <span className="text-xs text-center" >{match.name}</span> */}
+        <div className={cn("flex h-full items-center justify-between w-full ", reverse && 'flex-row-reverse',)} >
+            <div className="flex flex-col gap-2 justify-between flex-1">
+                <div className='relative h-[40px] w-[40px] self-center'>
+                    <Image src={match.image} fill className='object-contain' alt=""  />
+                </div>
+                <span className="text-xs text-center w-full" >{match.name}</span>
             </div>
             <Input 
                 className="w-10 border dark:border-white dark:text-white bg-transparent text-xl px-2 text-center"
