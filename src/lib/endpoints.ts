@@ -12,7 +12,7 @@ export const LeaguesEndpoint = `${apiBaseUrl}/leagues`
 export const NewsEndpoint = `${apiBaseUrl}/news`
 export const TeamsEndpoint = `${apiBaseUrl}/teams`
 export const RegisterEndpoint = `${apiBaseUrl}/signup`
-export const RankingsEndpoint =`${apiBaseUrl}/rankings/mock`
+export const RankingsEndpoint =`${apiBaseUrl}/rankings`
 export const PoolsEndpoint = `${apiBaseUrl}/polls`
 export const VoteEndpoint = (pollI:number, optionId: string) => `${apiBaseUrl}/polls/${pollI}/vote/${optionId}`
 export const AdvertisamentEndpoint = `${apiBaseUrl}/advertisement`
