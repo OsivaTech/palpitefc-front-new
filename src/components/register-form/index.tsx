@@ -19,6 +19,7 @@ import { SignupRequest } from "@/types/api/resquests/SignupRequest"
 import { DatePicker } from "@/components/date-picker"
 import { Combobox } from "@/components/combobox"
 import Link from 'next/link'
+import { useTransition } from "react"
 
 export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const t = useTranslations()
@@ -26,6 +27,8 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const { toast } = useToast()
     const { registerUser} = useAuth()
     const locale = useLocale()
+    const [isPending, startTransition] = useTransition()
+    
     const formSchema = z.object({
         email: z.string().email(),
         password: z.string().min(2).max(50),
@@ -66,34 +69,36 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             phoneNumber: values.phoneNumber,
             birthday: format(new Date(values.birthday), 'y-MM-dd'),
         }
+        startTransition(async () => {
+            try{
+                await createUser(user);
+                const response =  await login({email: user.email, password: user.password});
+                
+                if(response === false){
+                    toast({
+                        title: t("common.error"),
+                        description: t("pages.login.usernameOrPasswordWrong"),
+                        variant: "destructive"
+                    })
+                    return;
+                }
 
-        try{
-            await createUser(user);
-            const response =  await login({email: user.email, password: user.password});
-            
-            if(response === false){
+                const { user:userResponse } = response;
+
+                registerUser(userResponse)
+                refresh();
+                push(APP_LINKS.HOMEPAGE());
+            }catch(error){
+                console.log("erro", error)
                 toast({
                     title: t("common.error"),
-                    description: t("pages.login.usernameOrPasswordWrong"),
+                    description: t("common.genericErrorMessage"),
                     variant: "destructive"
-                  })
-                  return;
+                })
+
             }
+        })  
 
-            const { user:userResponse } = response;
-
-            registerUser(userResponse)
-            refresh();
-            push(APP_LINKS.HOMEPAGE());
-        }catch(error){
-            console.log("erro", error)
-            toast({
-                title: t("common.error"),
-                description: t("common.genericErrorMessage"),
-                variant: "destructive"
-              })
-
-        }
     }
 
     return (
@@ -257,7 +262,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                         )}
                     />
                     <div className="flex flex-col justify-center items-center bg-[#1C2026] h-[124px] rounded-md pt-6 pb-4">
-                        <CustomButton className="mb-3 w-[267px] self-center bg-[#2D3745] hover:bg-[#2D3745] " type="submit" >
+                        <CustomButton isLoading={isPending} disabled={isPending} className="mb-3 w-[267px] self-center bg-[#2D3745] hover:bg-[#2D3745] " type="submit" >
                             {t("common.register")}
                         </CustomButton>
                         <span className="text-sm font-normal">Ao clicar em cadastrar concordo com os </span>

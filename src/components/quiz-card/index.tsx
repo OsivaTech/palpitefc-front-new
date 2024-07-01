@@ -19,7 +19,7 @@ export const QuizCard = ({data}: QuizCardProps) => {
     const [value, setValue] = useState<string>()
     const [ alreadyVoted, setAlreadyVoted] = useState(false)
     const {isAuthenticated} = useAuth();
-    const {push} = useRouter()
+    
     useEffect(() => {
         if(data.yourVote){
             setAlreadyVoted(true)
@@ -39,7 +39,7 @@ export const QuizCard = ({data}: QuizCardProps) => {
     }
 
     return (
-        <Card className="p-4 border boder-black  bg-transparent">
+        <Card className="p-4 border boder-black  bg-app-background">
             <p className="text-white font-medium mb-6">{data.title}</p>
             <RadioGroup className="flex flex-col gap-4" defaultValue={value} onValueChange={evt => setValue(evt)} >
                 {data.options.map(o => (

@@ -38,7 +38,35 @@
   },
   "pages": {
     "login": {
-      "usernameOrPasswordWrong": "Usuário ou senha inválidos"
+      "usernameOrPasswordWrong": "Usuário ou senha inválidos",
+      "login": "Login",
+      "password": "Senha",
+      "dontHaveAccount": "Ainda não está cadastrado? ",
+      "registerHere": "cadastre-se aqui!",
+      "forgotPassword": "Esqueci minha senha!"
     }
+  },
+  "api-errors": {
+    "Config-NotExists": "Essa configuração não existe.",
+    "Config-AlreadyExists": "Essa configuração já existe.",
+    "Fixture-NotFound": "Esse item não foi encontrado.",
+    "Guess-Exists": "Já existe um palpite para esta partida.",
+    "Guess-StartedMatch": "Esta partida já começou, não é possível enviar palpites.",
+    "Option-NotFound": "Essa opção não foi encontrada.",
+    "Other-StartDateLaterThanEnd": "A data de início não pode ser posterior à data de término.",
+    "PointSeasons-ConflictDate": "Já existe uma temporada para essas datas.",
+    "PointSeasons-PointSeasonNotFound": "Nenhuma temporada de pontos foi encontrada para o período atual.",
+    "Poll-NotFound": "Enquete não encontrada.",
+    "Poll-UserAlreadyVoted": "Você já votou nesta enquete.",
+    "Ranking-PointNotFound": "Ninguém tem pontos ainda.",
+    "PasswordResetErrors-InvalidCode": "O código de verificação é inválido.",
+    "SignUp-UsedEmail": "Este email já está em uso.",
+    "SignIn-UserNotFound": "Usuário não encontrado para este email.",
+    "SignIn-IncorretPassword": "Senha incorreta.",
+    "Subscription-NoRegistredPlans": "Não há planos de assinatura registrados.",
+    "Subscription-GenericError": "Ocorreu um erro ao tentar proceder com a assinatura.",
+    "Team-InvalidTeamId": "Este ID de equipe é inválido.",
+    "UserAddress-ExistingAddress": "O usuário já possui um endereço.",
+    "User-InvalidEmail": "O email do usuário é inválido."
   }
 }

@@ -1,5 +1,6 @@
 
 'use client'
+
 import React, { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 import { useCookies } from 'next-client-cookies';
 import { User } from '@/types/User';
@@ -20,9 +21,8 @@ export const AuthProvider= ({ children, token }:{children:ReactNode, token?: str
     
 
     useEffect(() => {
-        const loadUser = async () => {
-            setUser(await getSelf())
-        }
+        const loadUser = async () => setUser(await getSelf())
+        
         if(token){
             setIsAuthenticated(true);
             loadUser();
@@ -34,10 +34,8 @@ export const AuthProvider= ({ children, token }:{children:ReactNode, token?: str
   
     
     const registerUser = useCallback((user: User) => {
-        setUser(() => {
-            setIsAuthenticated(true);
-            return user
-        })
+        setUser(user)
+        setIsAuthenticated(true);
     }, [])
 
     return (

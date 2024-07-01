@@ -12,10 +12,15 @@ import { useToast } from "@/components/ui/use-toast"
 import { useAuth } from "@/context/useAuth"
 import { APP_LINKS } from "@/constants"
 import Link from 'next/link'
+import { useTransition } from "react"
+
 export const LoginForm = () => {
     const t = useTranslations()
     const router = useRouter()
     const { toast } = useToast()
+    
+    const [isPending, startTransition] = useTransition()
+
     const { registerUser } = useAuth()
     const formSchema = z.object({
         email: z.string().email(),
@@ -29,13 +34,13 @@ export const LoginForm = () => {
           password: '',
         },
     })
-
+   
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        startTransition(async () => {
             try{
                 const response = await login(values)
                 if(response){
                     registerUser(response.user)
-
                     router.push(APP_LINKS.HOMEPAGE())
                 }else{
                     toast({
@@ -47,6 +52,7 @@ export const LoginForm = () => {
             } catch{
                 console.error("error")
             }
+        })
     }
 
     return (
@@ -61,7 +67,7 @@ export const LoginForm = () => {
                         name="email"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>{t('pages.login.login')}</FormLabel>
                             <FormControl>
                                 <CustomInput className="dark:bg-white dark:text-black" placeholder="Email" {...field} />
                             </FormControl>
@@ -75,7 +81,7 @@ export const LoginForm = () => {
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Senha</FormLabel>
+                            <FormLabel>{t('pages.login.password')}</FormLabel>
                             <FormControl>
                                 <CustomInput type="password" className="dark:bg-white dark:text-black" placeholder="Senha" {...field} />
                             </FormControl>
@@ -83,15 +89,15 @@ export const LoginForm = () => {
                             </FormItem>
                         )}
                     />
-                    <CustomButton  type="submit">{t("common.signIn")}</CustomButton>
+                    <CustomButton isLoading={isPending} disabled={isPending} type="submit">{t("common.signIn")}</CustomButton>
                 </form>
             </Form>
             <div className="flex flex-col align-center justify-center gap-2 mt-3">
                 <span className="self-center text-sm font-normal">
-                    Ainda não está cadastrado? 
-                    <Link className=" text-sm font-normal underline ml-1" href={`/${locale}/${APP_LINKS.SIGNUP()}`}>cadastre-se aqui!</Link>
+                    {t("pages.login.dontHaveAccount")}
+                    <Link className=" text-sm font-normal underline ml-1" href={`/${locale}/${APP_LINKS.SIGNUP()}`}>{t('pages.login.registerHere')}</Link>
                 </span>
-                <Link className="self-center text-sm font-normal underline" href={`/${locale}/${APP_LINKS.FORGOT()}`}>Esqueci minha senha!</Link>
+                <Link className="self-center text-sm font-normal underline" href={`/${locale}/${APP_LINKS.FORGOT()}`}>{t('pages.login.forgotPassword')}</Link>
             </div>
         </div>
     )
