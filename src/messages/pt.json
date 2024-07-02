@@ -15,7 +15,9 @@
     },
     "guess-card": {
       "submit": "Lançar palpite",
-      "title": "Qual o seu palpite?"
+      "title": "Qual o seu palpite?",
+      "error": "Não é possivel votar em jogos que já começaram",
+      "gameAlreadyStarted": "Não é possivel votar em jogos que já comecaram"
     }
   },
   "common": {

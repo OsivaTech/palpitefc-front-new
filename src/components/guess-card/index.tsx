@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "use-intl";
-import { parseISO, format, Day } from 'date-fns';
+import { parseISO, format, Day, formatISO, isAfter } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -46,7 +46,26 @@ export const GuessCard = ( {
 
     const locale = useLocale()
 
+    const checkIfCanBeVoted = useCallback(() => {
+        const gameStart = formatISO(fixture.start)
+        const now = formatISO(new Date())
+        console.log(isAfter(now, gameStart))
+        if (isAfter(now, gameStart)){
+            return false
+        }
+        return true
+    }, [fixture.start])
+    
     const onSubmit = useCallback( async () =>  {
+        if(!checkIfCanBeVoted()) {
+            toast({
+                title: t('common.error'),
+                description: t('components.guess-card.gameAlreadyStarted'),
+                variant: 'destructive'
+            })
+            return;
+        }
+        
         if(!isAuthenticated) {
             router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
             return;
@@ -82,7 +101,7 @@ export const GuessCard = ( {
                 variant: 'destructive'
             })
         }
-    },[fixture.awayTeam.id, fixture.homeTeam.id, fixture.id, guessForm.awayTeam, guessForm.homeTeam, isAuthenticated, locale, router, t, toast])
+    },[checkIfCanBeVoted, fixture.awayTeam.id, fixture.homeTeam.id, fixture.id, guessForm.awayTeam, guessForm.homeTeam, isAuthenticated, locale, router, t, toast])
 
     const handleChange = useCallback((evt: any, team: string) => {
         setGuessForm(old => ({...old, [team]: evt.target.value}))
@@ -92,7 +111,7 @@ export const GuessCard = ( {
     <>
         {/* Aberto */}
         {!isCoppalsed && (
-            <Card className="bg-[#2D3745] px-4 py-2 border-0 border-b font-medium flex flex-col justify-between w-full">
+            <Card className="bg-[#2D3745] px-4 py-2 border-0 border-b font-medium flex flex-col justify-between w-full relative">
                 <span className='font-semibold text-sm' >{t('components.guess-card.title')}</span> 
                 <div className='h-[1px] bg-slate-300 my-2' />
                 <CardContent className="flex flex-col p-0 gap-2 justify-center" >
@@ -116,7 +135,7 @@ export const GuessCard = ( {
                 </CardContent>
                 
                 <CardFooter className="flex flex-col justify-center items-center p-0 mt-4 ">
-                    <Button type='submit' onClick={onSubmit} disabled={!(guessForm.awayTeam.length > 0 && guessForm.homeTeam.length > 0)}
+                    <Button type='submit' onClick={onSubmit} disabled={!(guessForm.awayTeam.length > 0 && guessForm.homeTeam.length > 0) && checkIfCanBeVoted()}
                             className={cn(!!guess && 'hidden', "uppercase gap-2 bg-white w-full h-[30px] hover:bg-none disabled:text-[#A4A4AC] disabled:bg-[#E9E9EF] ")}>
                         {isPending && (<Spinner size='xs' /> )}
                         {t('components.guess-card.submit')}
@@ -126,6 +145,9 @@ export const GuessCard = ( {
                         {t("common.cancel")}
                     </Button>
                 </CardFooter>
+                {!checkIfCanBeVoted() && (
+                    <div className='top-0 left-0 absolute flex justify-center items-center w-full h-full bg-app-background/60 z-10' />
+                )}
             </Card>
         )}
         {isCoppalsed && (
@@ -164,7 +186,7 @@ export const GuessCardContent = ({match, reverse, onChange, value, ...rest}: Gue
                 <span className="text-xs text-center w-full" >{match.name}</span>
             </div>
             <Input 
-                className="w-10 border dark:border-white dark:text-white bg-transparent text-xl px-2 text-center"
+                className="w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white/50 dark:text-white bg-app-background text-xl px-2 text-center "
                 maxLength={2}   
                 placeholder="-"
                 onChange={onChange}
