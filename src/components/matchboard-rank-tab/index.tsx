@@ -57,7 +57,7 @@ export const RankTabContent = ({data, leagues}:RankTabContentProp) => {
 
     return (
         <TabsContent value="rank">
-            <div className="flex items-center gap-3 pb-2">
+            <div className="flex items-center gap-3 pb-2 pt-3">
                 {filter.type !== RANKING_TYPE.LEAGUE && filter.value !== "0" && (
                     <div className="min-w-[71px]">
                         <CustomSelect title="Mês"  
