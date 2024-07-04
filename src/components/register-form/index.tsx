@@ -255,7 +255,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                 <FormControl>
                   <Combobox
                     onChange={field.onChange}
-                    value={field.value}
+                    value={field.value.toString() || ''}
                     data={teams.map((t) => ({
                       label: t.name,
                       value: t.id,

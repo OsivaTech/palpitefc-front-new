@@ -225,7 +225,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
                 <FormControl>
                   <Combobox
                     onChange={field.onChange}
-                    value={field.value}
+                    value={field.value?.toString() || ''}
                     data={teams.map((t) => ({
                       label: t.name,
                       value: t.id,
