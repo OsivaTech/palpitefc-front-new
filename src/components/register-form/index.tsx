@@ -19,7 +19,8 @@ import { SignupRequest } from "@/types/api/resquests/SignupRequest"
 import { DatePicker } from "@/components/date-picker"
 import { Combobox } from "@/components/combobox"
 import Link from 'next/link'
-import { useTransition } from "react"
+import React, { useTransition } from "react"
+import { onlyNumber } from "@/utils/mask"
 
 export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const t = useTranslations()
@@ -28,15 +29,15 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
     const { registerUser} = useAuth()
     const locale = useLocale()
     const [isPending, startTransition] = useTransition()
-    
+   
     const formSchema = z.object({
         email: z.string().email(),
         password: z.string().min(2).max(50),
         name: z.string().min(2).max(50),
-        document: z.string().min(2).max(50),
+        document: z.string().transform(onlyNumber).refine((val) => val.length >= 11, { message: "O CPF deve ter no mínimo 11 dígitos." }),
         team: z.number(),
         info: z.string().optional(),
-        phoneNumber: z.string().min(2).max(50),
+        phoneNumber : z.string().transform(onlyNumber).refine((val) => val.length >= 11, { message: "O número de telefone deve ter no mínimo 11 dígitos." }),  
         birthday: z.date(),
         gender: z.enum(["m", "f", "o", ""]),
     })
@@ -54,7 +55,9 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             birthday: undefined,
             gender: "",
         },
+      
     })
+
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
 
@@ -66,11 +69,12 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
             teamId: values.team,
             gender: values.gender,
             info: "",
-            phoneNumber: values.phoneNumber,
+            phoneNumber: onlyNumber(values.phoneNumber),
             birthday: format(new Date(values.birthday), 'y-MM-dd'),
         }
         startTransition(async () => {
             try{
+             
                 await createUser(user);
                 const response =  await login({email: user.email, password: user.password});
                 
@@ -101,10 +105,13 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
 
     }
 
+ 
+
     return (
         <div className="max-w-[500px] mx-auto pt-10 px-3  ">
             <h1 className="mb-6 text-center text-xs font-medium">Cadastre-se e ganhe prêmios</h1>
             <Form {...form} >
+          
                 <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col  gap-3">
                     <FormField
                         control={form.control}
@@ -150,7 +157,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <CustomInput placeholder="Telefone" {...field} />
+                                    <CustomInput placeholder="Telefone" mask="(99) 99999-9999" {...field} />
                                 </FormControl>
 
                                 <FormMessage />
@@ -163,7 +170,7 @@ export const RegisterForm = ({teams}:{teams: Team[]}) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <CustomInput placeholder="CPF" {...field} />
+                                    <CustomInput placeholder="CPF" mask="999.999.999-99" {...field} />
                                 </FormControl>
 
                                 <FormMessage />
