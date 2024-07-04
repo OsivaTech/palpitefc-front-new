@@ -18,7 +18,7 @@ export type CarrouselProps = {
   items?: Advertisament[]
 }
 
-export const Banner = async ({ items }: CarrouselProps) => {
+export const Banner = ({ items }: CarrouselProps) => {
   return (
     <Carousel
       plugins={[
