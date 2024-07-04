@@ -4,9 +4,11 @@ import { Progress } from "@/components/ui/progress"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { APP_LINKS } from "@/constants"
 import { useAuth } from "@/context/useAuth"
+import { usePageModal } from "@/context/usePageModal"
 import { vote } from "@/http/pool"
 import { Quiz, QuizOptions } from "@/types/Quiz"
 import { CircleCheck } from "lucide-react"
+import { useLocale } from "next-intl"
 import { redirect, useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 
@@ -19,6 +21,11 @@ export const QuizCard = ({data}: QuizCardProps) => {
     const [value, setValue] = useState<string>()
     const [ alreadyVoted, setAlreadyVoted] = useState(false)
     const {isAuthenticated} = useAuth();
+
+    const {closePageModal} = usePageModal();
+
+    const router = useRouter();
+    const locale = useLocale()
     
     useEffect(() => {
         if(data.yourVote){
@@ -27,9 +34,9 @@ export const QuizCard = ({data}: QuizCardProps) => {
     }, [data.yourVote])
     
     const handleVote = async () => {
-        if(isAuthenticated){
-            redirect(APP_LINKS.SIGNIN())
-            return;
+        if(!isAuthenticated){           
+            router.push(`/${locale}/${APP_LINKS.SIGNIN()}`);
+            return closePageModal();
         }
         if(!value){
             return false;

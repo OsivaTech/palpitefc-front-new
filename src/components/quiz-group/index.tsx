@@ -18,6 +18,8 @@ export const QuizGroup = () => {
         loadQuiz()
     }, [isAuthenticated])
 
+
+    
     return (
         <div className="flex flex-col gap-2 w-full h-[600px] overflow-auto  ">
             {quiz?.map(q => (
