@@ -1,17 +1,16 @@
-
-import { Button, ButtonProps, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
-import React from "react";
-
-
-
+import { Button, ButtonProps } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { Loader2 } from 'lucide-react'
+import React from 'react'
 
 export const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false,isLoading=false, ...props }, ref) => {
+  ({ className, isLoading = false, ...props }, ref) => {
     return (
       <Button
-        className={cn("w-full bg-app-background h-[38px] rounded-full placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs border border-white", className)}
+        className={cn(
+          'w-full bg-app-background h-[38px] rounded-full placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs border border-white',
+          className,
+        )}
         ref={ref}
         {...props}
       >
@@ -19,6 +18,6 @@ export const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {props.children}
       </Button>
     )
-  }
+  },
 )
-CustomButton.displayName = "Button"
+CustomButton.displayName = 'Button'

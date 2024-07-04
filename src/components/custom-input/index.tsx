@@ -1,9 +1,8 @@
-import { Input, InputProps } from "@/components/ui/input";
-import React from "react";
-
+import { InputProps } from '@/components/ui/input'
+import React from 'react'
 
 export const CustomInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ type, ...props }, ref) => {
     return (
       <input
         type={type}
@@ -12,6 +11,6 @@ export const CustomInput = React.forwardRef<HTMLInputElement, InputProps>(
         {...props}
       />
     )
-  }
+  },
 )
-CustomInput.displayName = "Custom Input"
+CustomInput.displayName = 'Custom Input'

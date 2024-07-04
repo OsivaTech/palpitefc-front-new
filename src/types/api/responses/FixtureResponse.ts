@@ -1,3 +1,3 @@
-import { Fixture } from "@/types/Fixture";
+import { Fixture } from '@/types/Fixture'
 
 export type FixtureResponse = Fixture[]

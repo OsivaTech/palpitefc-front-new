@@ -1,50 +1,64 @@
-
 'use client'
 
-import React, { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
-import { useCookies } from 'next-client-cookies';
-import { User } from '@/types/User';
-import { getSelf } from '@/http/user';
+import React, {
+  ReactNode,
+  createContext,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
+import { useCookies } from 'next-client-cookies'
+import { User } from '@/types/User'
+import { getSelf } from '@/http/user'
 
 export const AuthContext = createContext<{
-    user: User | null;
-    isAuthenticated: boolean;
-    registerUser: (user: User) => void;
-}>({} as any);
+  user: User | null
+  isAuthenticated: boolean
+  registerUser: (user: User) => void
+}>(
+  {} as {
+    user: User | null
+    isAuthenticated: boolean
+    registerUser: (user: User) => void
+  },
+)
 
-export const AuthProvider= ({ children, token }:{children:ReactNode, token?: string}) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-        return token ? true : false
-    });
-    const cookies = useCookies();
-    
+export const AuthProvider = ({
+  children,
+  token,
+}: {
+  children: ReactNode
+  token?: string
+}) => {
+  const [user, setUser] = useState<User | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return !!token
+  })
+  const cookies = useCookies()
 
-    useEffect(() => {
-        const loadUser = async () => setUser(await getSelf())
-        
-        if(token){
-            setIsAuthenticated(true);
-            loadUser();
-        }else{
-            setIsAuthenticated(false);
-        }
-    }, [cookies, isAuthenticated, token])
+  useEffect(() => {
+    const loadUser = async () => setUser(await getSelf())
 
-  
-    
-    const registerUser = useCallback((user: User) => {
-        setUser(user)
-        setIsAuthenticated(true);
-    }, [])
+    if (token) {
+      setIsAuthenticated(true)
+      loadUser()
+    } else {
+      setIsAuthenticated(false)
+    }
+  }, [cookies, isAuthenticated, token])
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, registerUser, user }}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
+  const registerUser = useCallback((user: User) => {
+    setUser(user)
+    setIsAuthenticated(true)
+  }, [])
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, registerUser, user }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
 
 export const useAuth = () => {
-    return React.useContext(AuthContext);
-};
+  return React.useContext(AuthContext)
+}
