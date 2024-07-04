@@ -8,7 +8,7 @@ export const ModalPageHeader =  ({user}: {user: User}) => {
     const {closePageModal} = usePageModal();
     
     const imageUrl = user?.team?.image || '/assets/user.svg';
-    const altText = user?.team?.image ? `Team logo of ${name}` : 'Default user icon';
+    const altText = user?.team?.image ? `Team logo of ${user?.name}` : 'Default user icon';
 
     return (
         <div className="flex justify-between items-start">
