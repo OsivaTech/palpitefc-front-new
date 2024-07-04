@@ -20,6 +20,7 @@ import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import Link from 'next/link'
 import { useTransition } from 'react'
+import { Separator } from '@radix-ui/react-separator'
 
 export const LoginForm = () => {
   const t = useTranslations()
@@ -64,7 +65,8 @@ export const LoginForm = () => {
 
   return (
     <div className="max-w-[500px] mx-auto pt-10 px-3  ">
-      <h1 className="text-center mb-6 font-medium text-sm">Login</h1>
+      <h1 className="text-center mb-6 font-medium text-sm">Faça seu login</h1>
+      <Separator className="mb-6 border border-white/50" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -77,11 +79,7 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>{t('pages.login.login')}</FormLabel>
                 <FormControl>
-                  <CustomInput
-                    className="dark:bg-white dark:text-black"
-                    placeholder="Email"
-                    {...field}
-                  />
+                  <CustomInput placeholder="Email" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -95,12 +93,7 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>{t('pages.login.password')}</FormLabel>
                 <FormControl>
-                  <CustomInput
-                    type="password"
-                    className="dark:bg-white dark:text-black"
-                    placeholder="Senha"
-                    {...field}
-                  />
+                  <CustomInput type="password" placeholder="Senha" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
