@@ -1,5 +1,5 @@
-import { News } from "@/types/News"
+import { News } from '@/types/News'
 
-export type NewsProps ={
-    data: News[]
+export type NewsProps = {
+  data: News[]
 }
