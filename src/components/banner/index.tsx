@@ -9,6 +9,7 @@ import { Advertisament } from '@/types/Advertisament'
 import Image from 'next/image'
 import Link from 'next/link'
 import Autoplay from 'embla-carousel-autoplay'
+import { useRef } from 'react'
 
 export type BannerType = {
   imageLink: string
@@ -19,15 +20,10 @@ export type CarrouselProps = {
 }
 
 export const Banner = ({ items }: CarrouselProps) => {
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
+
   return (
-    <Carousel
-      plugins={[
-        Autoplay({
-          delay: 5000,
-        }),
-      ]}
-      className="w-full"
-    >
+    <Carousel plugins={[plugin.current]} className="w-full">
       <CarouselContent>
         {items ? (
           items.map((item, index) => (
