@@ -1,3 +1,3 @@
-export function onlyNumber(phoneNumber : string) {
-    return phoneNumber.replace(/\D/g, '');
+export function onlyNumber(phoneNumber: string) {
+  return phoneNumber.replace(/\D/g, '')
 }
