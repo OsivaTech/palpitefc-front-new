@@ -132,7 +132,7 @@ export const GuessCard = ({
     [],
   )
 
-  const rendeCollapseOpen = useMemo(() => {
+  const renderCollapseOpen = useMemo(() => {
     return (
       <>
         {fixture.id === selectedFixture?.id && (
@@ -225,7 +225,7 @@ export const GuessCard = ({
     time,
   ])
 
-  const rendeCollapseClosed = useMemo(() => {
+  const renderCollapseClosed = useMemo(() => {
     return (
       <>
         {fixture.id !== selectedFixture?.id && (
@@ -269,8 +269,8 @@ export const GuessCard = ({
 
   return (
     <>
-      {rendeCollapseOpen}
-      {rendeCollapseClosed}
+      {renderCollapseOpen}
+      {renderCollapseClosed}
     </>
   )
 }
