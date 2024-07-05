@@ -48,7 +48,7 @@ export const GuessCard = ({ fixture, guess, league }: GuessCardProps) => {
   const checkIfCanBeVoted = useCallback(() => {
     const gameStart = formatISO(fixture.start)
     const now = formatISO(new Date())
-    console.log(isAfter(now, gameStart))
+
     if (isAfter(now, gameStart)) {
       return false
     }

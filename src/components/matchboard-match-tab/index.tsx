@@ -12,20 +12,25 @@ import { Guess } from '@/types/Guess'
 import { CustomSelect } from '@/components/custom-select/custom-select'
 import { GuessCard } from '@/components/guess-card'
 import { FormatedFixture } from '@/components/matchboard-match-tab/types'
+import { Advertisament } from '@/types/Advertisament'
+import { BannerFixed } from '../bannerFixed'
 
 type MatchTabContentProps = {
   data: Fixture[] | null
   leagues: League[]
   guess: Guess[]
+  advertisament: Advertisament[]
 }
 
 export const MatchTabContent = ({
   data,
   leagues,
   guess,
+  advertisament,
 }: MatchTabContentProps) => {
   const { toast } = useToast()
   const t = useTranslations()
+
   const [filter, setFilter] = useState({
     selectedLeague: '0',
     onlyGuesses: false,
@@ -115,13 +120,30 @@ export const MatchTabContent = ({
                 {g[0].startDateFormated}
               </span>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
-                {g?.map((fixture) => (
-                  <GuessCard
-                    key={fixture.id}
-                    fixture={fixture}
-                    league={leagues.filter((l) => l.id === fixture.leagueId)[0]}
-                    guess={guess?.find((g) => g.fixtureId === fixture.id)}
-                  />
+                {g?.map((fixture, index) => (
+                  <>
+                    <GuessCard
+                      key={fixture.id}
+                      fixture={fixture}
+                      league={
+                        leagues.filter((l) => l.id === fixture.leagueId)[0]
+                      }
+                      guess={guess?.find((g) => g.fixtureId === fixture.id)}
+                    />
+
+                    {(index + 1) % 3 === 0 && (
+                      <>
+                        <BannerFixed
+                          key={`banner-${index}`}
+                          item={
+                            advertisament[
+                              Math.floor(index / 3) % advertisament.length
+                            ]
+                          }
+                        />
+                      </>
+                    )}
+                  </>
                 ))}
               </div>
             </React.Fragment>

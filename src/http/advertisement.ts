@@ -8,7 +8,6 @@ export const getAdvertisament = async () => {
     const advertisament: Advertisament[] = await response.json()
     return advertisament
   } catch (error) {
-    console.error(error)
     return []
   }
 }
