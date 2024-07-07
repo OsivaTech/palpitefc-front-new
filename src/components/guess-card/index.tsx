@@ -297,6 +297,7 @@ export const GuessCardContent = ({
       </div>
       <Input
         className="w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white/50 dark:text-white bg-app-background text-xl px-2 text-center "
+        type="number"
         maxLength={2}
         placeholder="-"
         onChange={onChange}
