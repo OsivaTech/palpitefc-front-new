@@ -235,10 +235,10 @@ export const GuessCard = ({
           >
             <div className="flex">
               <Image src={league.image} width={25} height={25} alt="" />
-              <Separator orientation="vertical" className="bg-slate-500 ml-4" />
+              <Separator orientation="vertical" className="bg-slate-500 ml-2" />
             </div>
             <div className="flex justify-start items-center">
-              <span className="min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] overflow-hidden text-ellipsis text-nowrap">
+              <span className="min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] mr-2 overflow-hidden text-ellipsis text-nowrap text-right">
                 {fixture.homeTeam.name}
               </span>
               <Image
@@ -250,7 +250,7 @@ export const GuessCard = ({
             </div>
             X
             <div className="flex justify-center flex-row-reverse items-center">
-              <span className="min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] ml-4  overflow-hidden text-ellipsis text-nowrap">
+              <span className="min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] ml-2 overflow-hidden text-ellipsis text-nowrap">
                 {fixture.awayTeam.name}
               </span>
               <Image
