@@ -18,6 +18,9 @@
       "title": "Qual o seu palpite?",
       "error": "Não é possivel votar em jogos que já começaram",
       "gameAlreadyStarted": "Não é possivel votar em jogos que já comecaram"
+    },
+    "my-points": {
+      "monthlyPoints": "Meses"
     }
   },
   "common": {

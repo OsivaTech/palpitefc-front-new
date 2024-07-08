@@ -1,13 +1,18 @@
 'use client'
 import { ModalPageHeader } from '@/components/modal-page-header'
 import { Separator } from '@/components/ui/separator'
+import { APP_LINKS } from '@/constants'
 import { usePageModal } from '@/context/usePageModal'
 import { logout } from '@/lib/session'
 import { User } from '@/types/User'
 import { LockKeyhole, LogOut, UserRound } from 'lucide-react'
+import { useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 export const ModalPageProfile = ({ user }: { user: User }) => {
   const { closePageModal } = usePageModal()
+  const router = useRouter()
+  const locale = useLocale()
 
   const handleLogout = async () => {
     logout()
@@ -30,8 +35,12 @@ export const ModalPageProfile = ({ user }: { user: User }) => {
           <LockKeyhole size={20} />
           Alterar senha ou e-mail
         </li>
+
         <li
-          onClick={() => console.log('meusPOntos')}
+          onClick={() => {
+            router.push(`${locale}/${APP_LINKS.MYPOINTS()}`)
+            closePageModal()
+          }}
           className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
         >
           <UserRound size={20} />

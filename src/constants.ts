@@ -3,6 +3,7 @@ export const APP_LINKS = {
   SIGNIN: () => `/signin`,
   SIGNUP: () => `/signup`,
   FORGOT: () => `/forgot`,
+  MYPOINTS: () => `/mypoints`,
 }
 
 export const ROLE = {
