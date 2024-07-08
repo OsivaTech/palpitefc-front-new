@@ -782,6 +782,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-input-mask@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/react-input-mask/-/react-input-mask-3.0.5.tgz#9fbe9a984b3299419a6071dbf697ac2cae2abd2d"
+  integrity sha512-vQ1x6ykwjDrDrJZq1zw5/uQ+nqGHUV6bWscsVZJ/qsNwNXWxZm7KRBHLJ5k6TQt3MHjhpoYHzPH6FwjVSZODHA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18":
   version "18.2.79"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.2.79.tgz"
@@ -1478,28 +1485,28 @@ eastasianwidth@^0.2.0:
   resolved "https://registry.npmjs.org/eastasianwidth/-/eastasianwidth-0.2.0.tgz"
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
-embla-carousel-autoplay@^8.1.6:
-  version "8.1.6"
-  resolved "https://registry.yarnpkg.com/embla-carousel-autoplay/-/embla-carousel-autoplay-8.1.6.tgz#24696cb6037bbb3e894f51a8bcf6698c81ea38cf"
-  integrity sha512-e5n9f4q+DVeBPiPPT3gwzqpiqfae8aP8fQACS4OZkPFvFLdsVhnWcw+cwtewryP7snWJGKPXEMA1GOjieEKv+w==
+embla-carousel-autoplay@8.0.0-rc15:
+  version "8.0.0-rc15"
+  resolved "https://registry.yarnpkg.com/embla-carousel-autoplay/-/embla-carousel-autoplay-8.0.0-rc15.tgz#4d3c496dffc7cdc1230d487f1377dae80e56fa77"
+  integrity sha512-ABTbDJGNb9jzI9OV2vSpbUvxUA0ELmK0SI3yPm8Haj3ghssS+vElfahoDqp7zuFkWBRih6w3B51oMPKdF5J55A==
 
-embla-carousel-react@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.npmjs.org/embla-carousel-react/-/embla-carousel-react-8.0.2.tgz"
-  integrity sha512-RHe1GKLulOW8EDN+cJgbFbVVfRXcaLT2/89dyVw3ONGgVpZjD19wB87I1LUZ1aCzOSrTccx0PFSQanK4OOfGPA==
+embla-carousel-react@8.0.0-rc15:
+  version "8.0.0-rc15"
+  resolved "https://registry.yarnpkg.com/embla-carousel-react/-/embla-carousel-react-8.0.0-rc15.tgz#1f5528256896f5b9a8a49c743d56a522519d47e7"
+  integrity sha512-PePOkyPMWsUDNJKYRhUmGScYhex9mfpEiYiKT8OgwP/4K60plW0qk8cAXWvS9N61A/3RkUq7uz+hQsmhAtYMcA==
   dependencies:
-    embla-carousel "8.0.2"
-    embla-carousel-reactive-utils "8.0.2"
+    embla-carousel "8.0.0-rc15"
+    embla-carousel-reactive-utils "8.0.0-rc15"
 
-embla-carousel-reactive-utils@8.0.2:
-  version "8.0.2"
-  resolved "https://registry.npmjs.org/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.0.2.tgz"
-  integrity sha512-nLZqDkQdO0hvOP49/dUwjkkepMnUXgIzhyRuDjwGqswpB4Ibnc5M+w7rSQQAM+uMj0cPaXnYOTlv8XD7I/zVNw==
+embla-carousel-reactive-utils@8.0.0-rc15:
+  version "8.0.0-rc15"
+  resolved "https://registry.yarnpkg.com/embla-carousel-reactive-utils/-/embla-carousel-reactive-utils-8.0.0-rc15.tgz#29309e19657944bc3fb6a908a2da5675c7d2a325"
+  integrity sha512-17Pr+N2vULFS8Lxzi2jaebwVloiFJLpdJMJLKJKQ26NzEmX8pVtHSu3uuTWc8HPwye5HFugqCPJ2QoWWhKs6Kg==
 
-embla-carousel@8.0.2:
-  version "8.0.2"
-  resolved "https://registry.npmjs.org/embla-carousel/-/embla-carousel-8.0.2.tgz"
-  integrity sha512-bogsDO8xosuh/l3PxIvA5AMl3+BnRVAse9sDW/60amzj4MbGS5re4WH5eVEXiuH8G1/3G7QUAX2QNr3Yx8z5rA==
+embla-carousel@8.0.0-rc15:
+  version "8.0.0-rc15"
+  resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-8.0.0-rc15.tgz#68e269bb1ead1422aa3078401947f0d85c6e1671"
+  integrity sha512-s7VPexK2h8VEYjEVQFnJAPcRnY5YqJYicFxKVVyWXP3Hk9FFDkT0kqVxMM1PcL187qHOUgmGVHOrfC8xWy3OKQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -3051,9 +3058,9 @@ prettier@^3.2.5:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.3.2.tgz#03ff86dc7c835f2d2559ee76876a3914cec4a90a"
   integrity sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==
 
-prop-types@^15.8.1:
+prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
-  resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
   dependencies:
     loose-envify "^1.4.0"
@@ -3087,6 +3094,15 @@ react-hook-form@^7.51.3:
   version "7.51.3"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.51.3.tgz"
   integrity sha512-cvJ/wbHdhYx8aviSWh28w9ImjmVsb5Y05n1+FW786vEZQJV5STNM0pW6ujS+oiBecb0ARBxJFyAnXj9+GHXACQ==
+
+react-input-mask@3.0.0-alpha.2:
+  version "3.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-input-mask/-/react-input-mask-3.0.0-alpha.2.tgz#113102942a557edc7a192e66020b8ce1ba699a5c"
+  integrity sha512-9U7qL+mvDMOJcbOFPdt6Vj+zzmCMNnBjhhjGDrL8BGQmymgvMVKhu/oOVfAkl+5VWOsLr+G3EhZOmae5fBcAkA==
+  dependencies:
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+    warning "^4.0.3"
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -3695,6 +3711,13 @@ vaul@^0.9.0:
   integrity sha512-bZSySGbAHiTXmZychprnX/dE0EsSige88xtyyL3/MCRbrFotRPQZo7UdydGXZWw+CKbNOw5Ow8gwAo93/nB/Cg==
   dependencies:
     "@radix-ui/react-dialog" "^1.0.4"
+
+warning@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
+  integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
+  dependencies:
+    loose-envify "^1.0.0"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"

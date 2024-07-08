@@ -31,7 +31,7 @@ type ComboboxPropx = {
   errorLabel: string
   searchLabel: string
   onChange: (value: string) => void
-  value: string
+  value: number | string
 }
 
 export function Combobox({

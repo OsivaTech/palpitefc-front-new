@@ -46,6 +46,12 @@
       "dontHaveAccount": "Ainda não está cadastrado? ",
       "registerHere": "cadastre-se aqui!",
       "forgotPassword": "Esqueci minha senha!"
+    },
+    "register": {
+      "error": {
+        "document": "O CPF deve ter no mínimo 11 dígitos.",
+        "phoneNumber": "O número de telefone deve ter no mínimo 11 dígitos."
+      }
     }
   },
   "api-errors": {

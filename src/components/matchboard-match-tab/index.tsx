@@ -30,7 +30,7 @@ export const MatchTabContent = ({
 }: MatchTabContentProps) => {
   const { toast } = useToast()
   const t = useTranslations()
-
+  const [selectedFixture, setSelectedfixture] = useState<Fixture | null>(null)
   const [filter, setFilter] = useState({
     selectedLeague: '0',
     onlyGuesses: false,
@@ -119,7 +119,7 @@ export const MatchTabContent = ({
                 <CalendarDays size={16} />
                 {g[0].startDateFormated}
               </span>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-3 w-full">
                 {g?.map((fixture, index) => (
                   <>
                     <GuessCard
@@ -129,15 +129,17 @@ export const MatchTabContent = ({
                         leagues.filter((l) => l.id === fixture.leagueId)[0]
                       }
                       guess={guess?.find((g) => g.fixtureId === fixture.id)}
+                      setSelectedfixture={setSelectedfixture}
+                      selectedFixture={selectedFixture}
                     />
 
-                    {(index + 1) % 3 === 0 && (
+                    {(index + 1) % 5 === 0 && (
                       <>
                         <BannerFixed
                           key={`banner-${index}`}
                           item={
                             advertisament[
-                              Math.floor(index / 3) % advertisament.length
+                              Math.floor(index / 5) % advertisament.length
                             ]
                           }
                         />
