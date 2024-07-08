@@ -14,7 +14,7 @@ import { PointsResponse } from '@/types/api/responses/PointsResponse'
 type MyPointsPageProps = {
   leagues: League[]
   guess: GuessResponse | null
-  points: PointsResponse
+  points: PointsResponse | null
 }
 
 const MyPointsPage = ({ leagues, guess, points }: MyPointsPageProps) => {
