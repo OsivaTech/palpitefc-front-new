@@ -88,9 +88,9 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
 
   useEffect(() => {
     functionFilterPoints()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterLeague, filterMonths])
 
-  console.log('points', points)
   const renderHeaderMyPoints = () => {
     return (
       <>
