@@ -147,7 +147,7 @@ export const GuessCard = ({
                   <div className="w-5 h-5 relative flex justify-center items-center">
                     <Image fill src={league.image} alt="league shield" />
                   </div>
-                  <span className="text-white">{fixture.name}</span>
+                  <span className="text-white">{league.name}</span>
                 </div>
                 <span className="flex text-white w-full self-center justify-end">{`${day} ${dayOfWeekFormated} ${time}`}</span>
               </div>
