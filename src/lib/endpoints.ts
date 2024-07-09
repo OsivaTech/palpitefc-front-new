@@ -8,6 +8,7 @@ export const UpdateUser = `${apiBaseUrl}/users`
 export const FixturesEndpoint = `${apiBaseUrl}/fixtures`
 export const GuessEndpoint = `${apiBaseUrl}/guesses`
 export const MyGuessEndpoint = `${apiBaseUrl}/guesses/me`
+export const MyPointsEndpoint = `${apiBaseUrl}/points/me`
 export const LeaguesEndpoint = `${apiBaseUrl}/leagues`
 export const NewsEndpoint = `${apiBaseUrl}/news`
 export const TeamsEndpoint = `${apiBaseUrl}/teams`

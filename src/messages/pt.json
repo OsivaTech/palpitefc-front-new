@@ -19,6 +19,11 @@
       "error": "Não é possivel votar em jogos que já começaram",
       "gameAlreadyStarted": "Não é possivel votar em jogos que já comecaram"
     },
+    "mypoints": {
+      "league": "Campeonatos",
+      "month": "Meses",
+      "guess": "Seus Palpites"
+    },
     "forgotPasswordForm": {
       "title": "Esqueci minha senha",
       "submit": "Enviar código",
