@@ -23,6 +23,11 @@
       "league": "Campeonatos",
       "month": "Meses",
       "guess": "Seus Palpites"
+    },
+    "forgotPasswordForm": {
+      "title": "Esqueci minha senha",
+      "submit": "Enviar código",
+      "insertTheCode": "Insira o código"
     }
   },
   "common": {
@@ -41,7 +46,8 @@
     "invalidCredentials": "Usuário ou senha inválidos",
     "save": "Salvar",
     "register": "Cadastrar",
-    "removeMyAccount": "Deletar minha conta"
+    "removeMyAccount": "Deletar minha conta",
+    "email": "Email"
   },
   "pages": {
     "login": {
