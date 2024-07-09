@@ -17,3 +17,10 @@ export const RANKING_TYPE = {
   MONTH: 'Month',
   LEAGUE: 'League',
 }
+
+export const POINT_TYPE: { [key: string]: string } = {
+  ES: 'Placar exato',
+  GD: 'Diferença de gols',
+  MW: 'Vencedor da partida',
+  EB: 'Palpite antecipado',
+}

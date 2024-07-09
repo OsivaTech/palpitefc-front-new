@@ -38,7 +38,7 @@ export const ModalPageProfile = ({ user }: { user: User }) => {
 
         <li
           onClick={() => {
-            router.push(`${locale}/${APP_LINKS.MYPOINTS()}`)
+            router.push(`/${locale}/${APP_LINKS.MYPOINTS()}`)
             closePageModal()
           }}
           className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
