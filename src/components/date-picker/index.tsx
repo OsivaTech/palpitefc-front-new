@@ -16,9 +16,9 @@ import { cn } from '@/lib/utils'
 type DatePickerProps = {
   label: string
   selected: Date | null
-  onSelect: (date: Date) => void
+  onSelect: (date?: Date) => void
 }
-export function DatePicker({ label, selected }: DatePickerProps) {
+export function DatePicker({ label, selected, onSelect }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -42,6 +42,8 @@ export function DatePicker({ label, selected }: DatePickerProps) {
           fromYear={1960}
           toYear={new Date().getFullYear()}
           mode="single"
+          selected={selected || undefined}
+          onSelect={onSelect}
           captionLayout="dropdown-buttons"
         />
       </PopoverContent>

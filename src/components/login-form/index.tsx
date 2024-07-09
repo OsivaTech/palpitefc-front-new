@@ -14,22 +14,31 @@ import { useLocale, useTranslations } from 'next-intl'
 import { CustomInput } from '@/components/custom-input'
 import { CustomButton } from '@/components/custom-button'
 import { login } from '@/components/login-form/data'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import Link from 'next/link'
-import { useTransition } from 'react'
+import { useEffect, useTransition } from 'react'
 import { Separator } from '@radix-ui/react-separator'
 
 export const LoginForm = () => {
   const t = useTranslations()
   const router = useRouter()
   const { toast } = useToast()
-
   const [isPending, startTransition] = useTransition()
-
   const { registerUser } = useAuth()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get('reset')) {
+      toast({
+        title: 'Sucesso',
+        description: 'Senha resetada com sucesso',
+      })
+    }
+  }, [searchParams, toast])
+
   const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(2).max(50),
