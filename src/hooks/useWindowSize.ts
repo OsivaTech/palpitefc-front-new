@@ -1,29 +1,27 @@
-'use client'
+import { useEffect } from 'react'
 
-import { useState, useEffect } from 'react'
-
-const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
-  return windowSize
+const getMobileDetect = (userAgent: NavigatorID['userAgent']) => {
+  const isAndroid = () => Boolean(userAgent.match(/Android/i))
+  const isIos = () => Boolean(userAgent.match(/iPhone|iPad|iPod/i))
+  const isOpera = () => Boolean(userAgent.match(/Opera Mini/i))
+  const isWindows = () => Boolean(userAgent.match(/IEMobile/i))
+  const isSSR = () => Boolean(userAgent.match(/SSR/i))
+  const isMobile = () =>
+    Boolean(isAndroid() || isIos() || isOpera() || isWindows())
+  const isDesktop = () => Boolean(!isMobile() && !isSSR())
+  return {
+    isMobile,
+    isDesktop,
+    isAndroid,
+    isIos,
+    isSSR,
+  }
+}
+const useMobileDetect = () => {
+  useEffect(() => {}, [])
+  const userAgent =
+    typeof navigator === 'undefined' ? 'SSR' : navigator.userAgent
+  return getMobileDetect(userAgent)
 }
 
-export default useWindowSize
+export default useMobileDetect
