@@ -9,9 +9,11 @@ import { mothersMock } from '../../mocks/mothersMock'
 
 import Image from 'next/image'
 import { Point, Points } from '@/types/Points'
-import { formatarData, formatarDataDDMMYYY } from '@/utils/formatData'
+
 import { POINT_TYPE } from '@/constants'
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { formatDate } from '@/utils/formatDate'
 
 type MyPointsPageProps = {
   leagues: League[]
@@ -20,6 +22,7 @@ type MyPointsPageProps = {
 
 const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
   const { user } = useAuth()
+  const t = useTranslations()
 
   const [filterLeague, setFilterLeague] = useState({
     selectedLeague: '0',
@@ -35,7 +38,13 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
 
   const functionFilterPoints = () => {
     const filteredPoints =
-      points?.filter((point: Points) => point.points.length > 0) || []
+      points
+        ?.filter((point: Points) => point.points.length > 0)
+        .sort(
+          (a: Points, b: Points) =>
+            new Date(a.fixture.start).getTime() -
+            new Date(b.fixture.start).getTime(),
+        ) || []
 
     const leagueFilteredPoints = filterLeague.hasFilter
       ? filteredPoints.filter(
@@ -81,6 +90,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
     functionFilterPoints()
   }, [filterLeague, filterMonths])
 
+  console.log('points', points)
   const renderHeaderMyPoints = () => {
     return (
       <>
@@ -96,7 +106,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
         <div className="flex items-center gap-3 pb-2">
           <div className="min-w-[71px] mx-auto">
             <CustomSelect
-              title="Meses"
+              title={t('components.mypoints.month')}
               data={mothersMock.map((l) => ({
                 id: l.id.toString(),
                 name: l.name,
@@ -112,7 +122,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
           </div>
 
           <CustomSelect
-            title="Campeonatos"
+            title={t('components.mypoints.league')}
             data={leagues.map((l) => ({ id: l.id.toString(), name: l.name }))}
             onValueChange={(value: string, hasFilter) =>
               setFilterLeague((old) => ({
@@ -151,7 +161,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
               </div>
             </div>
             <div className="flex  items-center">
-              {formatarData(point.fixture.start)}
+              {formatDate(point.fixture.start, 'dd/MM EEEE HH:mm')}
             </div>
           </div>
 
@@ -200,8 +210,8 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
           </div>
 
           <div className="flex justify-center items-center">
-            <span className="text-sm text-center text-gray-400 w-full">
-              Seu palpite {point.guess.homeTeam.goals} X{' '}
+            <span className="text-sm text-center text-white/65 w-full">
+              {t('components.mypoints.guess')} {point.guess.homeTeam.goals} X{' '}
               {point.guess.awayTeam.goals}
             </span>
           </div>
@@ -210,14 +220,14 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
 
           {point.points.map((point: Point) => (
             <>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-white/65">
                 <span className="text-sm">{POINT_TYPE[point.type]}</span>
                 <span className="text-sm">+ {point.value}</span>
               </div>
             </>
           ))}
 
-          <div className="flex justify-between mt-2">
+          <div className="flex justify-between mt-2 text-white/65">
             <span className="text-sm">Total</span>
             <span className="text-sm">+ {totalValue}</span>
           </div>
@@ -234,14 +244,14 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
         <>
           <span className="text-sm flex items-center gap-2 font-medium mt-6">
             <CalendarDays size={16} />
-            {formatarDataDDMMYYY(date)}
+            {formatDate(date, 'dd/MM/yyyy')}
           </span>
 
           {pointsFilter
             ?.filter(
               (point: Points) =>
-                formatarDataDDMMYYY(point.fixture.start) ===
-                formatarDataDDMMYYY(date),
+                formatDate(point.fixture.start, 'dd/MM/yyyy') ===
+                formatDate(date, 'dd/MM/yyyy'),
             )
             .map((point: Points) => <>{renderContentCard(point)}</>)}
         </>
