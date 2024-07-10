@@ -28,7 +28,7 @@ export const Banner = ({ items }: CarrouselProps) => {
         {items ? (
           items.map((item, index) => (
             <CarouselItem key={index} className="max-h-[150px]">
-              <div className="p-none w-full flex justify-center items-center overflow-auto">
+              <div className="p-0 w-full flex justify-center items-center overflow-auto">
                 <Link href={item.urlGoTo}>
                   <Image
                     src={item.imageBanner}
