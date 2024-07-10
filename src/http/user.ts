@@ -1,7 +1,15 @@
 'use server'
 import { get, post } from '@/lib/api'
-import { RegisterEndpoint, SelfEndpoint, UpdateUser } from '@/lib/endpoints'
+import {
+  RegisterEndpoint,
+  ResetPassword,
+  SelfEndpoint,
+  SendForgotPasswordEmail,
+  UpdateUser,
+  VerifyResetCode,
+} from '@/lib/endpoints'
 import { User } from '@/types/User'
+import { ResetPasswordRequest } from '@/types/api/resquests/ResetPasswordRequest'
 import { SignupRequest } from '@/types/api/resquests/SignupRequest'
 
 export const getSelf = async () => {
@@ -42,6 +50,63 @@ export async function updateUser(user: Omit<SignupRequest, 'password'>) {
       false,
     )
     console.log(await response.json())
+    return true
+  } catch {
+    return false
+  }
+}
+
+export async function sendForgotPasswordEmail(email: string) {
+  try {
+    await post(
+      SendForgotPasswordEmail,
+      {
+        body: JSON.stringify({ email }),
+      },
+      true,
+    )
+    return true
+  } catch {
+    return false
+  }
+}
+
+export async function updatePassword({
+  code,
+  email,
+  password,
+}: ResetPasswordRequest) {
+  try {
+    await post(
+      ResetPassword,
+      {
+        body: JSON.stringify({
+          email,
+          password,
+          code,
+        }),
+      },
+      true,
+    )
+    return true
+  } catch {
+    return false
+  }
+}
+
+export async function verifyCode(email: string, code: string) {
+  try {
+    const res = await post(
+      VerifyResetCode,
+      {
+        body: JSON.stringify({
+          email,
+          code,
+        }),
+      },
+      true,
+    )
+    if (res.status !== 204) return false
     return true
   } catch {
     return false

@@ -147,7 +147,7 @@ export const GuessCard = ({
                   <div className="w-5 h-5 relative flex justify-center items-center">
                     <Image fill src={league.image} alt="league shield" />
                   </div>
-                  <span className="text-white">{fixture.name}</span>
+                  <span className="text-white">{league.name}</span>
                 </div>
                 <span className="flex text-white w-full self-center justify-end">{`${day} ${dayOfWeekFormated} ${time}`}</span>
               </div>
@@ -296,7 +296,7 @@ export const GuessCardContent = ({
         <span className="text-xs text-center w-full">{match.name}</span>
       </div>
       <Input
-        className="w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white/50 dark:text-white bg-app-background text-xl px-2 text-center "
+        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white/50 dark:text-white bg-app-background text-xl px-2 text-center "
         type="number"
         maxLength={2}
         placeholder="-"
