@@ -16,7 +16,6 @@ export const BannerFixed = ({ item }: CarrouselProps) => {
   return (
     <div className="w-full">
       <div>
-        {item?.id}
         <div className="max-h-[150px]">
           <div className="p-none w-full flex justify-center items-center overflow-auto">
             <Link href={item?.urlGoTo ?? ''}>
