@@ -5,6 +5,7 @@ import { APP_LINKS } from '@/constants'
 import useWindowSize from '@/hooks/useWindowSize'
 
 import { formatDate } from '@/utils/formatDate'
+import { Separator } from '@radix-ui/react-separator'
 import { useLocale } from 'next-intl'
 
 import Image from 'next/image'
@@ -45,13 +46,13 @@ export const NewsTabContent = ({ data }: NewsProps) => {
             alt=""
           />
 
-          <p className="text-white  text-sm max text-justify pt-2 ">
+          <p className="text-white font-medium text-sm max pt-2 ">
             {formatDate(n.createdAt, "dd 'de' MMMM 'de' yyyy")}
           </p>
-          <p className="text-white  text-lg  text-justify ">{n.title}</p>
-          <p className="text-white  text-sm  text-justify -mt-2 mb-2 ">
-            {n.subtitle}
-          </p>
+          <p className="text-white font-medium text-lg">{n.title}</p>
+          <p className="text-white font-normal text-sm  mb-2 ">{n.subtitle}</p>
+
+          <Separator className="my-6 border border-white/50" />
         </Link>
       ))}
     </TabsContent>

@@ -26,8 +26,10 @@ const NewsPage = ({ news }: { news: News | null }) => {
     <div>
       {news && (
         <div key={news.id} className="flex flex-col h-full">
-          <p className="text-white  text-2xl mb-1 ">{news.title}</p>
-          <p className="text-white  text-sm mb-2 ">{news.subtitle}</p>
+          <p className="text-white font-bold text-2xl mb-1 ">{news.title}</p>
+          <p className="text-white font-normal text-sm mb-2 ">
+            {news.subtitle}
+          </p>
 
           <Image
             src={news.thumbnail}
@@ -36,7 +38,9 @@ const NewsPage = ({ news }: { news: News | null }) => {
             alt=""
           />
 
-          <p className="text-white  text-lg  mb-2 ">{news.content}</p>
+          <p className="text-white font-normal  text-lg  mb-2 mt-2 ">
+            {news.content}
+          </p>
         </div>
       )}
     </div>
