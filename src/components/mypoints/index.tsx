@@ -10,10 +10,11 @@ import { mothersMock } from '../../mocks/mothersMock'
 import Image from 'next/image'
 import { Point, Points } from '@/types/Points'
 
-import { POINT_TYPE } from '@/constants'
+import { APP_LINKS, POINT_TYPE } from '@/constants'
 import { useEffect, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { formatDate } from '@/utils/formatDate'
+import { useRouter } from 'next/navigation'
 
 type MyPointsPageProps = {
   leagues: League[]
@@ -21,8 +22,10 @@ type MyPointsPageProps = {
 }
 
 const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
-  const { user } = useAuth()
+  const { user, isAuthenticated } = useAuth()
   const t = useTranslations()
+  const router = useRouter()
+  const locale = useLocale()
 
   const [filterLeague, setFilterLeague] = useState({
     selectedLeague: '0',
@@ -90,6 +93,12 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
     functionFilterPoints()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterLeague, filterMonths])
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
+    }
+  }, [isAuthenticated, locale, router])
 
   const renderHeaderMyPoints = () => {
     return (
