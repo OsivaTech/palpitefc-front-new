@@ -52,11 +52,11 @@ export const NewsTabContent = ({ data }: NewsProps) => {
           <p className="text-white font-medium text-lg leading-none mt-1">
             {n.title}
           </p>
-          <p className="text-white font-normal text-sm  mb-2 mt-2 leading-none">
+          <p className="text-white font-normal text-sm mt-2 leading-none">
             {n.subtitle}
           </p>
 
-          <Separator className="my-6 border border-white/50" />
+          <Separator className="my-4 border border-white/20" />
         </Link>
       ))}
     </TabsContent>
