@@ -49,8 +49,12 @@ export const NewsTabContent = ({ data }: NewsProps) => {
           <p className="text-white font-medium text-sm max pt-2 ">
             {formatDate(n.createdAt, "dd 'de' MMMM 'de' yyyy")}
           </p>
-          <p className="text-white font-medium text-lg">{n.title}</p>
-          <p className="text-white font-normal text-sm  mb-2 ">{n.subtitle}</p>
+          <p className="text-white font-medium text-lg leading-none mt-1">
+            {n.title}
+          </p>
+          <p className="text-white font-normal text-sm  mb-2 mt-2 leading-none">
+            {n.subtitle}
+          </p>
 
           <Separator className="my-6 border border-white/50" />
         </Link>

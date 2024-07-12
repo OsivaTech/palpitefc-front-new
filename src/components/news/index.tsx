@@ -26,8 +26,10 @@ const NewsPage = ({ news }: { news: News | null }) => {
     <div>
       {news && (
         <div key={news.id} className="flex flex-col h-full">
-          <p className="text-white font-bold text-2xl mb-1 ">{news.title}</p>
-          <p className="text-white font-normal text-sm mb-2 ">
+          <p className="text-white font-bold text-2xl mb-1 leading-none">
+            {news.title}
+          </p>
+          <p className="text-white font-normal text-sm mb-2 leading-none  ">
             {news.subtitle}
           </p>
 
