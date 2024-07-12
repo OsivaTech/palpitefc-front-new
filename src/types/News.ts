@@ -11,4 +11,6 @@ export interface News {
   content: string
   userId: number
   author: Author
+  createdAt: string
+  subtitle: string
 }

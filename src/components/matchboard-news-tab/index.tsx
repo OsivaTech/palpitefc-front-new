@@ -1,31 +1,59 @@
+'use client'
 import { NewsProps } from '@/components/matchboard-news-tab/type'
 import { TabsContent } from '@/components/ui/tabs'
+import { APP_LINKS } from '@/constants'
+import useWindowSize from '@/hooks/useWindowSize'
+
+import { formatDate } from '@/utils/formatDate'
+import { useLocale } from 'next-intl'
+
 import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export const NewsTabContent = ({ data }: NewsProps) => {
+  const [widthConditional, setWidthConditional] = useState(0)
+  const [heightConditional, setHeightConditional] = useState(0)
+  const { width } = useWindowSize()
+  const locale = useLocale()
+
+  useEffect(() => {
+    if (width > 800) {
+      setWidthConditional(800)
+      setHeightConditional((800 / 16) * 9)
+      return
+    }
+    setWidthConditional(width)
+    setHeightConditional((width / 16) * 9)
+  }, [width])
+
   return (
-    <TabsContent value="news" className=" h-full">
+    <TabsContent value="news" className=" h-full p-2">
       {/* CARD CONTAINER */}
-      <div className="flex flex-col gap-2 h-full overflow-scroll">
-        {/* NEWS CARD */}
-        {data?.map((n) => (
-          <div
-            key={n.id}
-            className="flex gap-2 h-[131px] px-3 py-2 bg-white justify-start items-start "
-          >
-            <Image
-              src={n.thumbnail}
-              width={120}
-              height={104}
-              alt=""
-              className="h-[104px] min-w-[120px] rounded-lg bg-slate-200"
-            />
-            <p className="text-black text-sm max text-justify h-[104px]  line-clamp-5">
-              {n.content}
-            </p>
-          </div>
-        ))}
-      </div>
+
+      {/* NEWS CARD */}
+      {data?.map((n) => (
+        <Link
+          key={n.id}
+          className="flex flex-col h-full"
+          href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}
+        >
+          <Image
+            src={n.thumbnail}
+            width={widthConditional}
+            height={heightConditional}
+            alt=""
+          />
+
+          <p className="text-white  text-sm max text-justify pt-2 ">
+            {formatDate(n.createdAt, "dd 'de' MMMM 'de' yyyy")}
+          </p>
+          <p className="text-white  text-lg  text-justify ">{n.title}</p>
+          <p className="text-white  text-sm  text-justify -mt-2 mb-2 ">
+            {n.subtitle}
+          </p>
+        </Link>
+      ))}
     </TabsContent>
   )
 }
