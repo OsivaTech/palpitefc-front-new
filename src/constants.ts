@@ -4,6 +4,7 @@ export const APP_LINKS = {
   SIGNUP: () => `/signup`,
   FORGOT: () => `/forgot`,
   MYPOINTS: () => `/mypoints`,
+  NEWS: () => `/news`,
 }
 
 export const ROLE = {

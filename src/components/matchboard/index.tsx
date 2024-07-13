@@ -48,6 +48,7 @@ export const MatchBoard = ({
             guess={guess as unknown as Guess[]}
             advertisament={advertisament as unknown as Advertisament[]}
           />
+
           <NewsTabContent data={news as unknown as News[]} />
           <RankTabContent
             data={rankings as RankingResponse[]}
