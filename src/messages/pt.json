@@ -28,6 +28,32 @@
       "title": "Esqueci minha senha",
       "submit": "Enviar código",
       "insertTheCode": "Insira o código"
+    },
+    "subscription": {
+      "title": "Assine Palpite VIP!",
+      "subtitle": "Benefícios da assinatura",
+      "list": {
+        "0": " Melhores premiações",
+        "1": "Edição de palpites",
+        "2": "Ranking exclusivo"
+      },
+      "subtitle2": "Apenas R$ 6,99!",
+      "form": {
+        "numberCart": "Número do cartão",
+        "expirationData": "Vencimento",
+        "securityCode": "Código de segurança",
+        "nameCard": "Nome no cartão",
+        "button": "Assinar"
+      }
+    },
+    "subscriptionInfo": {
+      "title": "Palpite VIP",
+      "button": "Não quero  mais ser VIP!"
+    },
+    "subscriptionCancel": {
+      "title": "Tem certeza que quer\ncancelar sua assinatura?",
+      "button1": "Sim, quero cancelar meus benefícios",
+      "button2": "Não, quero continuar com minhas vantagens"
     }
   },
   "common": {
