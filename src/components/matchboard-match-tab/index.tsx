@@ -12,17 +12,21 @@ import { Guess } from '@/types/Guess'
 import { CustomSelect } from '@/components/custom-select/custom-select'
 import { GuessCard } from '@/components/guess-card'
 import { FormatedFixture } from '@/components/matchboard-match-tab/types'
+import { Advertisament } from '@/types/Advertisament'
+import { BannerFixed } from '../bannerFixed'
 
 type MatchTabContentProps = {
   data: Fixture[] | null
   leagues: League[]
   guess: Guess[]
+  advertisament: Advertisament[]
 }
 
 export const MatchTabContent = ({
   data,
   leagues,
   guess,
+  advertisament,
 }: MatchTabContentProps) => {
   const { toast } = useToast()
   const t = useTranslations()
@@ -77,6 +81,9 @@ export const MatchTabContent = ({
 
   const groupByStartDate = groupBy('startDateFormated', filteredOption)
 
+  let globalIndex = 0
+  const BANNER_INTERVAL = 5
+
   return (
     // FILTER
     <div>
@@ -117,14 +124,29 @@ export const MatchTabContent = ({
               </span>
               <div className="grid grid-cols-1 md:grid-cols-1 gap-3 w-full">
                 {g?.map((fixture) => (
-                  <GuessCard
-                    key={fixture.id}
-                    fixture={fixture}
-                    league={leagues.filter((l) => l.id === fixture.leagueId)[0]}
-                    guess={guess?.find((g) => g.fixtureId === fixture.id)}
-                    setSelectedfixture={setSelectedfixture}
-                    selectedFixture={selectedFixture}
-                  />
+                  <>
+                    <GuessCard
+                      key={fixture.id}
+                      fixture={fixture}
+                      league={
+                        leagues.filter((l) => l.id === fixture.leagueId)[0]
+                      }
+                      guess={guess?.find((g) => g.fixtureId === fixture.id)}
+                      setSelectedfixture={setSelectedfixture}
+                      selectedFixture={selectedFixture}
+                    />
+                    {++globalIndex % BANNER_INTERVAL === 0 && ( // Passo 2 e 3: Incremente e verifique se deve mostrar o BannerFixed
+                      <BannerFixed
+                        key={`banner-${globalIndex}`}
+                        item={
+                          advertisament[
+                            Math.floor((globalIndex - 1) / BANNER_INTERVAL) %
+                              advertisament.length
+                          ]
+                        }
+                      />
+                    )}
+                  </>
                 ))}
               </div>
             </React.Fragment>

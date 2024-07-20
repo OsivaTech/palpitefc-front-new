@@ -10,6 +10,7 @@ import { News } from '@/types/News'
 import { MatchTabContent } from '@/components/matchboard-match-tab'
 import { NewsTabContent } from '@/components/matchboard-news-tab'
 import { RankTabContent } from '@/components/matchboard-rank-tab'
+import { Advertisament } from '@/types/Advertisament'
 
 type MatchBoardProps = {
   fixtures: FixtureResponse | null
@@ -17,6 +18,7 @@ type MatchBoardProps = {
   guess: GuessResponse | null
   news: NewsResponse | null
   rankings: RankingResponse[] | null
+  advertisament: Advertisament[] | null
 }
 export const MatchBoard = ({
   fixtures,
@@ -24,6 +26,7 @@ export const MatchBoard = ({
   guess,
   news,
   rankings,
+  advertisament,
 }: MatchBoardProps) => {
   const t = useTranslations('components.matchboard-tab')
 
@@ -43,7 +46,9 @@ export const MatchBoard = ({
             data={fixtures}
             leagues={leagues}
             guess={guess as unknown as Guess[]}
+            advertisament={advertisament as unknown as Advertisament[]}
           />
+
           <NewsTabContent data={news as unknown as News[]} />
           <RankTabContent
             data={rankings as RankingResponse[]}

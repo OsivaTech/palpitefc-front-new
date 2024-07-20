@@ -29,6 +29,8 @@ export const BottonMenu = () => {
     router.push(`${locale}/profile`)
   }
 
+  const doNothing = () => {}
+
   return (
     <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
       <BottomMenuItem
@@ -55,7 +57,7 @@ export const BottonMenu = () => {
           />
         }
         label="Premios e Regras"
-        onClick={openPageModal}
+        onClick={doNothing}
       />
       <BottomMenuItem
         icon={

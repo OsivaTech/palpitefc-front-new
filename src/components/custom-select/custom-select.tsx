@@ -22,7 +22,7 @@ type DataProps = {
 export interface CustomSelect {
   title: string
   data: DataProps[]
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: string, hasFilter: boolean) => void
 }
 
 export const CustomSelect = ({ title, data, onValueChange }: CustomSelect) => {
@@ -32,11 +32,11 @@ export const CustomSelect = ({ title, data, onValueChange }: CustomSelect) => {
   const onSelect = (id: string) => {
     setOpen(false)
     setSelectedItem(data.filter((f) => f.id === id)[0])
-    onValueChange && onValueChange(id)
+    onValueChange && onValueChange(id, true)
   }
 
   const onClear = () => {
-    onValueChange && onValueChange('0')
+    onValueChange && onValueChange('0', false)
     setSelectedItem(null)
   }
 

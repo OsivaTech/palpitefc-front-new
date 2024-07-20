@@ -8,6 +8,11 @@ const nextConfig = {
         remotePatterns: [
           {
             protocol: 'https',
+            hostname: 'assets.palpitefutebolclube.com',
+            port: '',
+          },
+          {
+            protocol: 'https',
             hostname: 'palpitefutebolclube.com',
             port: '',
           },
