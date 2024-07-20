@@ -39,7 +39,7 @@ export function DatePicker({ label, selected, onSelect }: DatePickerProps) {
       <PopoverContent className="w-auto p-0">
         <Calendar
           className="bg-transparent"
-          fromYear={1960}
+          fromYear={1900}
           toYear={new Date().getFullYear()}
           mode="single"
           selected={selected || undefined}

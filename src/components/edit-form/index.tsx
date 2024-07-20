@@ -35,13 +35,13 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
     phoneNumber: z.string().min(2).max(50),
     birthday: z.date().transform((value) => new Date(value)),
     gender: z.enum(['M', 'F', 'O', '']),
-    street: z.string().min(2).max(50),
-    number: z.string(),
-    complement: z.string().max(50),
-    city: z.string().min(2).max(50),
-    postalCode: z.string().min(2).max(50),
+    // street: z.string().min(2).max(50),
+    // number: z.string(),
+    // complement: z.string().max(50),
+    // city: z.string().min(2).max(50),
+    // postalCode: z.string().min(2).max(50),
   })
-
+  console.log(user)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,11 +53,11 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
       phoneNumber: user?.phoneNumber || '',
       birthday: user?.birthday ? new Date(user?.birthday) : undefined,
       gender: user?.gender || '',
-      street: user?.address?.street || '',
-      number: user?.address?.number || '',
-      complement: user?.address?.complement || '',
-      city: user?.address?.city || '',
-      postalCode: user?.address?.postalCode || '',
+      // street: user?.address?.street || '',
+      // number: user?.address?.number || '',
+      // complement: user?.address?.complement || '',
+      // city: user?.address?.city || '',
+      // postalCode: user?.address?.postalCode || '',
     },
   })
 
@@ -71,22 +71,22 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
       info: values.info || '',
       phoneNumber: values.phoneNumber,
       birthday: format(new Date(values.birthday), 'y-MM-dd'),
-      address: {
-        street: values.street || '',
-        number: values.number || '',
-        complement: values.complement || '',
-        neighborhood: '',
-        city: values.city || '',
-        state: '',
-        country: '',
-        postalCode: values.postalCode || '',
-      },
+      // address: {
+      //   street: values.street || '',
+      //   number: values.number || '',
+      //   complement: values.complement || '',
+      //   neighborhood: '',
+      //   city: values.city || '',
+      //   state: '',
+      //   country: '',
+      //   postalCode: values.postalCode || '',
+      // },
     }
-    console.log(user)
     if (await updateUser(user)) {
       console.log('sucesso')
+    } else {
+      console.log('erro')
     }
-    console.log('erro')
   }
 
   return (
@@ -225,7 +225,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
                 <FormControl>
                   <Combobox
                     onChange={field.onChange}
-                    value={field.value?.toString() || ''}
+                    value={field.value!}
                     data={teams.map((t) => ({
                       label: t.name,
                       value: t.id,
@@ -240,7 +240,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
               </FormItem>
             )}
           />
-          <h4 className="font-medium text-xs">{t('common.address')}</h4>
+          {/* <h4 className="font-medium text-xs">{t('common.address')}</h4>
           <FormField
             control={form.control}
             name="street"
@@ -306,7 +306,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <Button className="w-[86px] self-center mb-4" type="submit">
             {t('common.save')}
@@ -314,7 +314,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
         </form>
       </Form>
       <Separator className="mb-4 border border-white/50" />
-      <Button variant="outline" className="mb-6">
+      <Button variant="outline" className="mb-6" disabled>
         {t('common.removeMyAccount')}
       </Button>
     </div>

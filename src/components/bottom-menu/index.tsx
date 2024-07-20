@@ -34,6 +34,7 @@ export const BottonMenu = () => {
   return (
     <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
       <BottomMenuItem
+        disabled
         icon={
           <Image
             className="self-center"
@@ -47,6 +48,7 @@ export const BottonMenu = () => {
         onClick={handleOpenQuiz}
       />
       <BottomMenuItem
+        disabled
         icon={
           <Image
             className="self-center"
@@ -80,17 +82,21 @@ type BottomMenuItemProps = {
   icon: ReactNode
   label: string
   onClick: () => void
+  disabled?: boolean
 }
+
 export const BottomMenuItem = ({
   icon,
   label,
   onClick,
+  disabled = false,
 }: BottomMenuItemProps) => {
   return (
     <Button
       className="rounded-nonde w-full h-full"
       variant="ghost"
       onClick={onClick}
+      disabled={disabled}
     >
       <div className="flex flex-col justify-center items-ceter w-full">
         {icon}
