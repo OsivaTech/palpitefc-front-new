@@ -1,7 +1,7 @@
 'use client'
 
 import { Separator } from '@radix-ui/react-separator'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import {
   Form,
@@ -17,27 +17,98 @@ import { CustomInput } from '../custom-input'
 import { CustomButton } from '../custom-button'
 import { useTransition } from 'react'
 import Image from 'next/image'
+import { encryptCard, usePagSeguro } from 'pagseguro-encryptcard-reactjs'
+import { env } from '@/env'
+import { makeSubscription } from '@/http/subscription'
+import { Subscription as SubscriptionType } from '@/types/Subscription'
+import { APP_LINKS } from '@/constants'
+import { useRouter } from 'next/navigation'
+import { useToast } from '../ui/use-toast'
+import { onlyNumber } from '@/utils/mask'
 
+type CardProps = {
+  numberCart: string
+  expirationData: string
+  securityCode: string
+  nameCard: string
+}
 const Subscription = () => {
   const [isPending, startTransition] = useTransition()
+  const locale = useLocale()
+
+  const publicKey = env.NEXT_PUBLIC_KEY_CARD_PAGSEGURO
+
   const t = useTranslations()
+  const router = useRouter()
+  const { toast } = useToast()
 
   const formSchema = z.object({
-    numberCart: z.number(),
+    numberCart: z
+      .string()
+      .transform(onlyNumber)
+      .refine((val) => val.length < 16, {
+        message: t('common.invalidCard'),
+      }),
+
     expirationData: z.string(),
-    securityCode: z.number(),
+    securityCode: z.string(),
     nameCard: z.string(),
   })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      numberCart: '',
+      expirationData: '',
+      securityCode: '',
+      nameCard: '',
+    },
   })
 
-  const onSubmit = () => {
+  const functionEncryCard = async (values: CardProps) => {
+    const [month, year] = values.expirationData.split('/')
+
+    if (pagseguro) {
+      const card = {
+        publicKey,
+        holder: values.nameCard,
+        number: values.numberCart,
+        expMonth: month,
+        expYear: year,
+        securityCode: values.securityCode,
+      }
+
+      const result = await encryptCard(pagseguro, card)
+      return result
+    }
+  }
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      console.log('oi')
+      try {
+        const result = await functionEncryCard(values)
+
+        const body = {
+          card: {
+            encrypted: result?.encryptedCard,
+            securityCode: values.securityCode,
+          },
+        } as SubscriptionType
+
+        await makeSubscription(body)
+
+        router.push(`/${locale}/${APP_LINKS.SIGNUP()}`)
+      } catch (error) {
+        console.log('error', error)
+        toast({
+          title: 'Erro',
+          description: t('common.invalidCredentials'),
+          variant: 'destructive',
+        })
+      }
     })
   }
+
+  const pagseguro = usePagSeguro()
 
   return (
     <div className="max-w-[500px] mx-auto pt-10 px-3 bg-app-secondary">

@@ -73,7 +73,8 @@
     "save": "Salvar",
     "register": "Cadastrar",
     "removeMyAccount": "Deletar minha conta",
-    "email": "Email"
+    "email": "Email",
+    "invalidCard": "O número do cartão deve ter pelo menos 16 dígitos."
   },
   "pages": {
     "login": {

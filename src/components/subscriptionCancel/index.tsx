@@ -4,6 +4,7 @@ import { Separator } from '@radix-ui/react-separator'
 import { useTranslations } from 'next-intl'
 
 import { CustomButton } from '../custom-button'
+import { deleteSubscription } from '@/http/subscription'
 
 const SubscriptionCancel = () => {
   const t = useTranslations()
@@ -18,6 +19,9 @@ const SubscriptionCancel = () => {
       <div className="flex items-center justify-center w-full ">
         <CustomButton
           type="submit"
+          onClick={async () => {
+            await deleteSubscription()
+          }}
           className="w-[282px]  mb-5 text-[#A90000] border-[#A90000] bg-transparent hover:bg-secondary/80"
         >
           {t('components.subscriptionCancel.button1')}
