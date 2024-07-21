@@ -57,7 +57,7 @@ export const CustomSelect = ({ title, data, onValueChange }: CustomSelect) => {
           >
             {selectedItem && selectedItem.name !== null
               ? selectedItem.name
-              : title ?? 'Selecione um item'}
+              : `${title}`}
             <ChevronDown size={16} />
           </Button>
         </SheetTrigger>

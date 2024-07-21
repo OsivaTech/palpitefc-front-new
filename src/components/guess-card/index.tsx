@@ -81,29 +81,35 @@ export const GuessCard = ({
       return
     }
     try {
-      const response = await makeAGuess({
-        fixtureId: fixture.id,
-        homeTeam: {
-          id: fixture.homeTeam.id,
-          goals: parseInt(guessForm.homeTeam),
-        },
-        awayTeam: {
-          id: fixture.awayTeam.id,
-          goals: parseInt(guessForm.awayTeam),
-        },
-      })
-
-      startTransition(() => {
-        router.refresh()
-      })
-
-      if (!response) {
-        toast({
-          title: t('common.error'),
-          description: t('common.genericErrorMessage'),
-          variant: 'destructive',
+      startTransition(async () => {
+        const response = await makeAGuess({
+          fixtureId: fixture.id,
+          homeTeam: {
+            id: fixture.homeTeam.id,
+            goals: parseInt(guessForm.homeTeam),
+          },
+          awayTeam: {
+            id: fixture.awayTeam.id,
+            goals: parseInt(guessForm.awayTeam),
+          },
         })
-      }
+
+        router.refresh()
+
+        if (!response) {
+          toast({
+            title: t('common.error'),
+            description: t('common.genericErrorMessage'),
+            variant: 'destructive',
+          })
+        } else {
+          toast({
+            title: 'Sucesso',
+            description: 'Palpite enviado com sucesso',
+            variant: 'default',
+          })
+        }
+      })
     } catch {
       toast({
         title: t('common.error'),

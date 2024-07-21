@@ -17,7 +17,7 @@ export const QuizGroup = () => {
   }, [isAuthenticated])
 
   return (
-    <div className="flex flex-col gap-2 w-full h-[600px] overflow-auto  ">
+    <div className=" space-y-2">
       {quiz?.map((q) => <QuizCard key={q.id} data={q} />)}
     </div>
   )

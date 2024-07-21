@@ -5,7 +5,7 @@ import { APP_LINKS } from '@/constants'
 import { usePageModal } from '@/context/usePageModal'
 import { logout } from '@/lib/session'
 import { User } from '@/types/User'
-import { LockKeyhole, LogOut, UserRound, Handshake } from 'lucide-react'
+import { LogOut, UserRound, Handshake } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 
@@ -19,22 +19,22 @@ export const ModalPageProfile = ({ user }: { user: User }) => {
     closePageModal()
   }
 
-  const handleChangeEmailAndPassword = () => {
-    // render(<ChangePasswordForm />)
-  }
+  // const handleChangeEmailAndPassword = () => {
+  //   // render(<ChangePasswordForm />)
+  // }
 
   return (
     <>
       <ModalPageHeader user={user} />
       <Separator className="my-6 border border-white/50" />
       <ol className="flex flex-col gap-3">
-        <li
+        {/* <li
           onClick={handleChangeEmailAndPassword}
           className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
         >
           <LockKeyhole size={20} />
           Alterar senha ou e-mail
-        </li>
+        </li> */}
 
         <li
           onClick={() => {

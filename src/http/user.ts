@@ -1,5 +1,5 @@
 'use server'
-import { get, post } from '@/lib/api'
+import { get, post, put } from '@/lib/api'
 import {
   RegisterEndpoint,
   ResetPassword,
@@ -41,17 +41,17 @@ export async function createUser(user: SignupRequest) {
 
 export async function updateUser(user: Omit<SignupRequest, 'password'>) {
   try {
-    const response = await post(
+    const response = await put(
       UpdateUser,
       {
-        method: 'POST',
         body: JSON.stringify(user),
       },
-      false,
+      true,
     )
-    console.log(await response.json())
+    console.log(response)
     return true
-  } catch {
+  } catch (error) {
+    console.log(error)
     return false
   }
 }

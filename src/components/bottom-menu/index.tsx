@@ -47,6 +47,7 @@ export const BottonMenu = () => {
         onClick={handleOpenQuiz}
       />
       <BottomMenuItem
+        disabled
         icon={
           <Image
             className="self-center"
@@ -80,17 +81,21 @@ type BottomMenuItemProps = {
   icon: ReactNode
   label: string
   onClick: () => void
+  disabled?: boolean
 }
+
 export const BottomMenuItem = ({
   icon,
   label,
   onClick,
+  disabled = false,
 }: BottomMenuItemProps) => {
   return (
     <Button
       className="rounded-nonde w-full h-full"
       variant="ghost"
       onClick={onClick}
+      disabled={disabled}
     >
       <div className="flex flex-col justify-center items-ceter w-full">
         {icon}
