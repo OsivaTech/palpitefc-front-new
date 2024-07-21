@@ -14,7 +14,7 @@ export default async function Profile() {
   }
 
   return (
-    <div className="mx-auto max-w-[1600px] h-full">
+    <div className="mx-auto bg-app-secondary w-full h-full">
       <EditForm teams={teams} user={user} />
     </div>
   )

@@ -22,9 +22,15 @@ import { User } from '@/types/User'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@radix-ui/react-select'
 import { updateUser } from '@/http/user'
+import { useTransition } from 'react'
+import { useToast } from '@/components/ui/use-toast'
+import { useAuth } from '@/context/useAuth'
 
 export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
   const t = useTranslations()
+  const [isPending, startTransition] = useTransition()
+  const { toast } = useToast()
+  const { forceReload } = useAuth()
 
   const formSchema = z.object({
     email: z.string().email(),
@@ -41,7 +47,6 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
     // city: z.string().min(2).max(50),
     // postalCode: z.string().min(2).max(50),
   })
-  console.log(user)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,31 +67,42 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const user: Omit<SignupRequest, 'password'> = {
-      name: values.name,
-      email: values.email,
-      document: values.document,
-      teamId: values?.team || 0,
-      gender: values?.gender,
-      info: values.info || '',
-      phoneNumber: values.phoneNumber,
-      birthday: format(new Date(values.birthday), 'y-MM-dd'),
-      // address: {
-      //   street: values.street || '',
-      //   number: values.number || '',
-      //   complement: values.complement || '',
-      //   neighborhood: '',
-      //   city: values.city || '',
-      //   state: '',
-      //   country: '',
-      //   postalCode: values.postalCode || '',
-      // },
-    }
-    if (await updateUser(user)) {
-      console.log('sucesso')
-    } else {
-      console.log('erro')
-    }
+    startTransition(async () => {
+      const user: Omit<SignupRequest, 'password'> = {
+        name: values.name,
+        email: values.email,
+        document: values.document,
+        teamId: values?.team || 0,
+        gender: values?.gender,
+        info: values.info || '',
+        phoneNumber: values.phoneNumber,
+        birthday: format(new Date(values.birthday), 'y-MM-dd'),
+        // address: {
+        //   street: values.street || '',
+        //   number: values.number || '',
+        //   complement: values.complement || '',
+        //   neighborhood: '',
+        //   city: values.city || '',
+        //   state: '',
+        //   country: '',
+        //   postalCode: values.postalCode || '',
+        // },
+      }
+      if (await updateUser(user)) {
+        forceReload()
+        toast({
+          title: t('Sucesso'),
+          description: t('Usuário atualizado com sucesso'),
+          variant: 'default',
+        })
+      } else {
+        toast({
+          title: t('common.error'),
+          description: t('Não foi possível atualizar o usuário'),
+          variant: 'destructive',
+        })
+      }
+    })
   }
 
   return (
@@ -308,7 +324,12 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             )}
           /> */}
 
-          <Button className="w-[86px] self-center mb-4" type="submit">
+          <Button
+            className="w-[86px] self-center mb-4"
+            type="submit"
+            disabled={isPending}
+            isLoading={isPending}
+          >
             {t('common.save')}
           </Button>
         </form>

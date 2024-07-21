@@ -15,11 +15,13 @@ export const AuthContext = createContext<{
   user: User | null
   isAuthenticated: boolean
   registerUser: (user: User) => void
+  forceReload: () => void
 }>(
   {} as {
     user: User | null
     isAuthenticated: boolean
     registerUser: (user: User) => void
+    forceReload: () => void
   },
 )
 
@@ -35,6 +37,10 @@ export const AuthProvider = ({
     return !!token
   })
   const cookies = useCookies()
+
+  const forceReload = async () => {
+    setUser(await getSelf())
+  }
 
   useEffect(() => {
     const loadUser = async () => setUser(await getSelf())
@@ -53,7 +59,9 @@ export const AuthProvider = ({
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, registerUser, user }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, registerUser, user, forceReload }}
+    >
       {children}
     </AuthContext.Provider>
   )
