@@ -1,14 +1,18 @@
 'use client'
 
 import { Separator } from '@radix-ui/react-separator'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { CustomInput } from '../custom-input'
 import { CustomButton } from '../custom-button'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { APP_LINKS } from '@/constants'
 
 const SubscriptionInfo = () => {
   const t = useTranslations()
+  const router = useRouter()
+  const locale = useLocale()
 
   const icon = () => {
     return (
@@ -38,6 +42,9 @@ const SubscriptionInfo = () => {
         <CustomButton
           type="submit"
           className="w-[247px] text-[#A90000] border-[#A90000] bg-transparent hover:bg-secondary/80"
+          onClick={() =>
+            router.push(`/${locale}/${APP_LINKS.SUBSCRIPTIONCANCEL()}`)
+          }
         >
           {t('components.subscriptionInfo.button')}
         </CustomButton>

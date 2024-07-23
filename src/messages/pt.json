@@ -74,7 +74,13 @@
     "register": "Cadastrar",
     "removeMyAccount": "Deletar minha conta",
     "email": "Email",
-    "invalidCard": "O número do cartão deve ter pelo menos 16 dígitos."
+    "invalidCard": "O número do cartão deve conter 16 dígitos.",
+    "successSubscription": "Assinatura efetuada com Sucesso.",
+    "invalidExpirationData": "Deve conter mes/ano, ex: 01/2020",
+    "invalidSecurityCode": "Minimo de 1 Caractere",
+    "invalidNameCard": "Minimo de 1 Caractere",
+    "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
+    "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente"
   },
   "pages": {
     "login": {

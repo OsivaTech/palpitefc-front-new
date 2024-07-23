@@ -1,13 +1,37 @@
 'use client'
 
 import { Separator } from '@radix-ui/react-separator'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { CustomButton } from '../custom-button'
 import { deleteSubscription } from '@/http/subscription'
+import { useRouter } from 'next/navigation'
+import { APP_LINKS } from '@/constants'
+import { toast } from '../ui/use-toast'
 
 const SubscriptionCancel = () => {
   const t = useTranslations()
+  const router = useRouter()
+  const locale = useLocale()
+
+  const handleCancel = async () => {
+    try {
+      await deleteSubscription()
+
+      toast({
+        title: 'Sucesso',
+        description: t('common.successSubscriptionCancel'),
+        variant: 'default',
+      })
+      router.push(`/${locale}/${APP_LINKS.HOMEPAGE()}`)
+    } catch {
+      toast({
+        title: 'Erro',
+        description: t('common.subscriptionCancelError'),
+        variant: 'destructive',
+      })
+    }
+  }
 
   return (
     <div className="max-w-[500px] mx-auto pt-10 px-3 bg-app-secondary h-full">
@@ -19,9 +43,7 @@ const SubscriptionCancel = () => {
       <div className="flex items-center justify-center w-full ">
         <CustomButton
           type="submit"
-          onClick={async () => {
-            await deleteSubscription()
-          }}
+          onClick={handleCancel}
           className="w-[282px]  mb-5 text-[#A90000] border-[#A90000] bg-transparent hover:bg-secondary/80"
         >
           {t('components.subscriptionCancel.button1')}
@@ -31,6 +53,9 @@ const SubscriptionCancel = () => {
         <CustomButton
           type="submit"
           className="w-[282px] bg-app-secondary hover:bg-secondary/80"
+          onClick={() => {
+            router.push(`/${locale}/${APP_LINKS.SUBSCRIPTION()}`)
+          }}
         >
           {t('components.subscriptionCancel.button2')}
         </CustomButton>

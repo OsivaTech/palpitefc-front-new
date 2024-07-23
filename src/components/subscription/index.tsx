@@ -1,7 +1,7 @@
 'use client'
 
 import { Separator } from '@radix-ui/react-separator'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 import {
   Form,
@@ -19,12 +19,14 @@ import { useTransition } from 'react'
 import Image from 'next/image'
 import { encryptCard, usePagSeguro } from 'pagseguro-encryptcard-reactjs'
 import { env } from '@/env'
-import { makeSubscription } from '@/http/subscription'
+
 import { Subscription as SubscriptionType } from '@/types/Subscription'
-import { APP_LINKS } from '@/constants'
+
 import { useRouter } from 'next/navigation'
 import { useToast } from '../ui/use-toast'
 import { onlyNumber } from '@/utils/mask'
+import { makeSubscription } from '@/http/subscription'
+import { removeCharacters } from '@/utils/removeCharacters'
 
 type CardProps = {
   numberCart: string
@@ -34,7 +36,6 @@ type CardProps = {
 }
 const Subscription = () => {
   const [isPending, startTransition] = useTransition()
-  const locale = useLocale()
 
   const publicKey = env.NEXT_PUBLIC_KEY_CARD_PAGSEGURO
 
@@ -46,13 +47,23 @@ const Subscription = () => {
     numberCart: z
       .string()
       .transform(onlyNumber)
-      .refine((val) => val.length < 16, {
+      .refine((val) => val.length > 12, {
         message: t('common.invalidCard'),
       }),
 
-    expirationData: z.string(),
-    securityCode: z.string(),
-    nameCard: z.string(),
+    expirationData: z
+      .string()
+      .transform((str) => removeCharacters(str, ['_', '/']))
+      .refine((val) => val.length === 6, {
+        message: t('common.invalidExpirationData'),
+      }),
+
+    securityCode: z.string().min(1, {
+      message: t('common.invalidSecurityCode'),
+    }),
+    nameCard: z.string().min(1, {
+      message: t('common.invalidNameCard'),
+    }),
   })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -96,9 +107,14 @@ const Subscription = () => {
 
         await makeSubscription(body)
 
-        router.push(`/${locale}/${APP_LINKS.SIGNUP()}`)
+        toast({
+          title: 'Sucesso',
+          description: t('common.successSubscription'),
+          variant: 'default',
+        })
+
+        router.refresh()
       } catch (error) {
-        console.log('error', error)
         toast({
           title: 'Erro',
           description: t('common.invalidCredentials'),
@@ -145,6 +161,7 @@ const Subscription = () => {
                 <FormControl>
                   <CustomInput
                     type="text"
+                    mask="9999 9999 9999 9999"
                     placeholder={t('components.subscription.form.numberCart')}
                     {...field}
                   />
@@ -163,6 +180,7 @@ const Subscription = () => {
                     <FormControl>
                       <CustomInput
                         type="text"
+                        mask="99/9999"
                         placeholder={t(
                           'components.subscription.form.expirationData',
                         )}

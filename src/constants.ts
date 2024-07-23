@@ -6,6 +6,7 @@ export const APP_LINKS = {
   MYPOINTS: () => `/mypoints`,
   NEWS: () => `/news`,
   SUBSCRIPTION: () => `/subscription`,
+  SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
 }
 
 export const ROLE = {
