@@ -81,7 +81,8 @@ const Subscription = () => {
   })
 
   const functionEncryCard = async (values: CardProps) => {
-    const [month, year] = values.expirationData.split('/')
+    const month = values.expirationData.substring(0, 2)
+    const year = values.expirationData.substring(2, 6)
 
     if (pagseguro) {
       const card = {
@@ -92,7 +93,6 @@ const Subscription = () => {
         expYear: year,
         securityCode: values.securityCode,
       }
-
       const result = await encryptCard(pagseguro, card)
       return result
     }
