@@ -8,11 +8,14 @@ import { deleteSubscription } from '@/http/subscription'
 import { useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
 import { toast } from '../ui/use-toast'
+import { useEffect } from 'react'
+import { useAuth } from '@/context/useAuth'
 
 const SubscriptionCancel = () => {
   const t = useTranslations()
   const router = useRouter()
   const locale = useLocale()
+  const { isAuthenticated } = useAuth()
 
   const handleCancel = async () => {
     try {
@@ -32,6 +35,12 @@ const SubscriptionCancel = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
+    }
+  }, [isAuthenticated, locale, router])
 
   return (
     <div className="max-w-[500px] mx-auto pt-10 px-3 bg-app-secondary h-full">

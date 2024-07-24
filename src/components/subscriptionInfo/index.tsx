@@ -8,11 +8,20 @@ import { CustomButton } from '../custom-button'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
+import { useEffect } from 'react'
+import { useAuth } from '@/context/useAuth'
 
 const SubscriptionInfo = () => {
   const t = useTranslations()
   const router = useRouter()
   const locale = useLocale()
+  const { isAuthenticated } = useAuth()
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
+    }
+  }, [isAuthenticated, locale, router])
 
   const icon = () => {
     return (

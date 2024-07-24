@@ -6,20 +6,18 @@ import { SubscriptionResponse } from '@/types/api/responses/SubscriptionReponse'
 import { SubscriptionRequest } from '@/types/api/resquests/SubscriptionRequest'
 
 export async function getSubscription() {
-  try {
-    const response = await get(
-      Subscription,
-      {
-        cache: 'no-cache',
-      },
-      true,
-    )
-    const mySubscription: SubscriptionResponse = await response?.json()
-
-    return mySubscription
-  } catch (error) {
-    return null
+  const response = await get(
+    Subscription,
+    {
+      cache: 'no-cache',
+    },
+    true,
+  )
+  if (response.status !== 200) {
+    return false
   }
+  const mySubscription: SubscriptionResponse = await response?.json()
+  return mySubscription
 }
 
 export async function makeSubscription(subscription: SubscriptionRequest) {

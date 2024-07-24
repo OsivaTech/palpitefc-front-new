@@ -1,7 +1,7 @@
 'use client'
 
 import { Separator } from '@radix-ui/react-separator'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import {
   Form,
@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { CustomInput } from '../custom-input'
 import { CustomButton } from '../custom-button'
-import { useTransition } from 'react'
+import { useEffect, useTransition } from 'react'
 import Image from 'next/image'
 import { encryptCard, usePagSeguro } from 'pagseguro-encryptcard-reactjs'
 import { env } from '@/env'
@@ -27,6 +27,8 @@ import { useToast } from '../ui/use-toast'
 import { onlyNumber } from '@/utils/mask'
 import { makeSubscription } from '@/http/subscription'
 import { removeCharacters } from '@/utils/removeCharacters'
+import { useAuth } from '@/context/useAuth'
+import { APP_LINKS } from '@/constants'
 
 type CardProps = {
   numberCart: string
@@ -41,6 +43,9 @@ const Subscription = () => {
 
   const t = useTranslations()
   const router = useRouter()
+  const { isAuthenticated } = useAuth()
+  const locale = useLocale()
+
   const { toast } = useToast()
 
   const formSchema = z.object({
@@ -92,6 +97,12 @@ const Subscription = () => {
       return result
     }
   }
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
+    }
+  }, [isAuthenticated, locale, router])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
