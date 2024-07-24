@@ -11,7 +11,19 @@ import { APP_LINKS } from '@/constants'
 import { useEffect } from 'react'
 import { useAuth } from '@/context/useAuth'
 
-const SubscriptionInfo = () => {
+type SubscriptionInfoProps = {
+  referenceId: string
+  cardBrand: string
+  lastDigits: string
+  nextInvoice: string
+  status: string
+}
+
+const SubscriptionInfo = ({
+  infoCard,
+}: {
+  infoCard: SubscriptionInfoProps
+}) => {
   const t = useTranslations()
   const router = useRouter()
   const locale = useLocale()
@@ -45,7 +57,7 @@ const SubscriptionInfo = () => {
       <CustomInput
         icon={icon()}
         className="mb-4 rounded-md"
-        value={'**** **** **** 54545'}
+        value={`**** **** **** ${infoCard.lastDigits}`}
       />
       <div className="flex items-center justify-center w-full ">
         <CustomButton

@@ -8,7 +8,7 @@ import { deleteSubscription } from '@/http/subscription'
 import { useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
 import { toast } from '../ui/use-toast'
-import { useEffect } from 'react'
+import { useEffect, useTransition } from 'react'
 import { useAuth } from '@/context/useAuth'
 
 const SubscriptionCancel = () => {
@@ -16,24 +16,29 @@ const SubscriptionCancel = () => {
   const router = useRouter()
   const locale = useLocale()
   const { isAuthenticated } = useAuth()
+  const [isPending, startTransition] = useTransition()
 
   const handleCancel = async () => {
-    const result = await deleteSubscription()
+    startTransition(async () => {
+      const result = await deleteSubscription()
 
-    if (!result) {
+      if (!result) {
+        toast({
+          title: 'Erro',
+          description: t('common.subscriptionCancelError'),
+          variant: 'destructive',
+        })
+
+        return
+      }
       toast({
-        title: 'Erro',
-        description: t('common.subscriptionCancelError'),
-        variant: 'destructive',
+        title: 'Sucesso',
+        description: t('common.successSubscriptionCancel'),
+        variant: 'default',
       })
-      return
-    }
-    toast({
-      title: 'Sucesso',
-      description: t('common.successSubscriptionCancel'),
-      variant: 'default',
+
+      router.push(`/${locale}/${APP_LINKS.HOMEPAGE()}`)
     })
-    router.push(`/${locale}/${APP_LINKS.HOMEPAGE()}`)
   }
 
   useEffect(() => {
@@ -51,6 +56,7 @@ const SubscriptionCancel = () => {
 
       <div className="flex items-center justify-center w-full ">
         <CustomButton
+          isLoading={isPending}
           type="submit"
           onClick={handleCancel}
           className="w-[282px]  mb-5 text-[#A90000] border-[#A90000] bg-transparent hover:bg-secondary/80"
