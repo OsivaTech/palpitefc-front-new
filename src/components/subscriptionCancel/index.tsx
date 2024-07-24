@@ -18,22 +18,22 @@ const SubscriptionCancel = () => {
   const { isAuthenticated } = useAuth()
 
   const handleCancel = async () => {
-    try {
-      await deleteSubscription()
+    const result = await deleteSubscription()
 
-      toast({
-        title: 'Sucesso',
-        description: t('common.successSubscriptionCancel'),
-        variant: 'default',
-      })
-      router.push(`/${locale}/${APP_LINKS.HOMEPAGE()}`)
-    } catch {
+    if (!result) {
       toast({
         title: 'Erro',
         description: t('common.subscriptionCancelError'),
         variant: 'destructive',
       })
+      return
     }
+    toast({
+      title: 'Sucesso',
+      description: t('common.successSubscriptionCancel'),
+      variant: 'default',
+    })
+    router.push(`/${locale}/${APP_LINKS.HOMEPAGE()}`)
   }
 
   useEffect(() => {

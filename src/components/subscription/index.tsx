@@ -106,32 +106,32 @@ const Subscription = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      try {
-        const result = await functionEncryCard(values)
+      const result = await functionEncryCard(values)
 
-        const body = {
-          card: {
-            encrypted: result?.encryptedCard,
-            securityCode: values.securityCode,
-          },
-        } as SubscriptionType
+      const body = {
+        card: {
+          encrypted: result?.encryptedCard,
+          securityCode: values.securityCode,
+        },
+      } as SubscriptionType
 
-        await makeSubscription(body)
+      const resultSubscription = await makeSubscription(body)
 
-        toast({
-          title: 'Sucesso',
-          description: t('common.successSubscription'),
-          variant: 'default',
-        })
-
-        router.refresh()
-      } catch (error) {
+      if (!resultSubscription) {
         toast({
           title: 'Erro',
-          description: t('common.invalidCredentials'),
+          description: t('common.subscriptionError'),
           variant: 'destructive',
         })
+        return
       }
+      toast({
+        title: 'Sucesso',
+        description: t('common.successSubscription'),
+        variant: 'default',
+      })
+
+      router.refresh()
     })
   }
 

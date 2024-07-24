@@ -80,7 +80,8 @@
     "invalidSecurityCode": "Minimo de 1 Caractere",
     "invalidNameCard": "Minimo de 1 Caractere",
     "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
-    "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente"
+    "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
+    "subscriptionError": "Ocorreu um error, tente novamente."
   },
   "pages": {
     "login": {

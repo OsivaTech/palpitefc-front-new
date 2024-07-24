@@ -13,7 +13,7 @@ export async function getSubscription() {
     },
     true,
   )
-  if (response.status !== 200) {
+  if (response.status < 200 || response.status > 299) {
     return false
   }
   const mySubscription: SubscriptionResponse = await response?.json()
@@ -21,28 +21,25 @@ export async function getSubscription() {
 }
 
 export async function makeSubscription(subscription: SubscriptionRequest) {
-  try {
-    await post(
-      Subscription,
-      {
-        body: JSON.stringify(subscription),
-        method: 'POST',
-      },
-      true,
-    )
-    return true
-  } catch (error) {
-    console.error('Error on makeSubscription', error)
+  const response = await post(
+    Subscription,
+    {
+      body: JSON.stringify(subscription),
+      method: 'POST',
+    },
+    true,
+  )
+  if (response.status < 200 || response.status > 299) {
     return false
   }
+  return true
 }
 
 export async function deleteSubscription() {
-  try {
-    await del(Subscription, {}, true)
-    return true
-  } catch (error) {
-    console.error('Error on deleteSubscription', error)
+  const response = await del(Subscription, {}, true)
+
+  if (response.status < 200 || response.status > 299) {
     return false
   }
+  return true
 }
