@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
 import { useEffect } from 'react'
 import { useAuth } from '@/context/useAuth'
+import { formatDate } from '@/utils/formatDate'
 
 type SubscriptionInfoProps = {
   referenceId: string
@@ -39,7 +40,7 @@ const SubscriptionInfo = ({
     return (
       <Image
         className="self-center mb-2"
-        src={'/assets/cardIcon.svg'}
+        src={infoCard.cardBrand}
         height={20}
         width={20}
         alt=""
@@ -58,6 +59,8 @@ const SubscriptionInfo = ({
         icon={icon()}
         className="mb-4 rounded-md"
         value={`**** **** **** ${infoCard.lastDigits}`}
+        value2={`Renovação: ${formatDate(infoCard.nextInvoice, 'dd/MM')}`}
+        disabled
       />
       <div className="flex items-center justify-center w-full ">
         <CustomButton
