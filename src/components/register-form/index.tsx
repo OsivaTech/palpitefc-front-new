@@ -299,12 +299,27 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             >
               {t('common.register')}
             </CustomButton>
-            <span className="text-sm font-normal">
-              Ao clicar em cadastrar concordo com os{' '}
+            <span className="text-sm font-normal text-center">
+              Ao clicar em cadastrar, você declara estar de acordo com os{' '}
             </span>
-            <Link className="text-sm font-normal underline" href="#">
-              Termos e Condições
-            </Link>
+            <span className="text-sm font-normal text-center">
+              <Link
+                className="underline"
+                href="https://assets.palpitefutebolclube.com/terms.html"
+                target="_blank"
+              >
+                termos de uso
+              </Link>
+              {` e com a `}
+              <Link
+                className="underline"
+                href="https://assets.palpitefutebolclube.com/privacy-policy.html"
+                target="_blank"
+              >
+                política de privacidade
+              </Link>
+              .
+            </span>
           </div>
           <Link
             className=" self-center text-sm font-normal underline"
