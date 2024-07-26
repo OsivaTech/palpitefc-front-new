@@ -29,7 +29,9 @@ export const BottonMenu = () => {
     router.push(`${locale}/profile`)
   }
 
-  const doNothing = () => {}
+  const handlePrizeRules = () => {
+    router.push(`${locale}/${APP_LINKS.PRIZERULES()}`)
+  }
 
   return (
     <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
@@ -47,7 +49,6 @@ export const BottonMenu = () => {
         onClick={handleOpenQuiz}
       />
       <BottomMenuItem
-        disabled
         icon={
           <Image
             className="self-center"
@@ -58,7 +59,7 @@ export const BottonMenu = () => {
           />
         }
         label="Premios e Regras"
-        onClick={doNothing}
+        onClick={handlePrizeRules}
       />
       <BottomMenuItem
         icon={
