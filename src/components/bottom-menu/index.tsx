@@ -29,8 +29,8 @@ export const BottonMenu = () => {
     router.push(`${locale}/profile`)
   }
 
-  const handlePrizeRules = () => {
-    router.push(`${locale}/${APP_LINKS.PRIZERULES()}`)
+  const handleRules = () => {
+    router.push(`${locale}/${APP_LINKS.RULES()}`)
   }
 
   return (
@@ -58,8 +58,8 @@ export const BottonMenu = () => {
             alt=""
           />
         }
-        label="Premios e Regras"
-        onClick={handlePrizeRules}
+        label="Prêmios e Regras"
+        onClick={handleRules}
       />
       <BottomMenuItem
         icon={
