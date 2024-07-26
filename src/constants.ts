@@ -5,6 +5,7 @@ export const APP_LINKS = {
   FORGOT: () => `/forgot`,
   MYPOINTS: () => `/mypoints`,
   NEWS: () => `/news`,
+  RULES: () => `/rules`,
 }
 
 export const ROLE = {
@@ -24,4 +25,8 @@ export const POINT_TYPE: { [key: string]: string } = {
   GD: 'Diferença de gols',
   MW: 'Vencedor da partida',
   EB: 'Palpite antecipado',
+}
+
+export const TYPE_PREMIUM = {
+  CASH: 'cash',
 }

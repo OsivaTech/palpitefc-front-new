@@ -87,5 +87,17 @@
     "Team-InvalidTeamId": "Este ID de equipe é inválido.",
     "UserAddress-ExistingAddress": "O usuário já possui um endereço.",
     "User-InvalidEmail": "O email do usuário é inválido."
+  },
+  "prizerules": {
+    "component": {
+      "title": "Prêmios e Regras ",
+      "titleMonth": "Premiação Mensal",
+      "titleRules": "Regra de Pontuação"
+    }
+  },
+  "mypoints": {
+    "component": {
+      "title": "Meus pontos"
+    }
   }
 }

@@ -22,7 +22,7 @@ type MyPointsPageProps = {
 }
 
 const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
-  const { user, isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
   const t = useTranslations()
   const router = useRouter()
   const locale = useLocale()
@@ -102,16 +102,11 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
 
   const renderHeaderMyPoints = () => {
     return (
-      <>
-        <div className="flex justify-start items-end gap-3 ml-6  pt-6 mb-6">
-          {user?.team.image && (
-            <Image src={user?.team?.image} height={32} width={32} alt="" />
-          )}
-          <span className="h-full">{user?.name}</span>
-        </div>
-
+      <div className="max-w-[500px] mx-auto pt-10 px-3 bg-app-secondary">
+        <h1 className="mb-4 text-center text-[16px] font-medium">
+          {t('mypoints.component.title')}
+        </h1>
         <Separator className="mb-6 border border-white/50 pl-4" />
-
         <div className="flex items-center gap-3 pb-2">
           <div className="min-w-[71px] mx-auto">
             <CustomSelect
@@ -142,7 +137,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
             }
           />
         </div>
-      </>
+      </div>
     )
   }
 
