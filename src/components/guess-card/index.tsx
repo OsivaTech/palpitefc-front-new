@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'use-intl'
@@ -30,6 +30,12 @@ import { makeAGuess } from '@/http/gesses'
 import { Spinner } from '@/components/spinner'
 import { APP_LINKS } from '@/constants'
 import { Separator } from '@/components/ui/separator'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 
 export const GuessCard = ({
   fixture,
@@ -143,10 +149,17 @@ export const GuessCard = ({
     return (
       <>
         {fixture.id === selectedFixture?.id && (
-          <Card className="bg-[#2D3745] px-4 py-2 border-0 border-b font-medium flex flex-col justify-between w-full relative">
-            <span className="font-semibold text-sm">
-              {t('components.guess-card.title')}
-            </span>
+          <Card className="bg-[#2D3745] px-2 py-2 border-0 border-b font-medium flex flex-col justify-between w-full relative">
+            <div className="flex justify-between">
+              <span className="font-semibold text-sm">
+                {t('components.guess-card.title')}
+              </span>
+              <ChevronUp
+                size={25}
+                className="cursor-pointer"
+                onClick={() => setSelectedfixture(null)}
+              />
+            </div>
             <div className="h-[1px] bg-slate-300 my-2" />
             <CardContent className="flex flex-col p-0 gap-2 justify-center">
               <div className="flex justify-between items-center text-xs">
@@ -241,7 +254,21 @@ export const GuessCard = ({
             className="flex gap-2 py-3 px-2 bg-[#2D3745] cursor-pointer max-h-[51px] justify-between"
           >
             <div className="flex">
-              <Image src={league.image} width={25} height={25} alt="" />
+              <Tooltip>
+                <TooltipTrigger>
+                  {' '}
+                  <Image
+                    src={league.image}
+                    width={25}
+                    height={25}
+                    alt={league.name}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{league.name}</p>
+                </TooltipContent>
+              </Tooltip>
+
               <Separator orientation="vertical" className="bg-slate-500 ml-2" />
             </div>
             <div className="flex justify-start items-center">
@@ -275,10 +302,10 @@ export const GuessCard = ({
   }, [fixture, league.image, selectedFixture?.id, setSelectedfixture])
 
   return (
-    <>
+    <TooltipProvider>
       {renderCollapseOpen}
       {renderCollapseClosed}
-    </>
+    </TooltipProvider>
   )
 }
 
@@ -289,6 +316,14 @@ export const GuessCardContent = ({
   value,
   ...rest
 }: GuessCardContentType) => {
+  const handleChange = useCallback(
+    (evt: ChangeEvent<HTMLInputElement>) => {
+      const inputValue = evt.target.value.slice(0, 2)
+      onChange({ ...evt, target: { ...evt.target, value: inputValue } })
+    },
+    [onChange],
+  )
+
   return (
     <div
       className={cn(
@@ -304,10 +339,10 @@ export const GuessCardContent = ({
       </div>
       <Input
         className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white/50 dark:text-white bg-app-background text-xl px-2 text-center "
-        type="number"
         maxLength={2}
         placeholder="-"
-        onChange={onChange}
+        type="number"
+        onChange={handleChange}
         value={reverse ? value?.awayTeam : value?.homeTeam}
         {...rest}
       />
