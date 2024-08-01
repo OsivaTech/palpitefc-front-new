@@ -22,6 +22,7 @@ export default function RootLayout({
   params: { locale: string }
 }>) {
   const messages = useMessages()
+
   const token = cookies().get('session')
 
   return (
