@@ -8,7 +8,7 @@ import { ModalPage } from '@/components/modal-page'
 import { Toaster } from '@/components/ui/toaster'
 import { AuthProvider } from '@/context/useAuth'
 import { cookies } from 'next/headers'
-
+import { GoogleAnalytics } from '@next/third-parties/google'
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
   description: 'Seu palpite é gol de placa!',
@@ -41,6 +41,7 @@ export default function RootLayout({
           </AuthProvider>
         </CookiesProvider>
       </NextIntlClientProvider>
+      <GoogleAnalytics gaId="G-XH7QPE19PE" />
     </html>
   )
 }
