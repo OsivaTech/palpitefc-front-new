@@ -18,6 +18,6 @@ export type GuessCardProps = {
   fixture: Fixture
   guess: Guess | undefined
   league: League
-  setSelectedfixture: (fixture: Fixture) => void
+  setSelectedfixture: (fixture: Fixture | null) => void
   selectedFixture: Fixture | null
 }
