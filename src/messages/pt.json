@@ -28,6 +28,32 @@
       "title": "Esqueci minha senha",
       "submit": "Enviar código",
       "insertTheCode": "Insira o código"
+    },
+    "subscription": {
+      "title": "Assine Palpite VIP!",
+      "subtitle": "Benefícios da assinatura",
+      "list": {
+        "0": " Melhores premiações",
+        "1": "Edição de palpites",
+        "2": "Ranking exclusivo"
+      },
+      "subtitle2": "Apenas R$ 5,99 por mês!",
+      "form": {
+        "numberCart": "Número do cartão",
+        "expirationData": "Vencimento",
+        "securityCode": "Código de segurança",
+        "nameCard": "Nome no cartão",
+        "button": "Assinar"
+      }
+    },
+    "subscriptionInfo": {
+      "title": "Palpite VIP",
+      "button": "Não quero  mais ser VIP!"
+    },
+    "subscriptionCancel": {
+      "title": "Tem certeza que quer\ncancelar sua assinatura?",
+      "button1": "Sim, quero cancelar meus benefícios",
+      "button2": "Não, quero continuar com minhas vantagens"
     }
   },
   "common": {
@@ -47,7 +73,15 @@
     "save": "Salvar",
     "register": "Cadastrar",
     "removeMyAccount": "Deletar minha conta",
-    "email": "Email"
+    "email": "Email",
+    "invalidCard": "O número do cartão deve conter 16 dígitos.",
+    "successSubscription": "Assinatura efetuada com Sucesso.",
+    "invalidExpirationData": "Deve conter mes/ano, ex: 01/2020",
+    "invalidSecurityCode": "Minimo de 1 Caractere",
+    "invalidNameCard": "Minimo de 1 Caractere",
+    "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
+    "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
+    "subscriptionError": "Ocorreu um error, tente novamente."
   },
   "pages": {
     "login": {

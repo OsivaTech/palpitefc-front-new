@@ -5,6 +5,7 @@ import { APP_LINKS } from '@/constants'
 import { usePageModal } from '@/context/usePageModal'
 import { logout } from '@/lib/session'
 import { User } from '@/types/User'
+// import { LogOut, UserRound, Handshake } from 'lucide-react'
 import { LogOut, UserRound } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -46,6 +47,16 @@ export const ModalPageProfile = ({ user }: { user: User }) => {
           <UserRound size={20} />
           Meus pontos
         </li>
+        {/* <li
+          onClick={() => {
+            router.push(`/${locale}/${APP_LINKS.SUBSCRIPTION()}`)
+            closePageModal()
+          }}
+          className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
+        >
+          <Handshake size={20} />
+          Assinatura
+        </li> */}
         <li
           onClick={handleLogout}
           className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
