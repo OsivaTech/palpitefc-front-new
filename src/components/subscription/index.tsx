@@ -37,7 +37,7 @@ type CardProps = {
   nameCard: string
 }
 const Subscription = () => {
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   const publicKey = env.NEXT_PUBLIC_KEY_CARD_PAGSEGURO
 
