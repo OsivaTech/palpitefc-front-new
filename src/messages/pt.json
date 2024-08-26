@@ -95,7 +95,14 @@
     "register": {
       "error": {
         "document": "O CPF deve ter no mínimo 11 dígitos.",
-        "phoneNumber": "O número de telefone deve ter no mínimo 11 dígitos."
+        "phoneNumber": "O número de telefone deve ter no mínimo 11 dígitos.",
+        "email": "Email obrigatório",
+        "emailInvalid": "Email inválido",
+        "name": "Nome deve conter ao menos 2 caracteres",
+        "password": "Senha deve conter pelo menos 6 caracteres",
+        "birthday": "Campo obrigatório",
+        "ageRestriction": "Para carastrar você precisa ser maior de 18 anos",
+        "documentInvalid": "CPF informado é inválido"
       }
     }
   },
