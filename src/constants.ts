@@ -7,6 +7,7 @@ export const APP_LINKS = {
   NEWS: () => `/news`,
   SUBSCRIPTION: () => `/subscription`,
   SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
+  RULES: () => `/rules`,
 }
 
 export const ROLE = {
@@ -26,4 +27,8 @@ export const POINT_TYPE: { [key: string]: string } = {
   GD: 'Diferença de gols',
   MW: 'Vencedor da partida',
   EB: 'Palpite antecipado',
+}
+
+export const TYPE_PREMIUM = {
+  CASH: 'cash',
 }

@@ -22,7 +22,7 @@
     "mypoints": {
       "league": "Campeonatos",
       "month": "Meses",
-      "guess": "Seus Palpites"
+      "guess": "Seu palpite"
     },
     "forgotPasswordForm": {
       "title": "Esqueci minha senha",
@@ -37,7 +37,7 @@
         "1": "Edição de palpites",
         "2": "Ranking exclusivo"
       },
-      "subtitle2": "Apenas R$ 5,99!",
+      "subtitle2": "Apenas R$ 5,99 por mês!",
       "form": {
         "numberCart": "Número do cartão",
         "expirationData": "Vencimento",
@@ -121,5 +121,17 @@
     "Team-InvalidTeamId": "Este ID de equipe é inválido.",
     "UserAddress-ExistingAddress": "O usuário já possui um endereço.",
     "User-InvalidEmail": "O email do usuário é inválido."
+  },
+  "prizerules": {
+    "component": {
+      "title": "Prêmios e Regras ",
+      "titleMonth": "Premiação Mensal",
+      "titleRules": "Regra de Pontuação"
+    }
+  },
+  "mypoints": {
+    "component": {
+      "title": "Meus pontos"
+    }
   }
 }
