@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { CustomInput } from '../custom-input'
-import { CustomButton } from '../custom-button'
+// import { CustomButton } from '../custom-button'
 import { useEffect, useTransition } from 'react'
 import Image from 'next/image'
 import { encryptCard, usePagSeguro } from 'pagseguro-encryptcard-reactjs'
@@ -242,7 +242,7 @@ const Subscription = () => {
             )}
           />
 
-          <div className="flex items-center justify-center w-full ">
+          {/*          <div className="flex items-center justify-center w-full ">
             <CustomButton
               isLoading={isPending}
               disabled={isPending}
@@ -251,7 +251,7 @@ const Subscription = () => {
             >
               {t('components.subscription.form.button')}
             </CustomButton>
-          </div>
+          </div>  */}
         </form>
       </Form>
 
