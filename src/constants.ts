@@ -5,6 +5,8 @@ export const APP_LINKS = {
   FORGOT: () => `/forgot`,
   MYPOINTS: () => `/mypoints`,
   NEWS: () => `/news`,
+  SUBSCRIPTION: () => `/subscription`,
+  SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
   RULES: () => `/rules`,
 }
 
