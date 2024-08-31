@@ -11,6 +11,7 @@ import { MatchTabContent } from '@/components/matchboard-match-tab'
 import { NewsTabContent } from '@/components/matchboard-news-tab'
 import { RankTabContent } from '@/components/matchboard-rank-tab'
 import { Advertisament } from '@/types/Advertisament'
+import { Team } from '@/types/Team'
 
 type MatchBoardProps = {
   fixtures: FixtureResponse | null
@@ -19,6 +20,7 @@ type MatchBoardProps = {
   news: NewsResponse | null
   rankings: RankingResponse[] | null
   advertisament: Advertisament[] | null
+  teams: Team[]
 }
 export const MatchBoard = ({
   fixtures,
@@ -27,6 +29,7 @@ export const MatchBoard = ({
   news,
   rankings,
   advertisament,
+  teams,
 }: MatchBoardProps) => {
   const t = useTranslations('components.matchboard-tab')
 
@@ -53,6 +56,7 @@ export const MatchBoard = ({
           <RankTabContent
             data={rankings as RankingResponse[]}
             leagues={leagues}
+            teams={teams}
           />
         </div>
       </Tabs>

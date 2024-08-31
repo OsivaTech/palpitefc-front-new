@@ -2,7 +2,7 @@
   "components": {
     "matchboard-tab": {
       "match": {
-        "title": "Partida",
+        "title": "Partidas",
         "error": "Não foi possivel carregar as partidas",
         "myGuesses": "Meus Palpites"
       },
@@ -10,7 +10,11 @@
         "title": "Notícias"
       },
       "rank": {
-        "title": "Ranking"
+        "title": "Classificação",
+        "pageTitle": "Classificação de",
+        "filterText":{
+          "month": "Alterar mês"
+        }
       }
     },
     "guess-card": {
@@ -37,7 +41,7 @@
         "1": "Edição de palpites",
         "2": "Ranking exclusivo"
       },
-      "subtitle2": "Apenas R$ 5,99 por mês!",
+      "subtitle2": "Apenas R$ 7,77 por mês!",
       "form": {
         "numberCart": "Número do cartão",
         "expirationData": "Vencimento",
@@ -48,7 +52,7 @@
     },
     "subscriptionInfo": {
       "title": "Palpite VIP",
-      "button": "Não quero  mais ser VIP!"
+      "button": "Não quero mais ser VIP!"
     },
     "subscriptionCancel": {
       "title": "Tem certeza que quer\ncancelar sua assinatura?",
