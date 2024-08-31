@@ -7,6 +7,7 @@ import { getMyGuesses } from '@/http/gesses'
 import { getLeagues } from '@/http/league'
 import { getNews } from '@/http/new'
 import { getRank } from '@/http/ranking'
+import { getTeams } from '@/http/team'
 
 export default async function LandingPage() {
   const fixtures = await getFixture()
@@ -15,6 +16,7 @@ export default async function LandingPage() {
   const news = await getNews()
   const rank = await getRank()
   const advertisament = await getAdvertisament()
+  const teams = await getTeams()
 
   return (
     <HomeContainer>
@@ -26,6 +28,7 @@ export default async function LandingPage() {
         news={news}
         rankings={rank}
         advertisament={advertisament}
+        teams={teams}
       />
     </HomeContainer>
   )
