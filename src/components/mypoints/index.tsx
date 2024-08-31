@@ -41,13 +41,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
 
   const functionFilterPoints = () => {
     const filteredPoints =
-      points
-        ?.filter((point: Points) => point.points.length > 0)
-        .sort(
-          (a: Points, b: Points) =>
-            new Date(a.fixture.start).getTime() -
-            new Date(b.fixture.start).getTime(),
-        ) || []
+      points?.filter((point: Points) => point.points.length > 0) || []
 
     const leagueFilteredPoints = filterLeague.hasFilter
       ? filteredPoints.filter(

@@ -8,6 +8,7 @@ export const APP_LINKS = {
   SUBSCRIPTION: () => `/subscription`,
   SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
   RULES: () => `/rules`,
+  PROFILE: () => `/profile`,
 }
 
 export const ROLE = {
