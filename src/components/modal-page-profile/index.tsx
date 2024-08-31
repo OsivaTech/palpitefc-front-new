@@ -39,13 +39,13 @@ export const ModalPageProfile = ({ user }: { user: User }) => {
 
         <li
           onClick={() => {
-            router.push(`/${locale}/${APP_LINKS.MYPOINTS()}`)
+            router.push(`/${locale}/${APP_LINKS.PROFILE()}`)
             closePageModal()
           }}
           className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
         >
           <UserRound size={20} />
-          Meus pontos
+          Minha conta
         </li>
         {/* <li
           onClick={() => {

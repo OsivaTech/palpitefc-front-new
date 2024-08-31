@@ -21,12 +21,12 @@ export const BottonMenu = () => {
     openPageModal()
   }
 
-  const hadnleOpenProfile = () => {
+  const handleOpenMyPoints = () => {
     if (!isAuthenticated) {
       router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
       return
     }
-    router.push(`${locale}/profile`)
+    router.push(`${locale}/${APP_LINKS.MYPOINTS()}`)
   }
 
   const handleRules = () => {
@@ -65,14 +65,14 @@ export const BottonMenu = () => {
         icon={
           <Image
             className="self-center"
-            src={'/assets/user.svg'}
+            src={'/assets/points.svg'}
             height={20}
             width={20}
             alt=""
           />
         }
-        label="Minha conta"
-        onClick={hadnleOpenProfile}
+        label="Meus pontos"
+        onClick={handleOpenMyPoints}
       />
     </div>
   )
