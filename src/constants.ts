@@ -20,6 +20,7 @@ export const RANKING_TYPE = {
   YEAR: 'Year',
   MONTH: 'Month',
   LEAGUE: 'League',
+  WEEK: 'Week',
 }
 
 export const POINT_TYPE: { [key: string]: string } = {

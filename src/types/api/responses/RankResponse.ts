@@ -8,6 +8,7 @@ export interface Place {
   id: number
   place: number
   name: string
+  teamId: number
   points: number
   guesses: number
 }
