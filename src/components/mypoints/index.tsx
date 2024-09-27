@@ -159,7 +159,7 @@ const MyPointsPage = ({ leagues, points }: MyPointsPageProps) => {
               </div>
             </div>
             <div className="flex  items-center">
-              {formatDate(point.fixture.start, 'dd/MM EEEE HH:mm')}
+              {formatDate(point.fixture.start, 'dd/MM E HH:mm')}
             </div>
           </div>
 
