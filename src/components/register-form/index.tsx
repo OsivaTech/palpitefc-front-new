@@ -145,6 +145,13 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
     startTransition(async () => {
       try {
         await createUser(user)
+
+        if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+          window.fbq('track', 'CompleteRegistration')
+        } else {
+          console.warn('Facebook Pixel não está carregado corretamente')
+        }
+
         const response = await login({
           email: user.email,
           password: user.password,
