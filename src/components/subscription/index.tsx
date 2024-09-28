@@ -139,7 +139,7 @@ const Subscription = () => {
 
   return (
     <div className="max-w-[500px] mx-auto pt-10 px-3 bg-app-secondary">
-      <h1 className="mb-4 text-center text-[15px] font-medium">
+      <h1 className="mb-4 text-center text-[16px] font-medium">
         {t('components.subscription.title')}
       </h1>
       <Separator className="mb-6 border border-white/50" />
@@ -152,17 +152,17 @@ const Subscription = () => {
       <li className="text-center text-[16px] font-medium">
         {t('components.subscription.list.1')}
       </li>
-      <li className="mb-[70px] text-center text-[16px] font-medium">
+      <li className="mb-8 text-center text-[16px] font-medium">
         {t('components.subscription.list.2')}
       </li>
-      <h1 className="mb-[70px] text-center text-[20px] font-medium">
+      <h1 className="mb-8 text-center text-[20px] font-medium">
         {t('components.subscription.subtitle2')}
       </h1>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mx-auto space-y-8 max-w-[450px"
+          className="mx-auto space-y-8 max-w-[450px]"
         >
           <FormField
             control={form.control}
