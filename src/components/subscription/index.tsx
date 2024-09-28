@@ -149,9 +149,9 @@ const Subscription = () => {
       <li className="text-center text-[16px] font-medium">
         {t('components.subscription.list.0')}
       </li>
-      <li className="text-center text-[16px] font-medium">
+      {/* <li className="text-center text-[16px] font-medium">
         {t('components.subscription.list.1')}
-      </li>
+      </li> */}
       <li className="mb-8 text-center text-[16px] font-medium">
         {t('components.subscription.list.2')}
       </li>
