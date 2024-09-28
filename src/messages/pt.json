@@ -11,9 +11,18 @@
       },
       "rank": {
         "title": "Classificação",
-        "pageTitle": "Classificação de",
+        "general": {
+          "tabTitle": "Geral",
+          "title": "Classificação de"
+        },
+        "vip":{
+          "tabTitle": "VIP",
+          "title": "Classificação da",
+          "week": "Semana"
+        },
         "filterText":{
-          "month": "Alterar mês"
+          "month": "Alterar mês",
+          "week": "Alterar semana"
         }
       }
     },
@@ -25,7 +34,7 @@
     },
     "mypoints": {
       "league": "Campeonatos",
-      "month": "Meses",
+      "month": "Selecionar mês",
       "guess": "Seu palpite"
     },
     "forgotPasswordForm": {
@@ -37,11 +46,11 @@
       "title": "Assine Palpite VIP!",
       "subtitle": "Benefícios da assinatura",
       "list": {
-        "0": " Melhores premiações",
+        "0": "Premiação semanal",
         "1": "Edição de palpites",
         "2": "Ranking exclusivo"
       },
-      "subtitle2": "Apenas R$ 7,77 por mês!",
+      "subtitle2": "Apenas R$ 9,99 por mês!",
       "form": {
         "numberCart": "Número do cartão",
         "expirationData": "Vencimento",

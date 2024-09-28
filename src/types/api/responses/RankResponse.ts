@@ -2,6 +2,7 @@ export interface Info {
   leagueId?: number
   year?: number
   month?: number
+  week?: number
 }
 
 export interface Place {

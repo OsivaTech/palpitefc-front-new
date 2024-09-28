@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <header className="flex items-center justify-between h-[50px] py-2 px-3 bg-[#1C2026]">
       <Link href={'/'}>
-        <Image src="/assets/logo.png" alt="" width={205} height={34} />
+        <Image src="/assets/logo_topo.svg" alt="" width={180} height={34} />
       </Link>
       {isAuthenticated ? <UserProfile user={user!} /> : <HeaderActionsMenu />}
     </header>
