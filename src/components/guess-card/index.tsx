@@ -77,7 +77,7 @@ export const GuessCard = ({
     if (!checkIfCanBeVoted()) {
       toast({
         title: t('common.error'),
-        description: t('components.guess-card.gameAlreadyStarted'),
+        description: t('components.guess-card.error'),
         variant: 'destructive',
       })
       return
@@ -222,7 +222,11 @@ export const GuessCard = ({
               </Button>
             </CardFooter>
             {!checkIfCanBeVoted() && (
-              <div className="top-0 left-0 absolute flex justify-center items-center w-full h-full bg-app-background/60 z-10" />
+              <div className="top-0 left-0 absolute flex justify-center items-center w-full h-full bg-app-background/70 z-10">
+                <span className="text-white text-lg z-0">
+                  {t('components.guess-card.gameAlreadyStarted')}
+                </span>
+              </div>
             )}
           </Card>
         )}
