@@ -43,7 +43,7 @@ const Subscription = () => {
 
   const t = useTranslations()
   const router = useRouter()
-  const { isAuthenticated } = useAuth()
+  const { user, isAuthenticated } = useAuth()
   const locale = useLocale()
 
   const { toast } = useToast()
@@ -99,10 +99,12 @@ const Subscription = () => {
   }
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
+    if (!user) {
+      router.push(
+        `/${locale}/${APP_LINKS.SIGNIN()}?redirect=${encodeURIComponent(window.location.pathname)}`,
+      )
     }
-  }, [isAuthenticated, locale, router])
+  }, [user, isAuthenticated, locale, router])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
