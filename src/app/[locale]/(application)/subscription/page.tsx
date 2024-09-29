@@ -8,7 +8,7 @@ export default async function SubscriptionPage() {
   const result = await getSubscription()
 
   return (
-    <div className="max-w-[500px] mx-auto pt-10 px-3 pb-12 bg-app-secondary">
+    <div className="mx-auto bg-app-secondary w-full h-full">
       {result ? <SubscriptionInfo infoCard={result} /> : <Subscription />}
     </div>
   )

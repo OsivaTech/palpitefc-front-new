@@ -143,26 +143,35 @@ const Subscription = () => {
         {t('components.subscription.title')}
       </h1>
       <Separator className="mb-6 border border-white/50" />
-      <h1 className="mb-4 text-center text-[20px] font-medium">
+      <h1 className="mb-4 text-center text-lg font-medium">
         {t('components.subscription.subtitle')}
       </h1>
-      <li className="text-center text-[16px] font-medium">
-        {t('components.subscription.list.0')}
-      </li>
-      {/* <li className="text-center text-[16px] font-medium">
-        {t('components.subscription.list.1')}
-      </li> */}
-      <li className="mb-8 text-center text-[16px] font-medium">
-        {t('components.subscription.list.2')}
-      </li>
-      <h1 className="mb-8 text-center text-[20px] font-medium">
+      <div className="flex flex-col gap-4 px-4 text-center">
+        <p>
+          Você pode ganhar até R$ 2.000, por mês no pix! Assine agora o Palpite
+          VIP, por apenas R$ 9,99/mês.
+        </p>
+        <div className="gap-2">
+          <p className="font-bold">Prêmios semanais:</p>
+          <ul className="text-center">
+            <li>🥇 R$ 250,00 para o 1º lugar</li>
+            <li>🥈 R$ 150,00 para o 2º lugar</li>
+            <li>🥉 R$ 100,00 para o 3º lugar</li>
+          </ul>
+        </div>
+      </div>
+      <h1 className="my-6 text-center text-lg font-medium">
         {t('components.subscription.subtitle2')}
+      </h1>
+
+      <h1 className="text-center mb-2">
+        Insira os dados do seu cartão de crédito:
       </h1>
 
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mx-auto space-y-8 max-w-[450px]"
+          className="mx-auto space-y-4 max-w-[450px]"
         >
           <FormField
             control={form.control}
