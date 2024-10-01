@@ -17,9 +17,12 @@ export const BannerFixed = ({ item }: CarrouselProps) => {
   return (
     <div className="w-full">
       <div>
-        <div className="max-h-[150px]" onClick={() =>
-                handleAdClick('ad_click','BannerFixed',item?.name,item?.urlGoTo )
-              }>
+        <div
+          className="max-h-[150px]"
+          onClick={() =>
+            handleAdClick('ad_click', 'BannerFixed', item?.name, item?.urlGoTo)
+          }
+        >
           <div className="p-none w-full flex justify-center items-center overflow-auto">
             <Link href={item?.urlGoTo ?? ''}>
               <Image
