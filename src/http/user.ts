@@ -31,7 +31,7 @@ export async function createUser(user: SignupRequest) {
         method: 'POST',
         body: JSON.stringify({
           ...user,
-          utmSource: cookies().get('utm_source'),
+          utmSource: cookies().get('utm_source')?.value,
         }),
       },
       false,
