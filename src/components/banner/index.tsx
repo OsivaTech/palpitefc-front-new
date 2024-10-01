@@ -10,8 +10,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Autoplay from 'embla-carousel-autoplay'
 import { useRef } from 'react'
-import { sendGTMEvent } from '@next/third-parties/google'
-import {event} from '@/utils/analytics'
 import { handleAdClick } from '@/utils/analytics'
 
 export type BannerType = {
@@ -21,7 +19,6 @@ export type BannerType = {
 export type CarrouselProps = {
   items?: Advertisament[]
 }
-
 
 export const Banner = ({ items }: CarrouselProps) => {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }))
@@ -33,7 +30,7 @@ export const Banner = ({ items }: CarrouselProps) => {
           items.map((item, index) => (
             <CarouselItem
               onClick={() =>
-                handleAdClick('ad_click','BannerAd',item.name,item.urlGoTo )
+                handleAdClick('ad_click', 'BannerAd', item.name, item.urlGoTo)
               }
               key={index}
               className="max-h-[150px]"

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import { useTranslations } from 'next-intl'
 import { TabsContent } from '@/components/ui/tabs'
@@ -124,7 +124,7 @@ export const MatchTabContent = ({
               </span>
               <div className="grid grid-cols-1 md:grid-cols-1 gap-3 w-full">
                 {g?.map((fixture) => (
-                  <>
+                  <Fragment key={fixture.id}>
                     <GuessCard
                       key={fixture.id}
                       fixture={fixture}
@@ -146,7 +146,7 @@ export const MatchTabContent = ({
                         }
                       />
                     )}
-                  </>
+                  </Fragment>
                 ))}
               </div>
             </React.Fragment>
