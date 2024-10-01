@@ -5,7 +5,10 @@ export const APP_LINKS = {
   FORGOT: () => `/forgot`,
   MYPOINTS: () => `/mypoints`,
   NEWS: () => `/news`,
+  SUBSCRIPTION: () => `/subscription`,
+  SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
   RULES: () => `/rules`,
+  PROFILE: () => `/profile`,
 }
 
 export const ROLE = {
@@ -18,6 +21,8 @@ export const RANKING_TYPE = {
   YEAR: 'Year',
   MONTH: 'Month',
   LEAGUE: 'League',
+  WEEK: 'Week',
+  WEEKVIP: 'WeekVip',
 }
 
 export const POINT_TYPE: { [key: string]: string } = {

@@ -12,6 +12,7 @@ export interface User {
   info: string
   team: Team
   gender: 'M' | 'F' | 'O' | ''
+  isSubscribed: boolean
   address: {
     street: string
     number: string

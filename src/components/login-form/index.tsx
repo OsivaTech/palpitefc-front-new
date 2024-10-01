@@ -58,7 +58,9 @@ export const LoginForm = () => {
         const response = await login(values)
         if (response) {
           registerUser(response.user)
-          router.push(APP_LINKS.HOMEPAGE())
+          const redirectUrl =
+            searchParams.get('redirect') || APP_LINKS.HOMEPAGE()
+          router.push(redirectUrl)
         } else {
           toast({
             title: 'Erro',
