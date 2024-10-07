@@ -150,8 +150,8 @@ const Subscription = () => {
       </h1>
       <div className="flex flex-col gap-4 px-4 text-center">
         <p>
-          Você pode ganhar até R$ 2.000, por mês no pix! Assine agora o Palpite
-          VIP, por apenas R$ 9,99/mês.
+          Mais de R$ 2.000, por mês no pix! Assine agora o Palpite VIP, por
+          apenas R$ 9,99/mês.
         </p>
         <div className="gap-2">
           <p className="font-bold">Prêmios semanais:</p>
@@ -164,6 +164,9 @@ const Subscription = () => {
       </div>
       <h1 className="my-6 text-center text-lg font-medium">
         {t('components.subscription.subtitle2')}
+        <p className="text-center text-base font-normal">
+          Cancele quando quiser!
+        </p>
       </h1>
 
       <h1 className="text-center mb-2">

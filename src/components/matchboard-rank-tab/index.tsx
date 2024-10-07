@@ -178,8 +178,8 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
           ) : (
             <div className="flex flex-col gap-4 px-4 text-center">
               <p>
-                Você pode ganhar até R$ 2.000, por mês! Assine agora o Palpite
-                VIP, por apenas R$ 9,99/mês.
+                Mais de R$ 2.000 no pix, por mês! Assine agora o Palpite VIP,
+                por apenas R$ 9,99/mês.
               </p>
               <div className="gap-2">
                 <p className="font-bold">Prêmios semanais:</p>
@@ -229,7 +229,7 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
                       )[0]?.image
                     }
                     alt={place.name}
-                    className="w-8 h-8"
+                    className="object-contain"
                   />
                 </div>
                 <span>{place.name}</span>
@@ -270,6 +270,7 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
                 )[0]?.image
               }
               alt=""
+              className="object-contain"
             />
           </div>
           <span className={isFirstPlace ? '' : 'text-xs'}>
