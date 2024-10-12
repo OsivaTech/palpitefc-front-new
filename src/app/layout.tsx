@@ -1,38 +1,44 @@
-import type { Metadata } from 'next'
-import { NextIntlClientProvider, useMessages } from 'next-intl'
-import Header from '@/components/header'
-import { PageModalProvider } from '@/context/usePageModal'
-import { CookiesProvider } from 'next-client-cookies/server'
-import './globals.css'
-import { ModalPage } from '@/components/modal-page'
-import { Toaster } from '@/components/ui/toaster'
-import { AuthProvider } from '@/context/useAuth'
-import { cookies } from 'next/headers'
-import { GoogleAnalytics } from '@next/third-parties/google'
-import Script from 'next/script'
-import { jwtDecode } from 'jwt-decode'
-import { UserToken } from '@/types/UserToken'
+import type { Metadata } from 'next';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import Header from '@/components/header';
+import { PageModalProvider } from '@/context/usePageModal';
+import { CookiesProvider } from 'next-client-cookies/server';
+import './globals.css';
+import { ModalPage } from '@/components/modal-page';
+import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/context/useAuth';
+import { cookies } from 'next/headers';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
+import {jwtDecode} from 'jwt-decode';
+import { UserToken } from '@/types/UserToken';
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
   description: 'Seu palpite é gol de placa!',
-}
+};
 
 export default function RootLayout({
   children,
   params: { locale },
 }: Readonly<{
-  children: React.ReactNode
-  params: { locale: string }
+  children: React.ReactNode;
+  params: { locale: string };
 }>) {
-  const messages = useMessages()
+  const messages = useMessages();
 
-  const token = cookies().get('session')
-  let userName = ''
+  const token = cookies().get('session');
+  let userName = '';
+
+  // Decodifica o token JWT e obtém o nome do usuário, se estiver logado
   if (token?.value) {
-    const decodedToken = jwtDecode<{ token: string }>(token.value)
-    const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
-    userName = userTokenDecode.name
+    try {
+      const decodedToken = jwtDecode<{ token: string }>(token.value);
+      const userTokenDecode = jwtDecode<UserToken>(decodedToken.token);
+      userName = userTokenDecode.name || '';
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+    }
   }
 
   return (
@@ -72,7 +78,9 @@ export default function RootLayout({
                         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                         a.appendChild(r);
                     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-                    hj('identify', '${userName}', { userProperty: 'value' });
+
+                    // Se houver nome de usuário, identifica o usuário no Hotjar
+                    ${userName ? `hj('identify', '${userName}', { userName: '${userName}' });` : ''}
                   `}
                 </Script>
               </body>
@@ -83,5 +91,5 @@ export default function RootLayout({
       </NextIntlClientProvider>
       <GoogleAnalytics gaId="G-XH7QPE19PE" />
     </html>
-  )
+  );
 }
