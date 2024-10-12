@@ -72,7 +72,7 @@ export default function RootLayout({
                         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                         a.appendChild(r);
                     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-                    hj('identify', '${userName}', { userProperty: 'value' });
+                    window.hj('identify', userName, { userProperty: 'value' });
                   `}
                 </Script>
               </body>
