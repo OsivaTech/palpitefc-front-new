@@ -11,20 +11,11 @@ import { cookies } from 'next/headers'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
 import { jwtDecode } from 'jwt-decode'
+import { UserToken } from '@/types/UserToken'
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
   description: 'Seu palpite é gol de placa!',
-}
-
-type UserToken ={
-  id: string,
-  name: string,
-  email: string,
-  role: string,
-  nbf: number,
-  exp: number,
-  iat: number
 }
 
 export default function RootLayout({
@@ -38,15 +29,10 @@ export default function RootLayout({
 
   const token = cookies().get('session')
   let userName = ''
-  let userEmail = ''
   if (token?.value) {
     const decodedToken = jwtDecode<any>(token.value)
-    const userTokenDecode = jwtDecode<UserToken>(decodedToken.value)
+    const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
     userName = userTokenDecode.name
-    userEmail = userTokenDecode.email
-    console.log('token', userTokenDecode)
-    console.log('userName', userTokenDecode.name)
-    console.log('userEmail', userTokenDecode.email)
   }
 
   return (
