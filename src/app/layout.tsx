@@ -15,7 +15,7 @@ import { UserToken } from '@/types/UserToken'
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
-  description: 'Seu palpite é gol de placa!',
+  description: 'Seu palpite Ã© gol de placa!',
 }
 
 export default function RootLayout({
@@ -72,7 +72,7 @@ export default function RootLayout({
                         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                         a.appendChild(r);
                     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-                    window.hj('identify', userName, { userProperty: 'value' });
+                    window.hj('identify', '${userName}', { userProperty: 'value' });
                   `}
                 </Script>
               </body>
