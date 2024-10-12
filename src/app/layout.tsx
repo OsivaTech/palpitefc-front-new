@@ -30,7 +30,7 @@ export default function RootLayout({
   const token = cookies().get('session')
   let userName = ''
   if (token?.value) {
-    const decodedToken = jwtDecode<any>(token.value)
+    const decodedToken = jwtDecode<{ token: string }>(token.value)
     const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
     userName = userTokenDecode.name
   }
