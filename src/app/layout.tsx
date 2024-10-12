@@ -29,10 +29,12 @@ export default function RootLayout({
 
   const token = cookies().get('session')
   let userName = ''
+  let userId = ''
   if (token?.value) {
     const decodedToken = jwtDecode<{ token: string }>(token.value)
     const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
     userName = userTokenDecode.name
+    userId = userTokenDecode.id
   }
 
   return (
@@ -72,7 +74,7 @@ export default function RootLayout({
                         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                         a.appendChild(r);
                     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-                    window.hj('identify', '${userName}', { userProperty: 'value' });
+                    window.hj('identify', '${userId}', { userName: '${userName}' });
                   `}
                 </Script>
               </body>
