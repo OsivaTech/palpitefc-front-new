@@ -10,6 +10,9 @@ import { AuthProvider } from '@/context/useAuth'
 import { cookies } from 'next/headers'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
+import { jwtDecode } from 'jwt-decode'
+import { UserToken } from '@/types/UserToken'
+
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
   description: 'Seu palpite é gol de placa!',
@@ -25,6 +28,12 @@ export default function RootLayout({
   const messages = useMessages()
 
   const token = cookies().get('session')
+  let userName = ''
+  if (token?.value) {
+    const decodedToken = jwtDecode<{ token: string }>(token.value)
+    const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
+    userName = userTokenDecode.name
+  }
 
   return (
     <html lang={locale} className="dark">
@@ -63,6 +72,7 @@ export default function RootLayout({
                         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
                         a.appendChild(r);
                     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+                    hj('identify', '${userName}', { userProperty: 'value' });
                   `}
                 </Script>
               </body>
@@ -75,4 +85,3 @@ export default function RootLayout({
     </html>
   )
 }
-// max-w-[1600px]
