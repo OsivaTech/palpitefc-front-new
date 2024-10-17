@@ -1,7 +1,10 @@
 'use server'
 import { del, get, post } from '@/lib/api'
-import { Subscription } from '@/lib/endpoints'
-import { SubscriptionResponse } from '@/types/api/responses/SubscriptionReponse'
+import { PendingPayment, Subscription } from '@/lib/endpoints'
+import {
+  MakeSubscriptionResponse,
+  SubscriptionResponse,
+} from '@/types/api/responses/SubscriptionReponse'
 
 import { SubscriptionRequest } from '@/types/api/resquests/SubscriptionRequest'
 
@@ -20,6 +23,20 @@ export async function getSubscription() {
   return mySubscription
 }
 
+export async function getPendingPayment() {
+  const response = await get(
+    PendingPayment,
+    {
+      cache: 'no-cache',
+    },
+    true,
+  )
+  if (response.status !== 200) return null
+
+  const mySubscription: PendingSubscription = await response?.json()
+  return mySubscription
+}
+
 export async function makeSubscription(subscription: SubscriptionRequest) {
   const response = await post(
     Subscription,
@@ -29,10 +46,7 @@ export async function makeSubscription(subscription: SubscriptionRequest) {
     },
     true,
   )
-  if (response.status < 200 || response.status > 299) {
-    return false
-  }
-  return true
+  return (await response.json()) as MakeSubscriptionResponse
 }
 
 export async function deleteSubscription() {

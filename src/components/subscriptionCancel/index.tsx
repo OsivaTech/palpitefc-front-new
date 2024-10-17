@@ -53,7 +53,6 @@ const SubscriptionCancel = () => {
         {t('components.subscriptionCancel.title')}
       </h1>
       <Separator className="mb-[69px] border border-white/50" />
-
       <div className="flex items-center justify-center w-full ">
         <CustomButton
           isLoading={isPending}

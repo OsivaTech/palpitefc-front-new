@@ -11,20 +11,9 @@ import { APP_LINKS } from '@/constants'
 import { useEffect } from 'react'
 import { useAuth } from '@/context/useAuth'
 import { formatDate } from '@/utils/formatDate'
+import { SubscriptionResponse } from '@/types/api/responses/SubscriptionReponse'
 
-type SubscriptionInfoProps = {
-  referenceId: string
-  cardBrand: string
-  lastDigits: string
-  nextInvoice: string
-  status: string
-}
-
-const SubscriptionInfo = ({
-  infoCard,
-}: {
-  infoCard: SubscriptionInfoProps
-}) => {
+const SubscriptionInfo = ({ infoCard }: { infoCard: SubscriptionResponse }) => {
   const t = useTranslations()
   const router = useRouter()
   const locale = useLocale()
@@ -40,7 +29,7 @@ const SubscriptionInfo = ({
     return (
       <Image
         className="self-center mb-2"
-        src={infoCard.cardBrand}
+        src={infoCard.paymentDetails.card.cardBrand}
         height={20}
         width={20}
         alt=""
@@ -58,7 +47,7 @@ const SubscriptionInfo = ({
       <CustomInput
         icon={icon()}
         className="mb-4 rounded-md"
-        value={`**** **** **** ${infoCard.lastDigits}`}
+        value={`**** **** **** ${infoCard.paymentDetails.card.lastDigits}`}
         value2={`Renovação: ${formatDate(infoCard.nextInvoice, 'dd/MM')}`}
         disabled
       />

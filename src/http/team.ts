@@ -12,6 +12,7 @@ export async function getTeams() {
     },
     false,
   )
+  console.log(response)
   const teams: TeamResponse = await response.json()
 
   return teams

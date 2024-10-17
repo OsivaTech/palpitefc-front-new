@@ -3,14 +3,13 @@ import ReactInputMask from 'react-input-mask'
 
 interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
   mask?: string
-  maskChar?: string
   hiddenArrowsNumber?: boolean
   icon?: JSX.Element
   value2?: string
 }
 
 export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
-  ({ className, type, mask, maskChar, icon, value2, ...props }, ref) => {
+  ({ className, type, mask, icon, value2, ...props }, ref) => {
     const renderInput = (inputProps: InputHTMLAttributes<HTMLInputElement>) => (
       <div className="relative w-full">
         <h1 className="absolute inset-y-0 left-0 bottom-2 flex items-center pl-3">
@@ -30,7 +29,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
 
     if (mask) {
       return (
-        <ReactInputMask mask={mask} maskChar={maskChar} {...props}>
+        <ReactInputMask mask={mask} {...props}>
           {renderInput(props)}
         </ReactInputMask>
       )

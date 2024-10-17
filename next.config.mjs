@@ -23,6 +23,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'sandbox.api.pagseguro.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
         hostname: 'media.api-sports.io',
         port: '',
       },

@@ -22,5 +22,6 @@ export const SendForgotPasswordEmail = `${apiBaseUrl}/send-mail-code`
 export const VerifyResetCode = `${apiBaseUrl}/verify-reset-code`
 export const ResetPassword = `${apiBaseUrl}/reset-password`
 export const Subscription = `${apiBaseUrl}/subscriptions`
+export const PendingPayment = `${apiBaseUrl}/subscription-orders/pending`
 export const RulesEndPoint = `${apiBaseUrl}/rules`
 export const PrizesEndPoint = `${apiBaseUrl}/prizes`

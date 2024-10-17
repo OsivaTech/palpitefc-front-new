@@ -15,12 +15,12 @@
           "tabTitle": "Geral",
           "title": "Classificação de"
         },
-        "vip":{
+        "vip": {
           "tabTitle": "VIP",
           "title": "Classificação da",
           "week": "Semana"
         },
-        "filterText":{
+        "filterText": {
           "month": "Alterar mês",
           "week": "Alterar semana"
         }
@@ -57,6 +57,9 @@
         "securityCode": "Código de segurança",
         "nameCard": "Nome no cartão",
         "button": "Assinar"
+      },
+      "pix": {
+        "button": "Gerar QR Code"
       }
     },
     "subscriptionInfo": {
@@ -116,6 +119,11 @@
         "birthday": "Campo obrigatório",
         "ageRestriction": "Para carastrar você precisa ser maior de 18 anos",
         "documentInvalid": "CPF informado é inválido"
+      }
+    },
+    "subscription": {
+      "pendingPayment": {
+        "title": "Pagamentos Pendentes"
       }
     }
   },

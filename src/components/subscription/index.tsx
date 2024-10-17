@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { CustomInput } from '../custom-input'
 import { CustomButton } from '../custom-button'
-import { useEffect, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import Image from 'next/image'
 import { encryptCard, usePagSeguro } from 'pagseguro-encryptcard-reactjs'
 import { env } from '@/env'
@@ -29,6 +29,10 @@ import { makeSubscription } from '@/http/subscription'
 import { removeCharacters } from '@/utils/removeCharacters'
 import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
+import { CreditCard } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { usePageModal } from '@/context/usePageModal'
+import { Pix } from '@/components/pix'
 
 type CardProps = {
   numberCart: string
@@ -45,7 +49,9 @@ const Subscription = () => {
   const router = useRouter()
   const { user, isAuthenticated } = useAuth()
   const locale = useLocale()
-
+  const [isCreditCard, setIsCreditCard] = useState(false)
+  const [isPix, setIsPix] = useState(false)
+  const { openPageModal, render } = usePageModal()
   const { toast } = useToast()
 
   const formSchema = z.object({
@@ -70,6 +76,7 @@ const Subscription = () => {
       message: t('common.invalidNameCard'),
     }),
   })
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -96,6 +103,11 @@ const Subscription = () => {
       const result = await encryptCard(pagseguro, card)
       return result
     }
+  }
+
+  const handlePix = () => {
+    openPageModal()
+    render(<Pix />)
   }
 
   useEffect(() => {
@@ -168,106 +180,151 @@ const Subscription = () => {
           Cancele quando quiser!
         </p>
       </h1>
-
-      <h1 className="text-center mb-2">
-        Insira os dados do seu cartão de crédito:
-      </h1>
-
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="mx-auto space-y-4 max-w-[450px]"
+      <div className={cn('flex items-center justify-between gap-3')}>
+        <div
+          onClick={() => {
+            setIsCreditCard(true)
+            setIsPix(false)
+          }}
+          className={cn(
+            'flex flex-col items-center h-[100px] w-[180px] bg-app-background p-3 rounded-lg hover:bg-white/20 cursor-pointer',
+            isCreditCard && 'bg-white/20',
+          )}
         >
-          <FormField
-            control={form.control}
-            name="numberCart"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <CustomInput
-                    type="text"
-                    mask="9999 9999 9999 9999"
-                    placeholder={t('components.subscription.form.numberCart')}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex flex-row w-full justify-between">
-            <div className="w-[48%]">
-              <FormField
-                control={form.control}
-                name="expirationData"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <CustomInput
-                        type="text"
-                        mask="99/9999"
-                        placeholder={t(
-                          'components.subscription.form.expirationData',
-                        )}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+          <CreditCard size={60} />
+          Cartão de crédito
+        </div>
+        <div
+          onClick={() => {
+            setIsCreditCard(false)
+            setIsPix(true)
+          }}
+          className={cn(
+            'flex flex-col items-center h-[100px] w-[180px] bg-app-background p-3 rounded-lg hover:bg-white/20 cursor-pointer',
+            isPix && 'bg-white/20',
+          )}
+        >
+          <Image src="/assets/pix.svg" width={60} height={60} alt="pix" />
+          Pix
+        </div>
+      </div>
 
-            <div className="w-[48%]">
-              <FormField
-                control={form.control}
-                name="securityCode"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <CustomInput
-                        type="text"
-                        placeholder={t(
-                          'components.subscription.form.securityCode',
-                        )}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-          <FormField
-            control={form.control}
-            name="nameCard"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <CustomInput
-                    type="text"
-                    placeholder={t('components.subscription.form.nameCard')}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      {isCreditCard && (
+        <>
+          <h1 className="text-center mb-2 mt-8">
+            Insira os dados do seu cartão de crédito:
+          </h1>
 
-          <div className="flex items-center justify-center w-full ">
-            <CustomButton
-              isLoading={isPending}
-              disabled={isPending}
-              type="submit"
-              className="w-[247px] bg-app-secondary hover:bg-secondary/80"
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="mx-auto space-y-4 max-w-[450px]"
             >
-              {t('components.subscription.form.button')}
-            </CustomButton>
-          </div>
-        </form>
-      </Form>
+              <FormField
+                control={form.control}
+                name="numberCart"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CustomInput
+                        type="text"
+                        mask="9999 9999 9999 9999"
+                        placeholder={t(
+                          'components.subscription.form.numberCart',
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex flex-row w-full justify-between">
+                <div className="w-[48%]">
+                  <FormField
+                    control={form.control}
+                    name="expirationData"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomInput
+                            type="text"
+                            mask="99/9999"
+                            placeholder={t(
+                              'components.subscription.form.expirationData',
+                            )}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="w-[48%]">
+                  <FormField
+                    control={form.control}
+                    name="securityCode"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <CustomInput
+                            type="text"
+                            placeholder={t(
+                              'components.subscription.form.securityCode',
+                            )}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+              <FormField
+                control={form.control}
+                name="nameCard"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <CustomInput
+                        type="text"
+                        placeholder={t('components.subscription.form.nameCard')}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex items-center justify-center w-full ">
+                <CustomButton
+                  isLoading={isPending}
+                  disabled={isPending}
+                  type="submit"
+                  className="w-[247px] bg-app-secondary hover:bg-secondary/80"
+                >
+                  {t('components.subscription.form.button')}
+                </CustomButton>
+              </div>
+            </form>
+          </Form>
+        </>
+      )}
+
+      {isPix && (
+        <div className="flex justify-center items-center pt-14">
+          <CustomButton
+            onClick={handlePix}
+            className="w-[247px] bg-app-secondary hover:bg-secondary/80"
+          >
+            {t('components.subscription.pix.button')}
+          </CustomButton>
+        </div>
+      )}
 
       <div className="mt-[80px]  flex items-center justify-items-center flex-col">
         <Image
