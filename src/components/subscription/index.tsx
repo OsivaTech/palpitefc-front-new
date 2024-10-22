@@ -127,10 +127,11 @@ const Subscription = () => {
           encrypted: result?.encryptedCard,
           securityCode: values.securityCode,
         },
+        paymentMethod: 'CreditCard',
       } as SubscriptionType
 
       const resultSubscription = await makeSubscription(body)
-
+      console.log('resultSubscription', resultSubscription)
       if (!resultSubscription) {
         toast({
           title: 'Erro',

@@ -1,6 +1,7 @@
 'use server'
 import { del, get, post } from '@/lib/api'
 import { PendingPayment, Subscription } from '@/lib/endpoints'
+import { PendingSubscription } from '@/types/api/responses/PendingSubscriptionResponse'
 import {
   MakeSubscriptionResponse,
   SubscriptionResponse,
@@ -46,6 +47,9 @@ export async function makeSubscription(subscription: SubscriptionRequest) {
     },
     true,
   )
+  if (response.status === 204) {
+    return true
+  }
   return (await response.json()) as MakeSubscriptionResponse
 }
 

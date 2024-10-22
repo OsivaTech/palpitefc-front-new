@@ -62,7 +62,6 @@ const PendingPayment = ({
           </div>
           <span className="text-3xl"> R$ 9,99 </span>
         </div>
-        <Separator />
         <div className="rounded-lg bg-white h-[210px] w-[210px] flex items-center justify-center">
           <Image
             src={pendingPayment.paymentDetails.pix.qrCode.imagePng || ''}

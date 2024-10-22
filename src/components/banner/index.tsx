@@ -27,7 +27,7 @@ export const Banner = ({ items }: CarrouselProps) => {
     <Carousel plugins={[plugin.current]} className="w-full">
       <CarouselContent>
         {items ? (
-          items.map((item, index) => (
+          items?.map((item, index) => (
             <CarouselItem
               onClick={() =>
                 handleAdClick('ad_click', 'BannerAd', item.name, item.urlGoTo)

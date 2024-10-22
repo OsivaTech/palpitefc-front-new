@@ -131,7 +131,7 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
                 ? ' ' +
                   month
                     .filter((x) => x.id === generalFilter.value)[0]
-                    .name.toLowerCase()
+                    ?.name.toLowerCase()
                 : ''}
             </h2>
             {generalFilter.value !== '0' && (
