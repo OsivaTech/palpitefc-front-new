@@ -44,18 +44,18 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
     value: Math.max(...data.map((d) => d.info.month || 0)).toString(),
     type: RANKING_TYPE.MONTH,
   }
-  const vipRank = {
-    value: Math.max(...data.map((d) => d.info.week || 0)).toString(),
-    type: RANKING_TYPE.WEEKVIP,
-  }
+  // const vipRank = {
+  //   value: Math.max(...data.map((d) => d.info.week || 0)).toString(),
+  //   type: RANKING_TYPE.WEEKVIP,
+  // }
 
-  const weeks = data
-    .filter((d) => d.type === RANKING_TYPE.WEEK)
-    .sort((a, b) => (a.info.week || 0) - (b.info.week || 0))
-    .map((d) => ({
-      id: d.info.week?.toString() || '',
-      name: `${t('rank.vip.week')} ${d.info.week}`,
-    }))
+  // const weeks = data
+  //   .filter((d) => d.type === RANKING_TYPE.WEEK)
+  //   .sort((a, b) => (a.info.week || 0) - (b.info.week || 0))
+  //   .map((d) => ({
+  //     id: d.info.week?.toString() || '',
+  //     name: `${t('rank.vip.week')} ${d.info.week}`,
+  //   }))
 
   const [generalFilter, setGeneralFilter] = useState<{
     value: null | string
@@ -65,13 +65,13 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
     type: generalRank.type,
   })
 
-  const [vipFilter, setVipFilter] = useState<{
-    value: null | string
-    type: string
-  }>({
-    value: vipRank.value,
-    type: vipRank.type,
-  })
+  // const [vipFilter, setVipFilter] = useState<{
+  //   value: null | string
+  //   type: string
+  // }>({
+  //   value: vipRank.value,
+  //   type: vipRank.type,
+  // })
 
   const generalFilteredContent =
     generalFilter.type === generalRank.type
@@ -80,12 +80,12 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
           .filter((m) => m.info.month?.toString() === generalFilter.value)[0]
       : data?.filter((d) => d.type === generalFilter.type)[0]
 
-  const vipFilteredContent =
-    vipFilter.type === vipRank.type
-      ? data
-          .filter((d) => d.type === vipFilter.type)
-          .filter((m) => m.info.week?.toString() === vipFilter.value)[0]
-      : data?.filter((d) => d.type === vipFilter.type)[0]
+  // const vipFilteredContent =
+  //   vipFilter.type === vipRank.type
+  //     ? data
+  //         .filter((d) => d.type === vipFilter.type)
+  //         .filter((m) => m.info.week?.toString() === vipFilter.value)[0]
+  //     : data?.filter((d) => d.type === vipFilter.type)[0]
 
   const onGeneralFilterChange = (value: string, type: string) => {
     if (value === '0') {
@@ -95,113 +95,145 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
     }
   }
 
-  const onVipFilterChange = (value: string, type: string) => {
-    if (value === '0') {
-      setVipFilter({ type: vipRank.type, value: vipRank.value })
-    } else {
-      setVipFilter({ type, value })
-    }
+  // const onVipFilterChange = (value: string, type: string) => {
+  //   if (value === '0') {
+  //     setVipFilter({ type: vipRank.type, value: vipRank.value })
+  //   } else {
+  //     setVipFilter({ type, value })
+  //   }
+  // }
+
+  return user && user?.isSubscribed
+    ? renderRankingTabs()
+    : renderGeneralRanking()
+
+  function renderRankingTabs() {
+    return (
+      <TabsContent value="rank">
+        <Tabs defaultValue="general">
+          <TabsList className="text-white bg-app-background flex gap-2">
+            <TabsTrigger
+              value="general"
+              className="px-2 py-1 w-24 text-white font-semibold rounded-lg hover:bg-[#3a4a5a] data-[state=active]:bg-[#3a4a5a]"
+              style={{ borderBottom: 'none' }}
+            >
+              {t('rank.general.tabTitle')}
+            </TabsTrigger>
+            <TabsTrigger
+              value="vip"
+              className="px-2 py-1 w-24 text-white font-semibold rounded-lg hover:bg-[#3a4a5a] data-[state=active]:bg-[#3a4a5a]"
+              style={{ borderBottom: 'none' }}
+            >
+              {t('rank.vip.tabTitle')}
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="general">{renderGeneralRanking()}</TabsContent>
+          <TabsContent value="vip">
+            {user && user.isSubscribed
+              ? renderVipRanking()
+              : renderSubscriptionPrompt()}
+          </TabsContent>
+        </Tabs>
+      </TabsContent>
+    )
   }
 
-  return (
-    <TabsContent value="rank">
-      <Tabs defaultValue="general">
-        <TabsList className="text-white bg-app-background flex gap-2">
-          <TabsTrigger
-            value="general"
-            className="px-2 py-1 w-24 text-white font-semibold rounded-lg hover:bg-[#3a4a5a] data-[state=active]:bg-[#3a4a5a]"
-            style={{ borderBottom: 'none' }}
-          >
-            {t('rank.general.tabTitle')}
-          </TabsTrigger>
-          <TabsTrigger
-            value="vip"
-            className="px-2 py-1 w-24 text-white font-semibold rounded-lg hover:bg-[#3a4a5a] data-[state=active]:bg-[#3a4a5a]"
-            style={{ borderBottom: 'none' }}
-          >
-            {t('rank.vip.tabTitle')}
-          </TabsTrigger>
-        </TabsList>
+  function renderSubscriptionPrompt() {
+    return (
+      <div className="flex flex-col gap-4 px-4 text-center">
+        <p>
+          Mais de R$ 2.000 no pix, por mês! Assine agora o Palpite VIP, por
+          apenas R$ 9,99/mês.
+        </p>
+        <div className="gap-2">
+          <p className="font-bold">Prêmios semanais:</p>
+          <ul className="text-center">
+            <li>1º lugar: R$ 250</li>
+            <li>2º lugar: R$ 150</li>
+            <li>3º lugar: R$ 100</li>
+          </ul>
+        </div>
+        <p>Clique no botão abaixo para assinar.</p>
+        <Button
+          onClick={() => push(`/${locale}/${APP_LINKS.SUBSCRIPTION()}`)}
+          className="text-xl font-bold text-white bg-blue-500 rounded-full border border-white"
+        >
+          {ts('title')}
+        </Button>
+      </div>
+    )
+  }
 
-        <TabsContent value="general">
-          <div className="flex flex-col items-center justify-center gap-3 pb-2">
-            <h2 className="font-semibold">
-              {t('rank.general.title')}
-              {generalFilter.value !== '0'
-                ? ' ' +
-                  month
-                    .filter((x) => x.id === generalFilter.value)[0]
-                    .name.toLowerCase()
-                : ''}
-            </h2>
-            {generalFilter.value !== '0' && (
-              <div className="min-w-[71px]">
-                <CustomSelect
-                  title={t('rank.filterText.month')}
-                  data={month}
-                  onValueChange={(value: string) =>
-                    onGeneralFilterChange(value, generalRank.type)
-                  }
-                />
-              </div>
-            )}
-          </div>
-          {renderPlacings(generalFilteredContent)}
-        </TabsContent>
-        <TabsContent value="vip">
-          {user && user.isSubscribed ? (
-            <div>
-              <div className="flex flex-col items-center justify-center gap-3 pb-2">
-                <h2 className="font-semibold">
-                  {t('rank.vip.title')}
-                  {vipFilter.value !== '0'
-                    ? ' ' +
-                      weeks
-                        .filter((x) => x.id === vipFilter.value)[0]
-                        .name.toLowerCase()
-                    : ''}
-                </h2>
-                {generalFilter.value !== '0' && (
-                  <div className="min-w-[71px]">
-                    <CustomSelect
-                      title={t('rank.filterText.week')}
-                      data={weeks}
-                      onValueChange={(value: string) =>
-                        onVipFilterChange(value, vipRank.type)
-                      }
-                    />
-                  </div>
-                )}
-              </div>
-              {renderPlacings(vipFilteredContent)}
-            </div>
-          ) : (
-            <div className="flex flex-col gap-4 px-4 text-center">
-              <p>
-                Mais de R$ 2.000 no pix, por mês! Assine agora o Palpite VIP,
-                por apenas R$ 9,99/mês.
-              </p>
-              <div className="gap-2">
-                <p className="font-bold">Prêmios semanais:</p>
-                <ul className="text-center">
-                  <li>1º lugar: R$ 250</li>
-                  <li>2º lugar: R$ 150</li>
-                  <li>3º lugar: R$ 100</li>
-                </ul>
-              </div>
-              <p>Clique no botão abaixo para assinar.</p>
-              <Button
-                onClick={() => push(`/${locale}/${APP_LINKS.SUBSCRIPTION()}`)}
-                className="text-xl font-bold text-white bg-blue-500 rounded-full border border-white"
-              >
-                {ts('title')}
-              </Button>
+  function renderVipRanking() {
+    return (
+      // <>
+      //   <div className="flex flex-col items-center justify-center gap-3 py-2">
+      //     <h2 className="font-semibold">
+      //       {t('rank.vip.title')}
+      //       {vipFilter.value !== '0'
+      //         ? ' ' +
+      //           weeks
+      //             .filter((x) => x.id === vipFilter.value)[0]
+      //             .name.toLowerCase()
+      //         : ''}
+      //     </h2>
+      //     {generalFilter.value !== '0' && (
+      //       <div className="min-w-[71px]">
+      //         <CustomSelect
+      //           title={t('rank.filterText.week')}
+      //           data={weeks}
+      //           onValueChange={(value: string) =>
+      //             onVipFilterChange(value, vipRank.type)
+      //           }
+      //         />
+      //       </div>
+      //     )}
+      //   </div>
+      //   {renderPlacings(vipFilteredContent)}
+      // </>
+      <div className="w-full">
+        <Image
+          src="https://assets.palpitefutebolclube.com/images/comunicado-vip.jpg"
+          alt="Comunicado VIP"
+          layout="responsive"
+          width={1920}
+          height={1080}
+          className="object-cover"
+        />
+      </div>
+    )
+  }
+
+  function renderGeneralRanking() {
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center gap-3 py-2">
+          <h2 className="font-semibold">
+            {t('rank.general.title')}
+            {generalFilter.value !== '0'
+              ? ' ' +
+                month
+                  .filter((x) => x.id === generalFilter.value)[0]
+                  ?.name?.toLowerCase()
+              : ''}
+          </h2>
+          {generalFilter.value !== '0' && (
+            <div className="min-w-[71px]">
+              <CustomSelect
+                title={t('rank.filterText.month')}
+                data={month}
+                onValueChange={(value: string) =>
+                  onGeneralFilterChange(value, generalRank.type)
+                }
+              />
             </div>
           )}
-        </TabsContent>
-      </Tabs>
-    </TabsContent>
-  )
+        </div>
+        {renderPlacings(generalFilteredContent)}
+      </>
+    )
+  }
 
   function renderPlacings(content: RankingResponse) {
     return (
