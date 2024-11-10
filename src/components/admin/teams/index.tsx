@@ -98,7 +98,7 @@ const TeamsManagement = ({ teams }: { teams: Team[] | null }) => {
               }
               className={`${
                 team.isEditing ? 'bg-blue-500' : 'bg-gray-500'
-              } text-white px-4 py-2 rounded w-16 ml-auto`}
+              } text-white w-16 ml-auto`}
             >
               {team.isEditing ? 'Salvar' : 'Editar'}
             </CustomButton>

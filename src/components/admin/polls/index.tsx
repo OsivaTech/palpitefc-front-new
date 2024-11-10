@@ -22,7 +22,6 @@ const PollsManagement = ({ polls }: { polls: Poll[] | undefined }) => {
       isCreating: true,
     }
     setEditedPolls((prevPolls) => [newPoll, ...prevPolls])
-    console.log(newPoll)
   }
 
   const addOptionToPoll = (id: number) => {

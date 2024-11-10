@@ -1,5 +1,5 @@
 import NewsPage from '@/components/news'
-import { getNews } from '@/http/new'
+import { getNews } from '@/http/news'
 
 export default async function NewPage({ params }: { params: { id: string } }) {
   const news = await getNews()

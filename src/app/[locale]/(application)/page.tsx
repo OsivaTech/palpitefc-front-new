@@ -5,7 +5,7 @@ import { getAdvertisament } from '@/http/advertisement'
 import { getFixture } from '@/http/fixture'
 import { getMyGuesses } from '@/http/gesses'
 import { getLeagues } from '@/http/league'
-import { getNews } from '@/http/new'
+import { getNews } from '@/http/news'
 import { getRank } from '@/http/ranking'
 import { getTeams } from '@/http/team'
 

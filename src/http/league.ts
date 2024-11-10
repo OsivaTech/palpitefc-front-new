@@ -8,7 +8,6 @@ export async function getLeagues(enabled?: boolean) {
     const endpoint = enabled
       ? `${LeaguesEndpoint}?enabled=${enabled}`
       : LeaguesEndpoint
-    console.log(endpoint)
     const response = await get(endpoint, { cache: 'no-cache' }, false)
     const leagues: League[] = await response.json()
 
