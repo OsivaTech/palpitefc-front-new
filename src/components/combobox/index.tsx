@@ -79,7 +79,7 @@ export function Combobox({
       </PopoverTrigger>
       <PopoverContent className="min-w-[400px] max-h-96 overflow-y-scroll p-0">
         <Command>
-          <CommandInput placeholder="Selecione seu time do coração..." />
+          <CommandInput placeholder={searchLabel} />
           <CommandList className="w-full">
             <CommandEmpty>{errorLabel}</CommandEmpty>
             <CommandGroup>

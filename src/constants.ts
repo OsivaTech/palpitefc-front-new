@@ -11,6 +11,14 @@ export const APP_LINKS = {
   PROFILE: () => `/profile`,
 }
 
+export const APP_LINKS_ADMIN = {
+  ADMIN_PANEL: () => `/admin`,
+  ADMIN_POLLS: () => `/admin/polls`,
+  ADMIN_NEWS: () => `/admin/news`,
+  ADMIN_TEAMS: () => `/admin/teams`,
+  ADMIN_LEAGUES: () => `/admin/leagues`,
+}
+
 export const ROLE = {
   ADMIN: 100,
   JOURNALIST: 200,

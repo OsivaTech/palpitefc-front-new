@@ -1,11 +1,11 @@
 'use client'
 import { ModalPageHeader } from '@/components/modal-page-header'
 import { Separator } from '@/components/ui/separator'
-import { APP_LINKS } from '@/constants'
+import { APP_LINKS, APP_LINKS_ADMIN } from '@/constants'
 import { usePageModal } from '@/context/usePageModal'
 import { logout } from '@/lib/session'
 import { User } from '@/types/User'
-import { LogOut, UserRound } from 'lucide-react'
+import { LogOut, Settings, UserRound } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 
@@ -58,6 +58,18 @@ export const ModalPageProfile = ({ user }: { user: User }) => {
             Assinatura
           </li>
         } */}
+        {user?.role === 'admin' && (
+          <li
+            onClick={() => {
+              router.push(`/${locale}/${APP_LINKS_ADMIN.ADMIN_PANEL()}`)
+              closePageModal()
+            }}
+            className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"
+          >
+            <Settings size={20} />
+            Painel de Gestão
+          </li>
+        )}
         <li
           onClick={handleLogout}
           className="flex justify-start items-center gap-2 cursor-pointer font-medium text-xs"

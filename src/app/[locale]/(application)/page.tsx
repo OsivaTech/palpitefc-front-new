@@ -11,7 +11,7 @@ import { getTeams } from '@/http/team'
 
 export default async function LandingPage() {
   const fixtures = await getFixture()
-  const leagues = await getLeagues()
+  const leagues = await getLeagues(true)
   const guess = await getMyGuesses()
   const news = await getNews()
   const rank = await getRank()
