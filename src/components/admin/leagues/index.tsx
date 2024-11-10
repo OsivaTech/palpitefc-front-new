@@ -94,7 +94,7 @@ const LeaguesManagement = ({ leagues }: { leagues: League[] | null }) => {
         />
         <Combobox
           value={selectedCountry}
-          onChange={setSelectedCountry}
+          onChange={(value) => setSelectedCountry(String(value))}
           data={uniqueCountries}
           errorLabel="Não foi encontrado esse país"
           searchLabel="Filtrar por país"
@@ -179,7 +179,7 @@ const LeaguesManagement = ({ leagues }: { leagues: League[] | null }) => {
               }
               className={`${
                 league.isEditing ? 'bg-blue-500' : 'bg-gray-500'
-              } text-white px-4 py-2 rounded w-16 ml-auto`}
+              } text-white w-16 ml-auto`}
             >
               {league.isEditing ? 'Salvar' : 'Editar'}
             </CustomButton>
