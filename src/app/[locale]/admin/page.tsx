@@ -22,7 +22,7 @@ export default function LandingPage() {
         </CustomButton>
         <CustomButton
           onClick={() =>
-            router.push(`/${locale}/${APP_LINKS_ADMIN.ADMIN_LEAGUES()}`)
+            router.push(`/${locale}/${APP_LINKS_ADMIN.ADMIN_NEWS()}`)
           }
           className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg"
         >
@@ -38,7 +38,7 @@ export default function LandingPage() {
         </CustomButton>
         <CustomButton
           onClick={() =>
-            router.push(`/${locale}/${APP_LINKS_ADMIN.ADMIN_LEAGUES()}`)
+            router.push(`/${locale}/${APP_LINKS_ADMIN.ADMIN_TEAMS()}`)
           }
           className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg"
         >
