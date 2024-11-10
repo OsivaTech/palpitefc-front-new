@@ -5,15 +5,15 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { APP_LINKS } from '@/constants'
 import { useAuth } from '@/context/useAuth'
 import { usePageModal } from '@/context/usePageModal'
-import { vote } from '@/http/pool'
-import { Quiz, QuizOptions } from '@/types/Quiz'
+import { vote } from '@/http/poll'
+import { Poll, PollOption } from '@/types/Poll'
 import { CircleCheck } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 type QuizCardProps = {
-  data: Quiz
+  data: Poll
 }
 
 export const QuizCard = ({ data }: QuizCardProps) => {
@@ -98,8 +98,8 @@ const ProgressItem = ({
   currentOptions,
   votedId,
 }: {
-  options: QuizOptions[]
-  currentOptions: QuizOptions
+  options: PollOption[]
+  currentOptions: PollOption
   votedId: string
 }) => {
   const [progress, setProgress] = useState(0)
