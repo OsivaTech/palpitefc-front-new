@@ -85,9 +85,9 @@ export function Combobox({
             <CommandGroup>
               {data?.map((item) => (
                 <CommandItem
-                  className="gap-2 "
+                  className="gap-2"
                   key={item.value}
-                  value={String(item.value)}
+                  value={item.label}
                   onSelect={() => handleChange(item)}
                 >
                   {item.imageLink && (
