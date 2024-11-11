@@ -1,24 +1,32 @@
 import createMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
-import { getSelf } from './http/user'
+import { decrypt } from './lib/session'
 
-async function isAdminAuthenticated(): Promise<boolean> {
-  const user = await getSelf()
+async function isAdminAuthenticated(req: NextRequest): Promise<boolean> {
+  const session = req.cookies.get('session')?.value
 
-  return !user ? false : user.role === 'admin'
+  if (!session) return false
+
+  const jwt = (await decrypt(session))?.token
+
+  if (!jwt) return false
+
+  const user = JSON.parse(Buffer.from(jwt.split('.')[1], 'base64').toString())
+
+  return user?.role === 'admin'
 }
 
-const existingMiddleware = createMiddleware({
+const localeHandlingMiddleware = createMiddleware({
   locales: ['pt'],
   defaultLocale: 'pt',
 })
 
 export default async function middleware(req: NextRequest) {
-  const response = existingMiddleware(req)
+  const response = localeHandlingMiddleware(req)
 
   const url = req.nextUrl
   if (url.pathname.includes('/admin')) {
-    const isAdmin = await isAdminAuthenticated()
+    const isAdmin = await isAdminAuthenticated(req)
     if (!isAdmin) {
       return NextResponse.redirect(new URL('/', url))
     }

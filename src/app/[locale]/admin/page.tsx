@@ -9,7 +9,7 @@ export default function LandingPage() {
   const locale = useLocale()
 
   return (
-    <div className="flex flex-col items-center min-h-screen py-2">
+    <div className="flex flex-col items-center min-h-screen py-2 bg-[#2D3745]">
       <h1 className="text-2xl font-bold mb-4">Painel de Gestão</h1>
       <div className="grid grid-cols-2 gap-4">
         <CustomButton
