@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Autoplay from 'embla-carousel-autoplay'
 import { useRef } from 'react'
-import { sendGTMEvent } from '@next/third-parties/google'
+import { handleAdClick } from '@/utils/analytics'
 
 export type BannerType = {
   imageLink: string
@@ -30,7 +30,7 @@ export const Banner = ({ items }: CarrouselProps) => {
           items.map((item, index) => (
             <CarouselItem
               onClick={() =>
-                sendGTMEvent({ event: 'buttonClicked', value: item.urlGoTo })
+                handleAdClick('ad_click', 'BannerAd', item.name, item.urlGoTo)
               }
               key={index}
               className="max-h-[150px]"

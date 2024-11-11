@@ -2,7 +2,7 @@
   "components": {
     "matchboard-tab": {
       "match": {
-        "title": "Partida",
+        "title": "Partidas",
         "error": "Não foi possivel carregar as partidas",
         "myGuesses": "Meus Palpites"
       },
@@ -10,24 +10,63 @@
         "title": "Notícias"
       },
       "rank": {
-        "title": "Ranking"
+        "title": "Classificação",
+        "general": {
+          "tabTitle": "Geral",
+          "title": "Classificação de"
+        },
+        "vip":{
+          "tabTitle": "VIP",
+          "title": "Classificação da",
+          "week": "Semana"
+        },
+        "filterText":{
+          "month": "Alterar mês",
+          "week": "Alterar semana"
+        }
       }
     },
     "guess-card": {
       "submit": "Lançar palpite",
       "title": "Qual o seu palpite?",
-      "error": "Não é possivel votar em jogos que já começaram",
-      "gameAlreadyStarted": "Não é possivel votar em jogos que já comecaram"
+      "error": "Não é possivel palpitar em jogos que já começaram",
+      "gameAlreadyStarted": "Esse jogo já começou!"
     },
     "mypoints": {
       "league": "Campeonatos",
-      "month": "Meses",
+      "month": "Selecionar mês",
       "guess": "Seu palpite"
     },
     "forgotPasswordForm": {
       "title": "Esqueci minha senha",
       "submit": "Enviar código",
       "insertTheCode": "Insira o código"
+    },
+    "subscription": {
+      "title": "Assine Palpite VIP!",
+      "subtitle": "Com o VIP você ganha mais!",
+      "list": {
+        "0": "Premiação semanal",
+        "1": "Edição de palpites",
+        "2": "Ranking exclusivo"
+      },
+      "subtitle2": "Apenas R$ 9,99 por mês.",
+      "form": {
+        "numberCart": "Número do cartão",
+        "expirationData": "Vencimento",
+        "securityCode": "Código de segurança",
+        "nameCard": "Nome no cartão",
+        "button": "Assinar"
+      }
+    },
+    "subscriptionInfo": {
+      "title": "Palpite VIP",
+      "button": "Não quero mais ser VIP!"
+    },
+    "subscriptionCancel": {
+      "title": "Tem certeza que quer\ncancelar sua assinatura?",
+      "button1": "Sim, quero cancelar meus benefícios",
+      "button2": "Não, quero continuar com minhas vantagens"
     }
   },
   "common": {
@@ -47,7 +86,15 @@
     "save": "Salvar",
     "register": "Cadastrar",
     "removeMyAccount": "Deletar minha conta",
-    "email": "Email"
+    "email": "Email",
+    "invalidCard": "O número do cartão deve conter 16 dígitos.",
+    "successSubscription": "Assinatura efetuada com Sucesso.",
+    "invalidExpirationData": "Deve conter mes/ano, ex: 01/2020",
+    "invalidSecurityCode": "Minimo de 1 Caractere",
+    "invalidNameCard": "Minimo de 1 Caractere",
+    "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
+    "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
+    "subscriptionError": "Ocorreu um error, tente novamente."
   },
   "pages": {
     "login": {
@@ -61,7 +108,14 @@
     "register": {
       "error": {
         "document": "O CPF deve ter no mínimo 11 dígitos.",
-        "phoneNumber": "O número de telefone deve ter no mínimo 11 dígitos."
+        "phoneNumber": "O número de telefone deve ter no mínimo 11 dígitos.",
+        "email": "Email obrigatório",
+        "emailInvalid": "Email inválido",
+        "name": "Nome deve conter ao menos 2 caracteres",
+        "password": "Senha deve conter pelo menos 6 caracteres",
+        "birthday": "Campo obrigatório",
+        "ageRestriction": "Para carastrar você precisa ser maior de 18 anos",
+        "documentInvalid": "CPF informado é inválido"
       }
     }
   },
@@ -87,5 +141,17 @@
     "Team-InvalidTeamId": "Este ID de equipe é inválido.",
     "UserAddress-ExistingAddress": "O usuário já possui um endereço.",
     "User-InvalidEmail": "O email do usuário é inválido."
+  },
+  "prizerules": {
+    "component": {
+      "title": "Prêmios e Regras ",
+      "titleMonth": "Premiação Mensal",
+      "titleRules": "Regra de Pontuação"
+    }
+  },
+  "mypoints": {
+    "component": {
+      "title": "Meus pontos"
+    }
   }
 }

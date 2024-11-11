@@ -2,12 +2,14 @@ export interface Info {
   leagueId?: number
   year?: number
   month?: number
+  week?: number
 }
 
 export interface Place {
   id: number
   place: number
   name: string
+  teamId: number
   points: number
   guesses: number
 }

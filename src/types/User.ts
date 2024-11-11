@@ -4,7 +4,7 @@ export interface User {
   id: string
   name: string
   email: string
-  role: number
+  role: string
   points: number
   birthday: string
   phoneNumber: string
@@ -12,6 +12,7 @@ export interface User {
   info: string
   team: Team
   gender: 'M' | 'F' | 'O' | ''
+  isSubscribed: boolean
   address: {
     street: string
     number: string

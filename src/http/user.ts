@@ -11,6 +11,7 @@ import {
 import { User } from '@/types/User'
 import { ResetPasswordRequest } from '@/types/api/resquests/ResetPasswordRequest'
 import { SignupRequest } from '@/types/api/resquests/SignupRequest'
+import { cookies } from 'next/headers'
 
 export const getSelf = async () => {
   try {
@@ -24,15 +25,18 @@ export const getSelf = async () => {
 
 export async function createUser(user: SignupRequest) {
   try {
-    console.log()
     await post(
       RegisterEndpoint,
       {
         method: 'POST',
-        body: JSON.stringify(user),
+        body: JSON.stringify({
+          ...user,
+          utmSource: cookies().get('utm_source')?.value,
+        }),
       },
       false,
     )
+    cookies().delete('utm_source')
     return true
   } catch {
     return false

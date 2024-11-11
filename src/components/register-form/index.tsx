@@ -38,14 +38,25 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const [isPending, startTransition] = useTransition()
 
   const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(2).max(50),
-    name: z.string().min(2).max(50),
+    email: z
+      .string()
+      .email({ message: t('pages.register.error.emailInvalid') }),
+    password: z
+      .string()
+      .min(6, { message: t('pages.register.error.password') })
+      .max(50),
+    name: z
+      .string()
+      .min(2, { message: t('pages.register.error.name') })
+      .max(50),
     document: z
       .string()
       .transform(onlyNumber)
       .refine((val) => val.length >= 11, {
         message: t('pages.register.error.document'),
+      })
+      .refine((val) => isValidCPF(val), {
+        message: t('pages.register.error.documentInvalid'),
       }),
     team: z.number(),
     info: z.string().optional(),
@@ -55,9 +66,54 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
       .refine((val) => val.length >= 11, {
         message: t('pages.register.error.phoneNumber'),
       }),
-    birthday: z.date(),
+    birthday: z.date({ message: t('pages.register.error.birthday') }).refine(
+      (val) => {
+        const today = new Date()
+        const eighteenYearsAgo = new Date(
+          today.getFullYear() - 18,
+          today.getMonth(),
+          today.getDate(),
+        )
+        return val <= eighteenYearsAgo
+      },
+      {
+        message: t('pages.register.error.ageRestriction'),
+      },
+    ),
     gender: z.enum(['m', 'f', 'o', '']),
   })
+
+  function isValidCPF(cpf: string): boolean {
+    cpf = cpf.replace(/[^\d]+/g, '')
+    if (cpf.length !== 11) return false
+    if (
+      cpf === '00000000000' ||
+      cpf === '11111111111' ||
+      cpf === '22222222222' ||
+      cpf === '33333333333' ||
+      cpf === '44444444444' ||
+      cpf === '55555555555' ||
+      cpf === '66666666666' ||
+      cpf === '77777777777' ||
+      cpf === '88888888888' ||
+      cpf === '99999999999'
+    )
+      return false
+    let sum = 0
+    let remainder
+    for (let i = 1; i <= 9; i++)
+      sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i)
+    remainder = (sum * 10) % 11
+    if (remainder === 10 || remainder === 11) remainder = 0
+    if (remainder !== parseInt(cpf.substring(9, 10))) return false
+    sum = 0
+    for (let i = 1; i <= 10; i++)
+      sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i)
+    remainder = (sum * 10) % 11
+    if (remainder === 10 || remainder === 11) remainder = 0
+    if (remainder !== parseInt(cpf.substring(10, 11))) return false
+    return true
+  }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,6 +145,13 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
     startTransition(async () => {
       try {
         await createUser(user)
+
+        if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+          window.fbq('track', 'CompleteRegistration')
+        } else {
+          console.warn('Facebook Pixel não está carregado corretamente')
+        }
+
         const response = await login({
           email: user.email,
           password: user.password,
@@ -135,9 +198,9 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Nome" {...field} />
+                  <CustomInput placeholder="Nome Completo" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -150,7 +213,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                   <CustomInput placeholder="Senha" type="password" {...field} />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -163,7 +226,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                   <CustomInput placeholder="Email" {...field} />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -180,7 +243,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                   />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -197,7 +260,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                   />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -218,7 +281,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                       onSelect={field.onChange}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-white" />
                 </FormItem>
               )
             }}
@@ -261,7 +324,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -286,7 +349,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                   />
                 </FormControl>
 
-                <FormMessage />
+                <FormMessage className="text-white" />
               </FormItem>
             )}
           />

@@ -21,15 +21,17 @@ export const BottonMenu = () => {
     openPageModal()
   }
 
-  const hadnleOpenProfile = () => {
+  const handleOpenMyPoints = () => {
     if (!isAuthenticated) {
       router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
       return
     }
-    router.push(`${locale}/profile`)
+    router.push(`${locale}/${APP_LINKS.MYPOINTS()}`)
   }
 
-  const doNothing = () => {}
+  const handleRules = () => {
+    router.push(`${locale}/${APP_LINKS.RULES()}`)
+  }
 
   return (
     <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
@@ -47,7 +49,6 @@ export const BottonMenu = () => {
         onClick={handleOpenQuiz}
       />
       <BottomMenuItem
-        disabled
         icon={
           <Image
             className="self-center"
@@ -57,21 +58,21 @@ export const BottonMenu = () => {
             alt=""
           />
         }
-        label="Premios e Regras"
-        onClick={doNothing}
+        label="Prêmios e Regras"
+        onClick={handleRules}
       />
       <BottomMenuItem
         icon={
           <Image
             className="self-center"
-            src={'/assets/user.svg'}
+            src={'/assets/points.svg'}
             height={20}
             width={20}
             alt=""
           />
         }
-        label="Minha conta"
-        onClick={hadnleOpenProfile}
+        label="Meus pontos"
+        onClick={handleOpenMyPoints}
       />
     </div>
   )

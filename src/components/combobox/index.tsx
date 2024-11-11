@@ -21,7 +21,7 @@ import { CommandList } from 'cmdk'
 import Image from 'next/image'
 
 type ComboboxData = {
-  value: string
+  value: number | string
   label: string
   imageLink?: string
 }
@@ -30,7 +30,7 @@ type ComboboxPropx = {
   data: ComboboxData[]
   errorLabel: string
   searchLabel: string
-  onChange: (value: string) => void
+  onChange: (value: string | number) => void
   value: number | string
 }
 
@@ -79,7 +79,7 @@ export function Combobox({
       </PopoverTrigger>
       <PopoverContent className="min-w-[400px] max-h-96 overflow-y-scroll p-0">
         <Command>
-          <CommandInput placeholder="Selecione seu time do coração..." />
+          <CommandInput placeholder={searchLabel} />
           <CommandList className="w-full">
             <CommandEmpty>{errorLabel}</CommandEmpty>
             <CommandGroup>
@@ -87,7 +87,7 @@ export function Combobox({
                 <CommandItem
                   className="gap-2 "
                   key={item.value}
-                  value={item.value}
+                  value={String(item.value)}
                   onSelect={() => handleChange(item)}
                 >
                   {item.imageLink && (

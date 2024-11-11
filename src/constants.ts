@@ -5,6 +5,18 @@ export const APP_LINKS = {
   FORGOT: () => `/forgot`,
   MYPOINTS: () => `/mypoints`,
   NEWS: () => `/news`,
+  SUBSCRIPTION: () => `/subscription`,
+  SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
+  RULES: () => `/rules`,
+  PROFILE: () => `/profile`,
+}
+
+export const APP_LINKS_ADMIN = {
+  ADMIN_PANEL: () => `/admin`,
+  ADMIN_POLLS: () => `/admin/polls`,
+  ADMIN_NEWS: () => `/admin/news`,
+  ADMIN_TEAMS: () => `/admin/teams`,
+  ADMIN_LEAGUES: () => `/admin/leagues`,
 }
 
 export const ROLE = {
@@ -17,6 +29,8 @@ export const RANKING_TYPE = {
   YEAR: 'Year',
   MONTH: 'Month',
   LEAGUE: 'League',
+  WEEK: 'Week',
+  WEEKVIP: 'WeekVip',
 }
 
 export const POINT_TYPE: { [key: string]: string } = {
@@ -24,4 +38,8 @@ export const POINT_TYPE: { [key: string]: string } = {
   GD: 'Diferença de gols',
   MW: 'Vencedor da partida',
   EB: 'Palpite antecipado',
+}
+
+export const TYPE_PREMIUM = {
+  CASH: 'cash',
 }

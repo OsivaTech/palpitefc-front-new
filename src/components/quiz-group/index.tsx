@@ -1,16 +1,16 @@
 import { QuizCard } from '@/components/quiz-card'
 import { useAuth } from '@/context/useAuth'
-import { getQuiz } from '@/http/pool'
-import { Quiz } from '@/types/Quiz'
+import { getPolls } from '@/http/poll'
+import { Poll } from '@/types/Poll'
 import { useEffect, useState } from 'react'
 
 export const QuizGroup = () => {
-  const [quiz, setQuiz] = useState<Quiz[]>()
+  const [quiz, setQuiz] = useState<Poll[]>()
   const { isAuthenticated } = useAuth()
 
   useEffect(() => {
     const loadQuiz = async () => {
-      const response = await getQuiz(isAuthenticated)
+      const response = await getPolls(isAuthenticated)
       setQuiz(response)
     }
     loadQuiz()
