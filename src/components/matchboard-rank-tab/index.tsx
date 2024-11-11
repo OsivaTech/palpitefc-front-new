@@ -39,23 +39,24 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
   const { user } = useAuth()
   const { push } = useRouter()
   const locale = useLocale()
+  const isVipEnabled = false
 
   const generalRank = {
     value: Math.max(...data.map((d) => d.info.month || 0)).toString(),
     type: RANKING_TYPE.MONTH,
   }
-  // const vipRank = {
-  //   value: Math.max(...data.map((d) => d.info.week || 0)).toString(),
-  //   type: RANKING_TYPE.WEEKVIP,
-  // }
+  const vipRank = {
+    value: Math.max(...data.map((d) => d.info.week || 0)).toString(),
+    type: RANKING_TYPE.WEEKVIP,
+  }
 
-  // const weeks = data
-  //   .filter((d) => d.type === RANKING_TYPE.WEEK)
-  //   .sort((a, b) => (a.info.week || 0) - (b.info.week || 0))
-  //   .map((d) => ({
-  //     id: d.info.week?.toString() || '',
-  //     name: `${t('rank.vip.week')} ${d.info.week}`,
-  //   }))
+  const weeks = data
+    .filter((d) => d.type === RANKING_TYPE.WEEK)
+    .sort((a, b) => (a.info.week || 0) - (b.info.week || 0))
+    .map((d) => ({
+      id: d.info.week?.toString() || '',
+      name: `${t('rank.vip.week')} ${d.info.week}`,
+    }))
 
   const [generalFilter, setGeneralFilter] = useState<{
     value: null | string
@@ -65,13 +66,13 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
     type: generalRank.type,
   })
 
-  // const [vipFilter, setVipFilter] = useState<{
-  //   value: null | string
-  //   type: string
-  // }>({
-  //   value: vipRank.value,
-  //   type: vipRank.type,
-  // })
+  const [vipFilter, setVipFilter] = useState<{
+    value: null | string
+    type: string
+  }>({
+    value: vipRank.value,
+    type: vipRank.type,
+  })
 
   const generalFilteredContent =
     generalFilter.type === generalRank.type
@@ -80,12 +81,12 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
           .filter((m) => m.info.month?.toString() === generalFilter.value)[0]
       : data?.filter((d) => d.type === generalFilter.type)[0]
 
-  // const vipFilteredContent =
-  //   vipFilter.type === vipRank.type
-  //     ? data
-  //         .filter((d) => d.type === vipFilter.type)
-  //         .filter((m) => m.info.week?.toString() === vipFilter.value)[0]
-  //     : data?.filter((d) => d.type === vipFilter.type)[0]
+  const vipFilteredContent =
+    vipFilter.type === vipRank.type
+      ? data
+          .filter((d) => d.type === vipFilter.type)
+          .filter((m) => m.info.week?.toString() === vipFilter.value)[0]
+      : data?.filter((d) => d.type === vipFilter.type)[0]
 
   const onGeneralFilterChange = (value: string, type: string) => {
     if (value === '0') {
@@ -95,17 +96,19 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
     }
   }
 
-  // const onVipFilterChange = (value: string, type: string) => {
-  //   if (value === '0') {
-  //     setVipFilter({ type: vipRank.type, value: vipRank.value })
-  //   } else {
-  //     setVipFilter({ type, value })
-  //   }
-  // }
+  const onVipFilterChange = (value: string, type: string) => {
+    if (value === '0') {
+      setVipFilter({ type: vipRank.type, value: vipRank.value })
+    } else {
+      setVipFilter({ type, value })
+    }
+  }
 
-  return user && user?.isSubscribed
-    ? renderRankingTabs()
-    : renderGeneralRanking()
+  return isVipEnabled ? (
+    renderRankingTabs()
+  ) : (
+    <TabsContent value="rank">{renderGeneralRanking()}</TabsContent>
+  )
 
   function renderRankingTabs() {
     return (
@@ -167,41 +170,31 @@ export const RankTabContent = ({ data, teams }: RankTabContentProp) => {
 
   function renderVipRanking() {
     return (
-      // <>
-      //   <div className="flex flex-col items-center justify-center gap-3 py-2">
-      //     <h2 className="font-semibold">
-      //       {t('rank.vip.title')}
-      //       {vipFilter.value !== '0'
-      //         ? ' ' +
-      //           weeks
-      //             .filter((x) => x.id === vipFilter.value)[0]
-      //             .name.toLowerCase()
-      //         : ''}
-      //     </h2>
-      //     {generalFilter.value !== '0' && (
-      //       <div className="min-w-[71px]">
-      //         <CustomSelect
-      //           title={t('rank.filterText.week')}
-      //           data={weeks}
-      //           onValueChange={(value: string) =>
-      //             onVipFilterChange(value, vipRank.type)
-      //           }
-      //         />
-      //       </div>
-      //     )}
-      //   </div>
-      //   {renderPlacings(vipFilteredContent)}
-      // </>
-      <div className="w-full">
-        <Image
-          src="https://assets.palpitefutebolclube.com/images/comunicado-vip.jpg"
-          alt="Comunicado VIP"
-          layout="responsive"
-          width={1920}
-          height={1080}
-          className="object-cover"
-        />
-      </div>
+      <>
+        <div className="flex flex-col items-center justify-center gap-3 py-2">
+          <h2 className="font-semibold">
+            {t('rank.vip.title')}
+            {vipFilter.value !== '0'
+              ? ' ' +
+                weeks
+                  .filter((x) => x.id === vipFilter.value)[0]
+                  .name.toLowerCase()
+              : ''}
+          </h2>
+          {generalFilter.value !== '0' && (
+            <div className="min-w-[71px]">
+              <CustomSelect
+                title={t('rank.filterText.week')}
+                data={weeks}
+                onValueChange={(value: string) =>
+                  onVipFilterChange(value, vipRank.type)
+                }
+              />
+            </div>
+          )}
+        </div>
+        {renderPlacings(vipFilteredContent)}
+      </>
     )
   }
 
