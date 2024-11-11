@@ -3,7 +3,7 @@ import { getLeagues } from '@/http/league'
 import { getMyPoints } from '@/http/points'
 
 export default async function ForgotPasswordPage() {
-  const leagues = await getLeagues()
+  const leagues = await getLeagues(true)
   const points = await getMyPoints()
 
   return (

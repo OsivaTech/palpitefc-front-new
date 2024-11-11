@@ -35,7 +35,7 @@ export const editDefualtForm = (user: User) => ({
   email: user?.email || '',
   password: '',
   document: user?.document || '',
-  team: parseInt(user?.team.id ?? '0'),
+  team: user?.team.id || 0,
   info: user?.info || '',
   phoneNumber: user?.phoneNumber || '',
   birthday: user?.birthday ? new Date(user?.birthday) : undefined,

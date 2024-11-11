@@ -53,7 +53,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
       name: user?.name || '',
       email: user?.email || '',
       document: user?.document || '',
-      team: parseInt(user?.team.id ?? '0'),
+      team: user?.team.id || 0,
       info: user?.info || '',
       phoneNumber: user?.phoneNumber || '',
       birthday: user?.birthday ? new Date(user?.birthday) : undefined,
