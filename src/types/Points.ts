@@ -29,9 +29,14 @@ export type Guess = {
   awayTeam: Omit<Team, 'name' | 'image'>
 }
 
+export type PointType = {
+  code: string
+  description: string
+}
+
 export type Point = {
   value: number
-  type: number // Pode ser substituído por um enum, se houver tipos específicos de pontos
+  type: PointType
 }
 
 export type Points = {
