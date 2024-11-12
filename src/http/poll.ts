@@ -27,8 +27,8 @@ export async function getPolls(isLogged: boolean) {
     } else {
       response = await get(PoolsEndpoint, {}, false)
     }
-    const quiz: PollResponse = await response!.json()
-    return quiz
+    const polls: PollResponse = await response!.json()
+    return polls
   } catch (error) {
     console.error('Error', error)
   }
