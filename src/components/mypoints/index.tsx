@@ -85,7 +85,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
 
   const renderHeaderMyPoints = () => {
     return (
-      <div className="pt-10 px-4 bg-app-secondary">
+      <div className="pt-4 px-4 bg-app-secondary">
         <h1 className="mb-4 text-center text-[16px] font-medium">
           {t('mypoints.component.title')}
         </h1>

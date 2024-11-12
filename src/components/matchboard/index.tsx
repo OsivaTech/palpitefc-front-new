@@ -12,6 +12,7 @@ import { NewsTabContent } from '@/components/matchboard-news-tab'
 import { RankTabContent } from '@/components/matchboard-rank-tab'
 import { Advertisament } from '@/types/Advertisament'
 import { Team } from '@/types/Team'
+import { Banner } from '@/components/banner'
 
 type MatchBoardProps = {
   fixtures: FixtureResponse | null
@@ -35,6 +36,7 @@ export const MatchBoard = ({
 
   return (
     <div className="w-full overflow-auto h-full">
+      {advertisament && <Banner items={advertisament} />}
       <Tabs
         defaultValue="match"
         className="max-w-[800px]  min-h-full ml-auto mr-auto"

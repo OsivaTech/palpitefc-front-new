@@ -153,5 +153,10 @@
     "component": {
       "title": "Meus pontos"
     }
+  },
+  "polls": {
+    "component": {
+      "title": "Enquetes"
+    }
   }
 }

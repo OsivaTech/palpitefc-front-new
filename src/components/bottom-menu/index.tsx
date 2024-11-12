@@ -3,22 +3,17 @@ import { Button } from '@/components/ui/button'
 import { useLocale } from 'next-intl'
 import { ReactNode } from 'react'
 import Image from 'next/image'
-import { usePageModal } from '@/context/usePageModal'
-import { ModalPageQuiz } from '@/components/modal-page-quiz'
 import { useAuth } from '@/context/useAuth'
-import { User } from '@/types/User'
 import { useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
 
 export const BottonMenu = () => {
-  const { render, openPageModal } = usePageModal()
-  const { user, isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
   const router = useRouter()
   const locale = useLocale()
 
-  const handleOpenQuiz = () => {
-    render(<ModalPageQuiz user={user ?? ({} as User)} />)
-    openPageModal()
+  const handleOpenPolls = () => {
+    router.push(`/${locale}/${APP_LINKS.POLLS()}`)
   }
 
   const handleOpenMyPoints = () => {
@@ -63,7 +58,7 @@ export const BottonMenu = () => {
           />
         }
         label="Enquetes"
-        onClick={handleOpenQuiz}
+        onClick={handleOpenPolls}
       />
       <BottomMenuItem
         icon={

@@ -12,11 +12,11 @@ import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-type QuizCardProps = {
+type PollCardProps = {
   data: Poll
 }
 
-export const QuizCard = ({ data }: QuizCardProps) => {
+export const PollCard = ({ data }: PollCardProps) => {
   const [value, setValue] = useState<string>()
   const [alreadyVoted, setAlreadyVoted] = useState(false)
   const { isAuthenticated } = useAuth()

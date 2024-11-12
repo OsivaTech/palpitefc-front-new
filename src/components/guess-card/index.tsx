@@ -192,7 +192,17 @@ export const GuessCard = ({
               </div>
             </CardContent>
 
-            <CardFooter className="flex flex-col justify-center items-center p-0 mt-4 ">
+            <CardFooter className="flex flex-row justify-center items-center gap-4 p-0 mt-2">
+              <Button
+                variant="ghost"
+                onClick={() => setSelectedfixture({ ...fixture, id: 0 })}
+                className={cn(
+                  !!guess && 'hidden',
+                  'gap-2 border border-white w-1/3 h-[30px] hover:bg-none',
+                )}
+              >
+                {t('common.cancel')}
+              </Button>
               <Button
                 type="submit"
                 onClick={onSubmit}
@@ -204,21 +214,11 @@ export const GuessCard = ({
                 }
                 className={cn(
                   !!guess && 'hidden',
-                  'uppercase gap-2 bg-white w-full h-[30px] hover:bg-none disabled:text-[#A4A4AC] disabled:bg-[#E9E9EF] ',
+                  'gap-2 bg-white w-1/2 h-[30px] hover:bg-none disabled:text-[#A4A4AC] disabled:bg-[#E9E9EF] ',
                 )}
               >
                 {isPending && <Spinner size="xs" />}
                 {t('components.guess-card.submit')}
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => setSelectedfixture({ ...fixture, id: 0 })}
-                className={cn(
-                  !!guess && 'hidden',
-                  ' dark:text-white uppercase hover:bg-transparent w-full  ',
-                )}
-              >
-                {t('common.cancel')}
               </Button>
             </CardFooter>
             {!checkIfCanBeVoted() && (

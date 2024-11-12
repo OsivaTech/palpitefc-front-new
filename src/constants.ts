@@ -9,6 +9,7 @@ export const APP_LINKS = {
   SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
   RULES: () => `/rules`,
   PROFILE: () => `/profile`,
+  POLLS: () => `/polls`,
 }
 
 export const APP_LINKS_ADMIN = {
