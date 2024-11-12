@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 'use client'
-import { BottonMenu } from '@/components/bottom-menu'
 import { useCookies } from 'next-client-cookies'
 import { useSearchParams } from 'next/navigation'
 import { ReactNode, useEffect } from 'react'
@@ -15,10 +14,5 @@ export const HomeContainer = ({ children }: { children: ReactNode }) => {
     }
   }, [cookies, utm_source])
 
-  return (
-    <div className="h-full flex flex-col justify-between">
-      {children}
-      <BottonMenu />
-    </div>
-  )
+  return <div className="h-full flex flex-col justify-between">{children}</div>
 }

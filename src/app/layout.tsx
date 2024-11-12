@@ -12,6 +12,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
 import { jwtDecode } from 'jwt-decode'
 import { UserToken } from '@/types/UserToken'
+import { BottonMenu } from '@/components/bottom-menu'
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
@@ -46,6 +47,7 @@ export default function RootLayout({
               <body className="grid min-h-screen grid-rows-[min-content_max-content]">
                 <Header />
                 {children}
+                <BottonMenu />
                 <Toaster />
                 <Script id="facebook-pixel" strategy="afterInteractive">
                   {`

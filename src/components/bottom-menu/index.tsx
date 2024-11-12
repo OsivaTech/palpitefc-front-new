@@ -23,18 +23,35 @@ export const BottonMenu = () => {
 
   const handleOpenMyPoints = () => {
     if (!isAuthenticated) {
-      router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
+      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
       return
     }
-    router.push(`${locale}/${APP_LINKS.MYPOINTS()}`)
+    router.push(`/${locale}/${APP_LINKS.MYPOINTS()}`)
   }
 
   const handleRules = () => {
-    router.push(`${locale}/${APP_LINKS.RULES()}`)
+    router.push(`/${locale}/${APP_LINKS.RULES()}`)
+  }
+
+  const handleOpenGuesses = () => {
+    router.push(`/${locale}/`)
   }
 
   return (
     <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
+      <BottomMenuItem
+        icon={
+          <Image
+            className="self-center"
+            src={'/assets/trophy-ball.svg'}
+            height={20}
+            width={20}
+            alt=""
+          />
+        }
+        label="Palpites"
+        onClick={handleOpenGuesses}
+      />
       <BottomMenuItem
         icon={
           <Image
@@ -45,7 +62,7 @@ export const BottonMenu = () => {
             alt=""
           />
         }
-        label="Enquete"
+        label="Enquetes"
         onClick={handleOpenQuiz}
       />
       <BottomMenuItem

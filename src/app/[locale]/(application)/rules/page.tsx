@@ -8,7 +8,7 @@ export default async function ForgotPasswordPage() {
   const prize = await getPrizes()
 
   return (
-    <div className="mx-auto bg-app-secondary w-full h-full">
+    <div className="mx-auto bg-app-secondary overflow-auto h-full">
       <PrizeRulesPage rules={rules} prize={prize} />
     </div>
   )
