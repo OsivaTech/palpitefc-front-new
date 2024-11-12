@@ -85,7 +85,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
 
   const renderHeaderMyPoints = () => {
     return (
-      <div className="max-w-[500px] mx-auto pt-10 px-3 bg-app-secondary">
+      <div className="pt-10 px-4 bg-app-secondary">
         <h1 className="mb-4 text-center text-[16px] font-medium">
           {t('mypoints.component.title')}
         </h1>
@@ -119,7 +119,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
     )
 
     return (
-      <div className="w-full bg-app-background mt-2 h-full  rounded-md placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs">
+      <div className="bg-app-background mt-2 rounded-md placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs">
         <div className="flex justify-between mb-4">
           <div className="flex items-center">
             <div className="relative  gap-2 flex justify-center items-center">
@@ -129,7 +129,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
               <div>{point.league.name}</div>
             </div>
           </div>
-          <div className="flex  items-center">
+          <div className="flex items-center">
             {formatDate(point.fixture.start, 'dd/MM E HH:mm')}
           </div>
         </div>
@@ -188,8 +188,11 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
         <Separator className="mt-2 mb-2 border border-white/50 pl-4" />
 
         {point.points.map((point: Point) => (
-          <div className="flex justify-between text-white/65" key={point.type}>
-            <span className="text-sm">{POINT_TYPE[point.type]}</span>
+          <div
+            className="flex justify-between text-white/65"
+            key={point.type.code}
+          >
+            <span className="text-sm">{POINT_TYPE[point.type.code]}</span>
             <span className="text-sm">+ {point.value}</span>
           </div>
         ))}
@@ -203,7 +206,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
   }
 
   return (
-    <>
+    <div className="px-2 max-w-[500px] mx-auto">
       {renderHeaderMyPoints()}
 
       {uniqueDates?.map((date) => (
@@ -232,7 +235,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
