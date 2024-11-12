@@ -1,4 +1,3 @@
-import { Banner } from '@/components/banner'
 import { HomeContainer } from '@/components/home-container'
 import { MatchBoard } from '@/components/matchboard'
 import { getAdvertisament } from '@/http/advertisement'
@@ -20,7 +19,6 @@ export default async function LandingPage() {
 
   return (
     <HomeContainer>
-      {advertisament && <Banner items={advertisament} />}
       <MatchBoard
         fixtures={fixtures}
         leagues={leagues}
