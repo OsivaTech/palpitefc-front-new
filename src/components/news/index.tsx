@@ -23,13 +23,13 @@ const NewsPage = ({ news }: { news: News | null }) => {
   }, [width])
 
   return (
-    <div>
+    <div className="px-2 pt-10 max-w-[500px] mx-auto">
       {news && (
         <div key={news.id} className="flex flex-col h-full">
           <p className="text-white font-bold text-2xl mb-1 leading-none">
             {news.title}
           </p>
-          <p className="text-white font-normal text-sm mb-2 leading-none  ">
+          <p className="text-white font-normal text-sm mb-2 leading-none">
             {news.subtitle}
           </p>
 
@@ -40,7 +40,7 @@ const NewsPage = ({ news }: { news: News | null }) => {
             alt=""
           />
 
-          <p className="text-white font-normal  text-lg  mb-2 mt-2 ">
+          <p className="text-white font-normal text-lg text mb-2 mt-2">
             {news.content}
           </p>
         </div>
