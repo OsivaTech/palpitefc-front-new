@@ -38,7 +38,7 @@ export const BottonMenu = () => {
   }
 
   return (
-    <div className="mx-auto py-2  w-full flex justify-between items-center bg-[#2D3745] sticky bottom-0 ">
+    <div className="mx-auto py-1 w-full flex justify-between items-center bg-app-secondary sticky bottom-0">
       <BottomMenuItem
         icon={
           <Image
@@ -115,9 +115,9 @@ export const BottomMenuItem = ({
       onClick={onClick}
       disabled={disabled}
     >
-      <div className="flex flex-col justify-center items-ceter w-full">
+      <div className="flex flex-col w-full">
         {icon}
-        <span className="text-xs">{label}</span>
+        <span className="text-xs text-wrap">{label}</span>
       </div>
     </Button>
   )

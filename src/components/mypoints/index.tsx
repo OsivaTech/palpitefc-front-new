@@ -208,7 +208,12 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
   return (
     <div className="px-2 max-w-[500px] mx-auto">
       {renderHeaderMyPoints()}
-
+      <div className="flex justify-between">
+        <p className="font-bold">
+          Total de pontos {filterMonths.hasFilter ? 'do mês' : 'do ano'}:
+        </p>
+        <p>{totalPoints}</p>
+      </div>
       {uniqueDates?.map((date) => (
         <div key={date}>
           <span className="text-sm flex items-center gap-2 font-medium mt-6">
@@ -227,14 +232,6 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
             ))}
         </div>
       ))}
-      <div className="fixed bottom-1 w-full max-w-[500px] ">
-        <div className="w-full bg-app-background h-[38px] text-white px-[20px] py-[12px] -ml-3 -mb-1 font-medium text-xs">
-          <div className="flex justify-between">
-            <div>TOTAL DE PONTOS</div>
-            <div>{totalPoints}</div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
