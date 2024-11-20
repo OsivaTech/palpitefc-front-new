@@ -368,7 +368,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             <span className="text-sm font-normal text-center">
               <Link
                 className="underline"
-                href="https://assets.palpitefutebolclube.com/terms.html"
+                href={`/${locale}/${APP_LINKS.TERMS()}`}
                 target="_blank"
               >
                 termos de uso
@@ -376,7 +376,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
               {` e com a `}
               <Link
                 className="underline"
-                href="https://assets.palpitefutebolclube.com/privacy-policy.html"
+                href={`/${locale}/${APP_LINKS.PRIVACYPOLICY()}`}
                 target="_blank"
               >
                 política de privacidade
