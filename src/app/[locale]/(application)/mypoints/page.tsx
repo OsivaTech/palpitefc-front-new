@@ -7,7 +7,7 @@ export default async function ForgotPasswordPage() {
   const points = await getMyPoints()
 
   return (
-    <div className="mx-auto h-full">
+    <div className="mx-auto h-full w-full bg-app-secondary">
       <MyPointsPage leagues={leagues} points={points} />
     </div>
   )
