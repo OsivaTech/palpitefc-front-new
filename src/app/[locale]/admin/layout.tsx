@@ -3,5 +3,7 @@ export default function ApplicationLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <main className="h-[calc(100vh-50px)] overflow-auto">{children}</main>
+  return (
+    <main className="h-full overflow-auto bg-app-secondary">{children}</main>
+  )
 }

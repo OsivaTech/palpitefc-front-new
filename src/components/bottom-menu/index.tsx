@@ -33,7 +33,7 @@ export const BottonMenu = () => {
   }
 
   return (
-    <div className="mx-auto py-1 w-full flex justify-between items-center bg-[#1C2026] sticky bottom-0">
+    <div className="flex items-center justify-between mx-auto py-1 w-full bg-app-background">
       <BottomMenuItem
         icon={
           <Image
