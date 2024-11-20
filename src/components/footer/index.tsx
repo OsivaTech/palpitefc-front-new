@@ -17,15 +17,10 @@ export const Footer = () => {
             <Link
               className="text-sm"
               href={`/${locale}/${APP_LINKS.PRIVACYPOLICY()}`}
-              target="_blank"
             >
               Política de privacidade
             </Link>
-            <Link
-              className="text-sm"
-              href={`/${locale}/${APP_LINKS.TERMS()}`}
-              target="_blank"
-            >
+            <Link className="text-sm" href={`/${locale}/${APP_LINKS.TERMS()}`}>
               Termos e condições
             </Link>
           </div>
