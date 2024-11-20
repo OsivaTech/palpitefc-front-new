@@ -10,6 +10,8 @@ export const APP_LINKS = {
   RULES: () => `/rules`,
   PROFILE: () => `/profile`,
   POLLS: () => `/polls`,
+  PRIVACYPOLICY: () => `/privacy-policies`,
+  TERMS: () => `/terms`,
 }
 
 export const APP_LINKS_ADMIN = {
