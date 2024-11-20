@@ -206,7 +206,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
   }
 
   return (
-    <div className="px-2 max-w-[500px] mx-auto bg-app-secondary">
+    <div className="px-2 max-w-[500px] mx-auto mb-6 bg-app-secondary">
       {renderHeaderMyPoints()}
       <div className="flex justify-between">
         <p className="font-bold">
