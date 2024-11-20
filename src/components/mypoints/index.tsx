@@ -85,7 +85,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
 
   const renderHeaderMyPoints = () => {
     return (
-      <div className="pt-4 px-4 bg-app-secondary">
+      <div className="pt-4 px-4">
         <h1 className="mb-4 text-center text-[16px] font-medium">
           {t('mypoints.component.title')}
         </h1>
@@ -206,7 +206,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
   }
 
   return (
-    <div className="px-2 max-w-[500px] mx-auto">
+    <div className="px-2 max-w-[500px] mx-auto bg-app-secondary">
       {renderHeaderMyPoints()}
       <div className="flex justify-between">
         <p className="font-bold">

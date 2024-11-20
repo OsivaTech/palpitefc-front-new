@@ -44,7 +44,7 @@ export default function RootLayout({
         <CookiesProvider>
           <AuthProvider token={token?.value}>
             <PageModalProvider>
-              <body className="grid min-h-screen grid-rows-[min-content_max-content]">
+              <body className="flex flex-col h-dvh bg-app-background">
                 <Header />
                 {children}
                 <BottonMenu />

@@ -35,7 +35,7 @@ export const MatchBoard = ({
   const t = useTranslations('components.matchboard-tab')
 
   return (
-    <div className="w-full overflow-auto h-full">
+    <div className="w-full h-full">
       {advertisament && <Banner items={advertisament} />}
       <Tabs
         defaultValue="match"

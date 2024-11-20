@@ -12,5 +12,5 @@ export default async function AuthLayout({
     redirect('/')
   }
 
-  return <main className="mx-auto w-full">{children}</main>
+  return <main className="mx-auto w-full overflow-auto">{children}</main>
 }
