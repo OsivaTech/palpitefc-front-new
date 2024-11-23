@@ -5,7 +5,7 @@ import {
   CarouselItem,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Advertisament } from '@/types/Advertisament'
+import { Advertisement } from '@/types/Advertisement'
 import Image from 'next/image'
 import Link from 'next/link'
 import Autoplay from 'embla-carousel-autoplay'
@@ -17,7 +17,7 @@ export type BannerType = {
   redirectTo: string
 }
 export type CarrouselProps = {
-  items?: Advertisament[]
+  items?: Advertisement[]
 }
 
 export const Banner = ({ items }: CarrouselProps) => {

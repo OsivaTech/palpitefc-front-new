@@ -12,14 +12,14 @@ import { Guess } from '@/types/Guess'
 import { CustomSelect } from '@/components/custom-select/custom-select'
 import { GuessCard } from '@/components/guess-card'
 import { FormatedFixture } from '@/components/matchboard-match-tab/types'
-import { Advertisament } from '@/types/Advertisament'
+import { Advertisement } from '@/types/Advertisement'
 import { BannerFixed } from '../bannerFixed'
 
 type MatchTabContentProps = {
   data: Fixture[] | null
   leagues: League[]
   guess: Guess[]
-  advertisament: Advertisament[]
+  advertisament: Advertisement[]
 }
 
 export const MatchTabContent = ({

@@ -20,6 +20,7 @@ export const APP_LINKS_ADMIN = {
   ADMIN_NEWS: () => `/admin/news`,
   ADMIN_TEAMS: () => `/admin/teams`,
   ADMIN_LEAGUES: () => `/admin/leagues`,
+  ADMIN_ADVERTISEMENT: () => `/admin/advertisements`,
 }
 
 export const ROLE = {

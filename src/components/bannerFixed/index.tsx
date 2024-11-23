@@ -1,6 +1,6 @@
 'use client'
 
-import { Advertisament } from '@/types/Advertisament'
+import { Advertisement } from '@/types/Advertisement'
 import { handleAdClick } from '@/utils/analytics'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,7 +10,7 @@ export type BannerType = {
   redirectTo: string
 }
 export type CarrouselProps = {
-  item?: Advertisament
+  item?: Advertisement
 }
 
 export const BannerFixed = ({ item }: CarrouselProps) => {

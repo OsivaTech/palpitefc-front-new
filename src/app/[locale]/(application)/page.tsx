@@ -1,6 +1,6 @@
 import { HomeContainer } from '@/components/home-container'
 import { MatchBoard } from '@/components/matchboard'
-import { getAdvertisament } from '@/http/advertisement'
+import { getEnabledAdvertisement } from '@/http/advertisement'
 import { getFixture } from '@/http/fixture'
 import { getMyGuesses } from '@/http/gesses'
 import { getLeagues } from '@/http/league'
@@ -14,7 +14,7 @@ export default async function LandingPage() {
   const guess = await getMyGuesses()
   const news = await getNews()
   const rank = await getRank()
-  const advertisament = await getAdvertisament()
+  const advertisament = await getEnabledAdvertisement()
   const teams = await getTeams()
 
   return (

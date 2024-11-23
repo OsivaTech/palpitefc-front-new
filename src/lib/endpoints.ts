@@ -17,7 +17,7 @@ export const RankingsEndpoint = `${apiBaseUrl}/rankings`
 export const PoolsEndpoint = `${apiBaseUrl}/polls`
 export const VoteEndpoint = (pollI: number, optionId: string) =>
   `${apiBaseUrl}/polls/${pollI}/vote/${optionId}`
-export const AdvertisamentEndpoint = `${apiBaseUrl}/advertisement`
+export const AdvertisementEndpoint = `${apiBaseUrl}/advertisement`
 export const SendForgotPasswordEmail = `${apiBaseUrl}/send-mail-code`
 export const VerifyResetCode = `${apiBaseUrl}/verify-reset-code`
 export const ResetPassword = `${apiBaseUrl}/reset-password`
