@@ -31,7 +31,9 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
     if (mask) {
       return (
         <ReactInputMask mask={mask} maskChar={maskChar} {...props}>
-          {renderInput(props)}
+          {(inputProps: InputHTMLAttributes<HTMLInputElement>) =>
+            renderInput(inputProps)
+          }
         </ReactInputMask>
       )
     } else {
