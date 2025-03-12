@@ -13,6 +13,7 @@ import Script from 'next/script'
 import { jwtDecode } from 'jwt-decode'
 import { UserToken } from '@/types/UserToken'
 import { BottonMenu } from '@/components/bottom-menu'
+import { CookieConsentComponent } from '@/components/cookie-consent'
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
@@ -40,6 +41,7 @@ export default function RootLayout({
 
   return (
     <html lang={locale} className="dark">
+      <CookieConsentComponent />
       <NextIntlClientProvider locale={locale} messages={messages}>
         <CookiesProvider>
           <AuthProvider token={token?.value}>
