@@ -33,7 +33,7 @@ export const BottonMenu = () => {
   }
 
   return (
-    <div className="flex items-center justify-between mx-auto py-1 w-full bg-app-background">
+    <div className="flex xl:hidden lg:hidden md:hidden sm:hidden items-center justify-between mx-auto py-1 w-full bg-app-background">
       <BottomMenuItem
         icon={
           <Image

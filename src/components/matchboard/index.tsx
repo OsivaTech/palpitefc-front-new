@@ -12,7 +12,11 @@ import { NewsTabContent } from '@/components/matchboard-news-tab'
 import { RankTabContent } from '@/components/matchboard-rank-tab'
 import { Advertisament } from '@/types/Advertisament'
 import { Team } from '@/types/Team'
-import { Banner } from '@/components/banner'
+import Image from 'next/image'
+import { MainMatchList } from '@/components/main-match-list'
+import { Input } from '@/components/ui/input'
+import { Search } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 type MatchBoardProps = {
   fixtures: FixtureResponse | null
@@ -36,8 +40,33 @@ export const MatchBoard = ({
 
   return (
     <div className="w-full h-full">
-      {advertisament && <Banner items={advertisament} />}
-      <Tabs
+      <div className="relative w-full h-[300px] z-0">
+        <Image
+          src="/assets/capa.png"
+          alt=""
+          fill
+          className="object-cover md:object-fill lg:object-fill xl:object-fill z-0"
+        />
+      </div>
+      <section className="-mt-14 z-50 relative gap-2">
+        <div className="h-[30px] lg:w-[300px] w-[200px] bg-app-secondary text-app-background flex items-center justify-center font-bold rounded-br-md rounded-tr-md mb-2">
+          Principais Jogos
+        </div>
+        <MainMatchList />
+      </section>
+      <div className="flex mt-10 ml-4 items-center space-x-4">
+        <div className="bg-white/10 border border-app-secondary rounded-lg p-2 h-[40px] flex items-center gap-2">
+          <Search className="w-4 h-4 text-white" />
+          <Input
+            placeholder="Pesquisar"
+            className="bg-transparent  text-white placeholder:text-white border-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-full"
+          />
+        </div>
+        <Button variant="primary" className="bg-white/10 ">
+          Ao Vivo
+        </Button>
+      </div>
+      {/* <Tabs
         defaultValue="match"
         className="max-w-[800px]  min-h-full ml-auto mr-auto"
       >
@@ -61,7 +90,7 @@ export const MatchBoard = ({
             teams={teams}
           />
         </div>
-      </Tabs>
+      </Tabs> */}
     </div>
   )
 }

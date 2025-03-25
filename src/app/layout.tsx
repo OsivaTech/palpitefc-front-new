@@ -13,10 +13,11 @@ import Script from 'next/script'
 import { jwtDecode } from 'jwt-decode'
 import { UserToken } from '@/types/UserToken'
 import { BottonMenu } from '@/components/bottom-menu'
+import Head from 'next/head'
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
-  description: 'Seu palpite Ã© gol de placa!',
+  description: 'Seu palpite é gol de placa!',
 }
 
 export default function RootLayout({

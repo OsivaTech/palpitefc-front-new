@@ -6,6 +6,7 @@ export const LoginEndpoint = `${apiBaseUrl}/api/signin`
 export const SelfEndpoint = `${apiBaseUrl}/users/me`
 export const UpdateUser = `${apiBaseUrl}/users`
 export const FixturesEndpoint = `${apiBaseUrl}/fixtures`
+export const FixturesFeaturedEndpoint = `${apiBaseUrl}/fixtures/featured`
 export const GuessEndpoint = `${apiBaseUrl}/guesses`
 export const MyGuessEndpoint = `${apiBaseUrl}/guesses/me`
 export const MyPointsEndpoint = `${apiBaseUrl}/points/me`

@@ -19,9 +19,12 @@ const config = {
     },
     extend: {
       colors: {
+        linearGradient: {
+          primary: 'linear-gradient(90deg, #00FF55 0%, #00AE3A 100%)',
+        },
         app: {
-          background: '#1C2026',
-          secondary: '#2D3745',
+          background: '#001D29',
+          secondary: '#00FF55',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

@@ -15,12 +15,12 @@
           "tabTitle": "Geral",
           "title": "Classificação de"
         },
-        "vip":{
+        "vip": {
           "tabTitle": "VIP",
           "title": "Classificação da",
           "week": "Semana"
         },
-        "filterText":{
+        "filterText": {
           "month": "Alterar mês",
           "week": "Alterar semana"
         }
@@ -73,13 +73,13 @@
     "error": "Erro",
     "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!",
     "all": "Todos",
-    "signIn": "Logar",
+    "signIn": "Entrar",
     "male": "Masculino",
     "female": "Feminino",
     "other": "Outro",
     "sex": "Sexo",
     "favoriteTeam": "Time do coração",
-    "signUp": "Cadastrar-se",
+    "signUp": "Cadastrar",
     "address": "Endereço",
     "cancel": "Cancelar",
     "invalidCredentials": "Usuário ou senha inválidos",

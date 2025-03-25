@@ -1,5 +1,3 @@
-import Footer from '@/components/footer'
-
 export default function ApplicationLayout({
   children,
 }: Readonly<{
@@ -7,9 +5,7 @@ export default function ApplicationLayout({
 }>) {
   return (
     <main className="h-[calc(100vh-50px)] overflow-auto">
-      <div className="flex flex-col">
-        {children} <Footer />
-      </div>
+      <div className="flex flex-col">{children}</div>
     </main>
   )
 }
