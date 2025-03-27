@@ -68,6 +68,10 @@
       "title": "Tem certeza que quer\ncancelar sua assinatura?",
       "button1": "Sim, quero cancelar meus benefícios",
       "button2": "Não, quero continuar com minhas vantagens"
+    },
+    "match-card": {
+      "clear": "Limpar",
+      "submit": "Lançar palpite"
     }
   },
   "common": {
@@ -95,16 +99,17 @@
     "invalidNameCard": "Minimo de 1 Caractere",
     "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
     "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
-    "subscriptionError": "Ocorreu um error, tente novamente."
+    "subscriptionError": "Ocorreu um error, tente novamente.",
+    "invalidEmail": "Email inválido"
   },
   "pages": {
     "login": {
       "usernameOrPasswordWrong": "Usuário ou senha inválidos",
-      "login": "Login",
+      "login": "Email",
       "password": "Senha",
-      "dontHaveAccount": "Ainda não está cadastrado? ",
-      "registerHere": "cadastre-se aqui!",
-      "forgotPassword": "Esqueci minha senha!"
+      "dontHaveAccount": "Ainda não possui uma conta? ",
+      "registerHere": "Cadastre-se aqui!",
+      "forgotPassword": "Esqueceu sua senha?"
     },
     "register": {
       "error": {
@@ -121,6 +126,11 @@
         "passwordMatch": "As senhas não coincidem",
         "genderRequired": "Campo obrigatório",
         "team": "Selecione seu time do coração"
+      }
+    },
+    "forgot": {
+      "email": {
+        "label": "Insira seu email"
       }
     }
   },

@@ -1,6 +1,6 @@
-import { CustomButton } from '@/components/custom-button'
 import { CustomInput } from '@/components/custom-input'
 import { useForgotPassword } from '@/components/forgot-password-steps/context/forgot-password-context'
+import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { APP_LINKS } from '@/constants'
 import { updatePassword } from '@/http/user'
@@ -46,7 +46,7 @@ export const ForgotPasswordResetStep = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-8">
       <CustomInput
         value={newPassword}
         onChange={(evt) => setNewPassword(evt.currentTarget.value)}
@@ -59,13 +59,15 @@ export const ForgotPasswordResetStep = () => {
         type="password"
         placeholder="Repita a nova senha"
       />
-      <CustomButton
+      <Button
         isLoading={isPending}
         disabled={isPending}
         onClick={handleResetPassword}
+        variant="secondary"
+        className="self-center"
       >
         Salvar
-      </CustomButton>
+      </Button>
     </div>
   )
 }
