@@ -2,6 +2,7 @@
 import { get } from '@/lib/api'
 import { FixturesEndpoint, FixturesFeaturedEndpoint } from '@/lib/endpoints'
 import { FixtureResponse } from '@/types/api/responses/FixtureResponse'
+import { FixturesByLeague } from '@/types/Fixture'
 
 export async function getFixture() {
   try {
@@ -15,10 +16,22 @@ export async function getFixture() {
 
     const fixture: FixtureResponse = await response.json()
     if (!fixture) {
-      return [] as FixtureResponse
+      return [] as FixturesByLeague
     }
 
-    return fixture
+    const groupedFixtures = fixture.reduce((acc, fixture) => {
+      const leagueId = fixture.league.id
+      if (!acc[leagueId]) {
+        acc[leagueId] = {
+          leagueName: fixture.league.name,
+          fixtures: [],
+        }
+      }
+      acc[leagueId].fixtures.push(fixture)
+      return acc
+    }, {} as FixturesByLeague)
+
+    return groupedFixtures
   } catch {
     return null
   }

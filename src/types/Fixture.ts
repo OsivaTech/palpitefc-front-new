@@ -1,3 +1,4 @@
+import { FixtureResponse } from '@/types/api/responses/FixtureResponse'
 import { League } from '@/types/League'
 import { Match } from '@/types/Match'
 
@@ -9,4 +10,12 @@ export type Fixture = {
   finished: boolean
   homeTeam: Match
   awayTeam: Match
+  status: any
+}
+
+export type FixturesByLeague = {
+  [leagueId: number]: {
+    leagueName: string
+    fixtures: FixtureResponse
+  }
 }

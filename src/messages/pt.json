@@ -30,7 +30,8 @@
       "submit": "Lançar palpite",
       "title": "Qual o seu palpite?",
       "error": "Não é possivel palpitar em jogos que já começaram",
-      "gameAlreadyStarted": "Esse jogo já começou!"
+      "gameAlreadyStarted": "Esse jogo já começou!",
+      "clear": "Limpar"
     },
     "mypoints": {
       "league": "Campeonatos",

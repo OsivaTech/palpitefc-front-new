@@ -115,21 +115,21 @@ export const MatchTabContent = ({
           />
         </div>
 
-        <div className="pt-5 flex flex-col justify-center items-start gap-2 overflow-auto h-4/6">
+        <div className="pt-5 flex flex-col justify-center items-start gap-2 overflow-auto">
           {groupByStartDate.map((g, index) => (
             <React.Fragment key={index}>
               <span className="text-sm flex items-center gap-2 font-medium mb-2">
                 <CalendarDays size={16} />
                 {g[0].startDateFormated}
               </span>
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-3 w-full">
+              <div className="my-4">
                 {g?.map((fixture) => (
                   <Fragment key={fixture.id}>
                     <GuessCard
                       key={fixture.id}
                       fixture={fixture}
                       league={
-                        leagues.filter((l) => l.id === fixture.leagueId)[0]
+                        leagues.filter((l) => l.id === fixture.league.id)[0]
                       }
                       guess={guess?.find((g) => g.fixtureId === fixture.id)}
                       setSelectedfixture={setSelectedfixture}

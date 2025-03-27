@@ -1,8 +1,8 @@
 'use server'
 import { get, post } from '@/lib/api'
 import { GuessEndpoint, MyGuessEndpoint } from '@/lib/endpoints'
-import { GuessResponse } from '@/types/api/responses/GessResponse'
 import { GuessesRequest } from '@/types/api/resquests/GuessesRequest'
+import { Guess } from '@/types/Guess'
 
 export async function getMyGuesses() {
   try {
@@ -13,7 +13,9 @@ export async function getMyGuesses() {
       },
       true,
     )
-    const myGuesses: GuessResponse = await response?.json()
+    const myGuesses: Guess[] = await response?.json()
+
+    console.log(myGuesses)
 
     return myGuesses
   } catch (error) {
