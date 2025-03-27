@@ -93,6 +93,7 @@ const LeaguesManagement = ({ leagues }: { leagues: League[] | null }) => {
           className="border border-gray-300 rounded p-2"
         />
         <Combobox
+          label="Filtrar por país"
           value={selectedCountry}
           onChange={(value) => setSelectedCountry(String(value))}
           data={uniqueCountries}

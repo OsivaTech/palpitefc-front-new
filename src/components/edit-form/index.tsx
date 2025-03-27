@@ -33,6 +33,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
   const { forceReload } = useAuth()
 
   const formSchema = z.object({
+    allowMarketing: z.boolean().optional(),
     email: z.string().email(),
     name: z.string().min(2).max(50),
     document: z.string().min(2).max(50),
@@ -77,6 +78,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
         info: values.info || '',
         phoneNumber: values.phoneNumber,
         birthday: format(new Date(values.birthday), 'y-MM-dd'),
+        allowMarketing: values.allowMarketing || false,
         // address: {
         //   street: values.street || '',
         //   number: values.number || '',
@@ -175,6 +177,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
                 <FormItem>
                   <FormControl>
                     <DatePicker
+                      placeholder="DATA DE NASCIMENTO"
                       label={
                         field.value
                           ? format(field.value, 'PPP')
@@ -240,6 +243,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
               <FormItem>
                 <FormControl>
                   <Combobox
+                    label="Time do Coração"
                     onChange={field.onChange}
                     value={field.value!}
                     data={teams.map((t) => ({
@@ -335,7 +339,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
         </form>
       </Form>
       <Separator className="mb-4 border border-white/50" />
-      <Button variant="outline" className="mb-6" disabled>
+      <Button variant="secondary" className="mb-6" disabled>
         {t('common.removeMyAccount')}
       </Button>
     </div>

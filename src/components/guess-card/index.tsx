@@ -188,7 +188,7 @@ export const GuessCard = ({
 
             <CardFooter className="flex flex-row justify-center items-center gap-4 p-0 mt-2">
               <Button
-                variant="ghost"
+                variant="secondary"
                 onClick={() => setSelectedfixture({ ...fixture, id: 0 })}
                 className={cn(
                   !!guess && 'hidden',

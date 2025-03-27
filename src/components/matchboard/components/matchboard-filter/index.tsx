@@ -26,8 +26,6 @@ export const MatchboardFilterAndFixtures = ({
   guess: Guess[] | null
 }) => {
   const [search, setSearch] = useState('')
-  const [live, setLive] = useState(false)
-  const [league, setLeague] = useState<League | null>(null)
 
   const filteredFixtures =
     fixtures &&

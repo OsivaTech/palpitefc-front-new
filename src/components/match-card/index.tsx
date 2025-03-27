@@ -177,7 +177,6 @@ export const MatchCard = ({
           handleClear={handleClear}
           handleGuess={handleGuess}
           isPending={isPending}
-          t={t}
         />
       ) : (
         <div></div>
@@ -208,13 +207,13 @@ const CardBottom = ({
   handleClear,
   handleGuess,
   isPending,
-  t,
 }: {
   handleClear: () => void
   handleGuess: () => void
   isPending: boolean
-  t: TFunction
 }) => {
+  const t = useTranslations('components.match-card')
+
   return (
     <div className="flex gap-2 items-center justify-between">
       <CustomButton

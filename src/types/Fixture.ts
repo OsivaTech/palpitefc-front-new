@@ -10,7 +10,7 @@ export type Fixture = {
   finished: boolean
   homeTeam: Match
   awayTeam: Match
-  status: any
+  status: string
 }
 
 export type FixturesByLeague = {

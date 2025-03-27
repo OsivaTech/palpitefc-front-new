@@ -106,7 +106,6 @@ export const BottomMenuItem = ({
   return (
     <Button
       className="rounded-nonde w-full h-full"
-      variant="ghost"
       onClick={onClick}
       disabled={disabled}
     >

@@ -45,6 +45,7 @@ export const ChangePasswordForm = ({ teams }: ChangePasswordFormProps) => {
     complement: z.string().min(2).max(50).optional(),
     city: z.string().min(2).max(50).optional(),
     postalCode: z.string().min(2).max(50).optional(),
+    allowMarketing: z.boolean().optional(),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -69,6 +70,7 @@ export const ChangePasswordForm = ({ teams }: ChangePasswordFormProps) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const user: SignupRequest = {
+      allowMarketing: false,
       name: values.name,
       email: values.email,
       password: values.password,
@@ -173,6 +175,7 @@ export const ChangePasswordForm = ({ teams }: ChangePasswordFormProps) => {
                 <FormItem>
                   <FormControl>
                     <DatePicker
+                      placeholder="DATA DE NASCIMENTO"
                       label={
                         field.value
                           ? format(field.value, 'PPP')
@@ -238,6 +241,7 @@ export const ChangePasswordForm = ({ teams }: ChangePasswordFormProps) => {
               <FormItem>
                 <FormControl>
                   <Combobox
+                    label="Time do Coração"
                     onChange={field.onChange}
                     value={field.value}
                     data={teams.map((t) => ({

@@ -9,10 +9,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        outline:
+          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         primary:
           'bg-white/10 text-white font-normal bg-app-background border border-[#00FF55]',
         secondary:
           'bg-gradient-to-r from-[#00FF55] to-[#00AE3A] text-app-background',
+        tertiary: 'bg-app-background text-white',
       },
     },
     defaultVariants: {
