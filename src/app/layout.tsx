@@ -13,7 +13,6 @@ import Script from 'next/script'
 import { jwtDecode } from 'jwt-decode'
 import { UserToken } from '@/types/UserToken'
 import { BottonMenu } from '@/components/bottom-menu'
-import Head from 'next/head'
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',

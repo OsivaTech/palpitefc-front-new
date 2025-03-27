@@ -15,24 +15,35 @@ import { cn } from '@/lib/utils'
 
 type DatePickerProps = {
   label: string
+  placeholder: string
   selected: Date | null
   onSelect: (date?: Date) => void
 }
-export function DatePicker({ label, selected, onSelect }: DatePickerProps) {
+export function DatePicker({
+  label,
+  placeholder,
+  selected,
+  onSelect,
+}: DatePickerProps) {
   return (
     <Popover>
+      <label className="block text-white text-sm font-medium mb-1">
+        {label}
+      </label>
       <PopoverTrigger asChild>
         <Button
           className={cn(
-            'justify-start w-full bg-app-background h-[38px] rounded-full placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs ',
+            'justify-start w-full bg-transparent rounded-full border-white text-white px-[20px] py-[12px] font-medium text-xs ',
             !selected && 'text-muted-foreground',
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <CalendarIcon className="mr-2 h-4 w-4 text-white/70" />
           {selected ? (
             format(selected, 'PPP')
           ) : (
-            <span>{label || 'Pick a date'} </span>
+            <span className="text-white/70">
+              {placeholder || 'Pick a date'}{' '}
+            </span>
           )}
         </Button>
       </PopoverTrigger>

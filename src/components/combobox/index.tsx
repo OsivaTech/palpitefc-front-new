@@ -27,6 +27,7 @@ type ComboboxData = {
 }
 
 type ComboboxPropx = {
+  label: string
   data: ComboboxData[]
   errorLabel: string
   searchLabel: string
@@ -35,6 +36,7 @@ type ComboboxPropx = {
 }
 
 export function Combobox({
+  label,
   data,
   errorLabel,
   searchLabel,
@@ -55,12 +57,13 @@ export function Combobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
+      <label className="block text-sm font-medium">{label}</label>
       <PopoverTrigger asChild>
         <CustomButton
-          variant="outline"
+          variant="primary"
           role="combobox"
           aria-expanded={open}
-          className="justify-between hover:bg-transparent"
+          className="justify-between bg-transparent text-white/70"
         >
           <div className="flex justify-start items-center gap-2">
             {currentValue?.imageLink && (

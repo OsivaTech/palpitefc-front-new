@@ -5,7 +5,7 @@ export default async function RegisterPage() {
   const teams = await getTeams()
 
   return (
-    <div className="bg-[#2D3745] h-[calc(100vh-50px)] ">
+    <div className="bg-[#00141C]">
       <RegisterForm teams={teams} />
     </div>
   )

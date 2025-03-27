@@ -115,7 +115,11 @@
         "password": "Senha deve conter pelo menos 6 caracteres",
         "birthday": "Campo obrigatório",
         "ageRestriction": "Para carastrar você precisa ser maior de 18 anos",
-        "documentInvalid": "CPF informado é inválido"
+        "documentInvalid": "CPF informado é inválido",
+        "privacyPolicyAccepted": "Você precisa aceitar a política de privacidade",
+        "passwordMatch": "As senhas não coincidem",
+        "genderRequired": "Campo obrigatório",
+        "team": "Selecione seu time do coração"
       }
     }
   },

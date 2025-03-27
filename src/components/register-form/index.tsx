@@ -15,7 +15,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
-import { CustomButton } from '@/components/custom-button'
 import { CustomInput } from '@/components/custom-input'
 import { login } from '@/components/login-form/data'
 import { APP_LINKS } from '@/constants'
@@ -28,6 +27,8 @@ import { Combobox } from '@/components/combobox'
 import Link from 'next/link'
 import React, { useTransition } from 'react'
 import { onlyNumber } from '@/utils/mask'
+import { Button } from '../ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const t = useTranslations()
@@ -37,51 +38,68 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const locale = useLocale()
   const [isPending, startTransition] = useTransition()
 
-  const formSchema = z.object({
-    email: z
-      .string()
-      .email({ message: t('pages.register.error.emailInvalid') }),
-    password: z
-      .string()
-      .min(6, { message: t('pages.register.error.password') })
-      .max(50),
-    name: z
-      .string()
-      .min(2, { message: t('pages.register.error.name') })
-      .max(50),
-    document: z
-      .string()
-      .transform(onlyNumber)
-      .refine((val) => val.length >= 11, {
-        message: t('pages.register.error.document'),
-      })
-      .refine((val) => isValidCPF(val), {
-        message: t('pages.register.error.documentInvalid'),
+  const formSchema = z
+    .object({
+      email: z
+        .string()
+        .email({ message: t('pages.register.error.emailInvalid') }),
+      password: z
+        .string()
+        .min(6, { message: t('pages.register.error.password') })
+        .max(50),
+      confirmPassword: z.string(),
+      name: z
+        .string()
+        .min(2, { message: t('pages.register.error.name') })
+        .max(50),
+      document: z
+        .string()
+        .transform(onlyNumber)
+        .refine((val) => val.length >= 11, {
+          message: t('pages.register.error.document'),
+        })
+        .refine((val) => isValidCPF(val), {
+          message: t('pages.register.error.documentInvalid'),
+        }),
+      team: z.number().refine((val) => val > 0, {
+        message: t('pages.register.error.team'),
       }),
-    team: z.number(),
-    info: z.string().optional(),
-    phoneNumber: z
-      .string()
-      .transform(onlyNumber)
-      .refine((val) => val.length >= 11, {
-        message: t('pages.register.error.phoneNumber'),
+      info: z.string().optional(),
+      phoneNumber: z
+        .string()
+        .transform(onlyNumber)
+        .refine((val) => val.length >= 11, {
+          message: t('pages.register.error.phoneNumber'),
+        }),
+      birthday: z.date({ message: t('pages.register.error.birthday') }).refine(
+        (val) => {
+          const today = new Date()
+          const eighteenYearsAgo = new Date(
+            today.getFullYear() - 18,
+            today.getMonth(),
+            today.getDate(),
+          )
+          return val <= eighteenYearsAgo
+        },
+        {
+          message: t('pages.register.error.ageRestriction'),
+        },
+      ),
+      gender: z.enum(['m', 'f', 'o']).refine((val) => val !== undefined, {
+        message: t('pages.register.error.genderRequired'),
       }),
-    birthday: z.date({ message: t('pages.register.error.birthday') }).refine(
-      (val) => {
-        const today = new Date()
-        const eighteenYearsAgo = new Date(
-          today.getFullYear() - 18,
-          today.getMonth(),
-          today.getDate(),
-        )
-        return val <= eighteenYearsAgo
-      },
-      {
-        message: t('pages.register.error.ageRestriction'),
-      },
-    ),
-    gender: z.enum(['m', 'f', 'o', '']),
-  })
+      marketingConsent: z.boolean().optional(),
+      privacyPolicyAccepted: z
+        .boolean()
+        .default(false)
+        .refine((value) => value === true, {
+          message: t('pages.register.error.privacyPolicyAccepted'),
+        }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t('pages.register.error.passwordMatch'),
+      path: ['confirmPassword'],
+    })
 
   function isValidCPF(cpf: string): boolean {
     cpf = cpf.replace(/[^\d]+/g, '')
@@ -121,12 +139,15 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
       name: '',
       email: '',
       password: '',
+      confirmPassword: '',
       document: '',
       team: 0,
       info: '',
       phoneNumber: '',
       birthday: undefined,
-      gender: '',
+      gender: undefined,
+      marketingConsent: false,
+      privacyPolicyAccepted: false,
     },
   })
 
@@ -141,6 +162,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
       info: '',
       phoneNumber: onlyNumber(values.phoneNumber),
       birthday: format(new Date(values.birthday), 'y-MM-dd'),
+      allowMarketing: values.marketingConsent ?? false,
     }
     startTransition(async () => {
       try {
@@ -183,9 +205,9 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   }
 
   return (
-    <div className="max-w-[500px] mx-auto pt-10 px-3  ">
-      <h1 className="mb-6 text-center text-xs font-medium">
-        Cadastre-se e ganhe prêmios
+    <div className="max-w-[500px] mx-auto pt-10 px-3">
+      <h1 className="mb-6 text-xl font-bold max-w-48 text-app-secondary">
+        Olá, vamos começar seu cadastro
       </h1>
       <Form {...form}>
         <form
@@ -198,9 +220,31 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Nome Completo" {...field} />
+                  <CustomInput
+                    label="Nome completo"
+                    placeholder="Nome Completo"
+                    {...field}
+                  />
                 </FormControl>
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <CustomInput
+                    label="Email"
+                    placeholder="email@exemplo.com"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
@@ -210,23 +254,31 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Senha" type="password" {...field} />
+                  <CustomInput
+                    label="Criar senha"
+                    placeholder="**********"
+                    type="password"
+                    {...field}
+                  />
                 </FormControl>
-
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="email"
+            name="confirmPassword"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Email" {...field} />
+                  <CustomInput
+                    label="Confirmar senha"
+                    placeholder="**********"
+                    type="password"
+                    {...field}
+                  />
                 </FormControl>
-
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
@@ -237,13 +289,14 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
               <FormItem>
                 <FormControl>
                   <CustomInput
-                    placeholder="Telefone"
+                    label="Telefone"
+                    placeholder="(11) 12345-6789"
                     mask="(99) 99999-9999"
                     {...field}
                   />
                 </FormControl>
 
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
@@ -254,13 +307,14 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
               <FormItem>
                 <FormControl>
                   <CustomInput
-                    placeholder="CPF"
+                    label="CPF"
+                    placeholder="123.456.789-10"
                     mask="999.999.999-99"
                     {...field}
                   />
                 </FormControl>
 
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
@@ -275,18 +329,19 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                       label={
                         field.value
                           ? format(field.value, 'PPP')
-                          : 'DATA DE NASCIMENTO'
+                          : 'Data de nascimento'
                       }
+                      placeholder="Selecione sua data de nascimento"
                       selected={field.value}
                       onSelect={field.onChange}
                     />
                   </FormControl>
-                  <FormMessage className="text-white" />
+                  <FormMessage className="text-red-700" />
                 </FormItem>
               )
             }}
           />
-          <h4 className="font-medium text-xs">{t('common.sex')}</h4>
+          <h4 className="font-medium text-sm">{t('common.sex')}</h4>
           <FormField
             control={form.control}
             name="gender"
@@ -324,12 +379,11 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
 
-          <h4 className="font-medium text-xs">{t('common.favoriteTeam')}</h4>
           <FormField
             control={form.control}
             name="team"
@@ -338,6 +392,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                 <FormControl>
                   <Combobox
                     onChange={field.onChange}
+                    label="Time do coração"
                     value={field.value}
                     data={teams.map((t) => ({
                       label: t.name,
@@ -349,47 +404,98 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                   />
                 </FormControl>
 
-                <FormMessage className="text-white" />
+                <FormMessage className="text-red-700" />
               </FormItem>
             )}
           />
-          <div className="flex flex-col justify-center items-center bg-[#1C2026] h-[124px] rounded-md pt-6 pb-4">
-            <CustomButton
-              isLoading={isPending}
-              disabled={isPending}
-              className="mb-3 w-[267px] self-center bg-[#2D3745] hover:bg-[#2D3745] "
-              type="submit"
-            >
-              {t('common.register')}
-            </CustomButton>
-            <span className="text-sm font-normal text-center">
-              Ao clicar em cadastrar, você declara estar de acordo com os{' '}
-            </span>
-            <span className="text-sm font-normal text-center">
-              <Link
-                className="underline"
-                href={`/${locale}/${APP_LINKS.TERMS()}`}
-                target="_blank"
-              >
-                termos de uso
-              </Link>
-              {` e com a `}
-              <Link
-                className="underline"
-                href={`/${locale}/${APP_LINKS.PRIVACYPOLICY()}`}
-                target="_blank"
-              >
-                política de privacidade
-              </Link>
-              .
-            </span>
-          </div>
-          <Link
-            className=" self-center text-sm font-normal underline"
-            href={`/${locale}/${APP_LINKS.SIGNIN()}`}
+          <FormField
+            control={form.control}
+            name="marketingConsent"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex flex-row gap-2">
+                    <Checkbox
+                      id="marketingConsent"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                    <label
+                      htmlFor="marketingConsent"
+                      className="text-sm font-normal"
+                    >
+                      Desejo receber novidades e promoções
+                    </label>
+                  </div>
+                </FormControl>
+                <FormMessage className="text-red-700" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="privacyPolicyAccepted"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex flex-row items-start gap-2">
+                    <Checkbox
+                      id="privacyPolicyAccepted"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                    <label
+                      htmlFor="privacyPolicyAccepted"
+                      className="text-xs font-normal"
+                    >
+                      Confirmo que tenho 18 anos ou mais, aceito os{' '}
+                      <Link
+                        className="text-app-secondary font-bold"
+                        href={`/${locale}/${APP_LINKS.TERMS()}`}
+                        target="_blank"
+                      >
+                        termos de uso
+                      </Link>
+                      {` e a `}
+                      <Link
+                        className="text-app-secondary font-bold"
+                        href={`/${locale}/${APP_LINKS.PRIVACYPOLICY()}`}
+                        target="_blank"
+                      >
+                        política de privacidade
+                      </Link>{' '}
+                      reconheço a proibição de acesso de terceiros à minha conta
+                      e autorizo o monitoramento dos meus dados pelo site e pela
+                      Secretaria de Prêmios e Apostas do Ministério da Fazenda.
+                    </label>
+                  </div>
+                </FormControl>
+                <FormMessage className="text-red-700" />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            isLoading={isPending}
+            disabled={isPending}
+            variant="secondary"
+            className="w-44 self-center"
+            type="submit"
           >
-            Já sou cadastrado
-          </Link>
+            {t('common.signUp')}
+          </Button>
+          <div className="flex justify-center items-center gap-1">
+            <span className="text-sm font-normal text-center">
+              Já tem uma conta?
+            </span>
+            <Link
+              className=" self-center text-sm font-bold text-app-secondary"
+              href={`/${locale}/${APP_LINKS.SIGNIN()}`}
+            >
+              Entrar
+            </Link>
+          </div>
         </form>
       </Form>
     </div>
