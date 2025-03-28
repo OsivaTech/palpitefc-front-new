@@ -93,11 +93,6 @@ export const MatchboardFilterAndFixtures = ({
     internacionais?.leagues ?? {},
   )
 
-  console.log(nacionaisFilteredFixtures.some((fixture) => fixture.length > 0))
-  console.log(
-    internacionaisFilteredFixtures.some((fixture) => fixture.length > 0),
-  )
-
   const handleLiveFilter = () => {
     setLiveFilter(!liveFilter)
   }
