@@ -208,9 +208,7 @@ const TeamShield = ({ team }: { team: Team }) => {
           className="object-contain"
         />
       </div>
-      <span className="text-white text-sm text-justify whitespace-nowrap">
-        {team.name}
-      </span>
+      <span className="text-white text-sm text-center">{team.name}</span>
     </div>
   )
 }

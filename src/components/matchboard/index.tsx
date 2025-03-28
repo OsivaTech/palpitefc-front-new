@@ -23,7 +23,7 @@ export const MatchBoard = ({ fixtures, leagues, guess }: MatchBoardProps) => {
           className="object-cover md:object-fill lg:object-fill xl:object-fill z-0"
         />
       </div>
-      <section className="-mt-14 z-50 relative gap-2">
+      <section className="-mt-8 z-50 relative gap-2">
         <Title title="Principais Jogos" />
         <MainMatchList />
       </section>
