@@ -1,3 +1,4 @@
+import { LEAGUE_CATEGORY } from '@/constants'
 import { FixtureResponse } from '@/types/api/responses/FixtureResponse'
 import { League } from '@/types/League'
 import { Match } from '@/types/Match'
@@ -17,5 +18,16 @@ export type FixturesByLeague = {
   [leagueId: number]: {
     leagueName: string
     fixtures: FixtureResponse
+  }
+}
+
+export type FixtureByLeagueCategory = {
+  [LEAGUE_CATEGORY.BRASIL]: {
+    leagueDescription: string
+    leagues: FixturesByLeague
+  }
+  [LEAGUE_CATEGORY.INTERNATIONAL]: {
+    leagueDescription: string
+    leagues: FixturesByLeague
   }
 }

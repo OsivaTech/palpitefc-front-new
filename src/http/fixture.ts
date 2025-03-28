@@ -1,8 +1,9 @@
 'use server'
+import { LEAGUE_CATEGORY } from '@/constants'
 import { get } from '@/lib/api'
 import { FixturesEndpoint, FixturesFeaturedEndpoint } from '@/lib/endpoints'
 import { FixtureResponse } from '@/types/api/responses/FixtureResponse'
-import { FixturesByLeague } from '@/types/Fixture'
+import { FixtureByLeagueCategory } from '@/types/Fixture'
 
 export async function getFixture() {
   try {
@@ -16,20 +17,34 @@ export async function getFixture() {
 
     const fixture: FixtureResponse = await response.json()
     if (!fixture) {
-      return [] as FixturesByLeague
+      return {} as FixtureByLeagueCategory
     }
 
     const groupedFixtures = fixture.reduce((acc, fixture) => {
+      const category = fixture.league.category
+        .type as unknown as LEAGUE_CATEGORY
       const leagueId = fixture.league.id
-      if (!acc[leagueId]) {
-        acc[leagueId] = {
+
+      // Initialize category if it doesn't exist
+      if (!acc[category]) {
+        acc[category] = {
+          leagueDescription: fixture.league.category.description,
+          leagues: {},
+        }
+      }
+
+      // Initialize league within category if it doesn't exist
+      if (!acc[category].leagues[leagueId]) {
+        acc[category].leagues[leagueId] = {
           leagueName: fixture.league.name,
           fixtures: [],
         }
       }
-      acc[leagueId].fixtures.push(fixture)
+
+      // Add fixture to the appropriate league
+      acc[category].leagues[leagueId].fixtures.push(fixture)
       return acc
-    }, {} as FixturesByLeague)
+    }, {} as FixtureByLeagueCategory)
 
     return groupedFixtures
   } catch {

@@ -101,7 +101,10 @@
     "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
     "subscriptionError": "Ocorreu um error, tente novamente.",
     "invalidEmail": "Email inválido",
-    "update": "Atualizar"
+    "update": "Atualizar",
+    "live": "Ao vivo",
+    "nacionais": "Nacionais",
+    "internacionais": "Internacionais"
   },
   "pages": {
     "login": {

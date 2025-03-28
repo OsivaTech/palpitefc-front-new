@@ -14,6 +14,7 @@ import { APP_LINKS } from '@/constants'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/useAuth'
 import { Guess } from '@/types/Guess'
+import { cn } from '@/lib/utils'
 
 export const MatchCard = ({
   fixture,
@@ -38,8 +39,6 @@ export const MatchCard = ({
   const { toast } = useToast()
   const { isAuthenticated } = useAuth()
   const gameAlreadyStarted = isAfter(new Date(), fixture.start)
-
-  console.log('guess', guess)
 
   const handleHomeScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (Number(e.target.value) > 99) {
@@ -140,9 +139,15 @@ export const MatchCard = ({
   ])
 
   return (
-    <div className="flex flex-col border border-app-secondary bg-[#232323]/40 rounded-lg  py-4 px-6 space-y-6 justify-between h-[221px] w-[407px] flex-shrink-0 relative">
+    <div
+      className={cn(
+        'flex flex-col border border-app-secondary bg-[#232323]/40 rounded-lg ',
+        ' py-4 px-6 space-y-6 justify-between  flex-shrink-0 relative',
+        'h-[221px] lg:w-[407px] w-[90vw]',
+      )}
+    >
       <div className="flex items-center justify-between">
-        <span className="text-[10px]">{fixture.status}</span>
+        <span className="text-[10px]">{fixture.statusHumanized}</span>
         <span className="text-[10px]">
           {format(fixture.start, 'dd/MM EE HH:mm', { locale: ptBR })}
         </span>
@@ -195,7 +200,14 @@ export const MatchCard = ({
 const TeamShield = ({ team }: { team: Team }) => {
   return (
     <div className="flex flex-col items-center gap-2 flex-1 w-[100px]">
-      <Image src={team.image} alt={team.name} width={50} height={50} />
+      <div className="relative w-[50px] h-[50px]">
+        <Image
+          src={team.image}
+          alt={team.name}
+          fill
+          className="object-contain"
+        />
+      </div>
       <span className="text-white text-sm text-justify whitespace-nowrap">
         {team.name}
       </span>

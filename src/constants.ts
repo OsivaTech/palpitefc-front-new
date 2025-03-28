@@ -46,3 +46,18 @@ export const POINT_TYPE: { [key: string]: string } = {
 export const TYPE_PREMIUM = {
   CASH: 'cash',
 }
+
+export const MATCH_STATUS = {
+  IN_PLAY: ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'SUSP', 'INT', 'LIVE'],
+  FINISHED: ['FT', 'AET', 'PEN'],
+  SCHEDULED: ['TBD', 'NS'],
+  NOT_PLAYED: ['AWD', 'WO'],
+  ABANDONED: ['ABD'],
+  CANCELLED: ['CANC'],
+  POSTPONED: ['PST'],
+}
+
+export enum LEAGUE_CATEGORY {
+  BRASIL,
+  INTERNATIONAL,
+}
