@@ -14,7 +14,7 @@ import { Calendar } from '@/components/ui/calendar'
 import { cn } from '@/lib/utils'
 
 type DatePickerProps = {
-  label: string
+  label?: string
   placeholder: string
   selected: Date | null
   onSelect: (date?: Date) => void
@@ -33,17 +33,15 @@ export function DatePicker({
       <PopoverTrigger asChild>
         <Button
           className={cn(
-            'justify-start w-full bg-transparent rounded-full border-white text-white px-[20px] py-[12px] font-medium text-xs ',
+            'justify-start w-full bg-transparent rounded-lg border-app-secondary text-white px-[20px] py-[12px] font-medium text-xs bg-white/10 ',
             !selected && 'text-muted-foreground',
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4 text-white/70" />
+          <CalendarIcon className="mr-2 h-4 w-4 text-white" />
           {selected ? (
             format(selected, 'PPP')
           ) : (
-            <span className="text-white/70">
-              {placeholder || 'Pick a date'}{' '}
-            </span>
+            <span className="text-white">{placeholder || 'Pick a date'} </span>
           )}
         </Button>
       </PopoverTrigger>

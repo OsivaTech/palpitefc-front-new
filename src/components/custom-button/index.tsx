@@ -8,7 +8,7 @@ export const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Button
         className={cn(
-          'w-full bg-app-background h-[38px] placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs ',
+          'bg-app-background placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs w-[100px] h-[38px] xl:w-[149px] lg:w-[149px] md:w-[149px] sm:w-[149px]  ',
           className,
         )}
         ref={ref}

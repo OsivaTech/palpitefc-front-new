@@ -12,6 +12,7 @@ export type Fixture = {
   homeTeam: Match
   awayTeam: Match
   status: string
+  statusHumanized: string
 }
 
 export type FixturesByLeague = {

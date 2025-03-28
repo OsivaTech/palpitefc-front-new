@@ -5,10 +5,10 @@ import { FixturesEndpoint, FixturesFeaturedEndpoint } from '@/lib/endpoints'
 import { FixtureResponse } from '@/types/api/responses/FixtureResponse'
 import { FixtureByLeagueCategory } from '@/types/Fixture'
 
-export async function getFixture() {
+export async function getFixture(date?: string) {
   try {
     const response = await get(
-      FixturesEndpoint,
+      date ? `${FixturesEndpoint}?date=${date}` : FixturesEndpoint,
       {
         cache: 'no-cache',
       },
@@ -45,7 +45,7 @@ export async function getFixture() {
       acc[category].leagues[leagueId].fixtures.push(fixture)
       return acc
     }, {} as FixtureByLeagueCategory)
-
+    console.log(groupedFixtures)
     return groupedFixtures
   } catch {
     return null

@@ -4,8 +4,13 @@ import { getFixture } from '@/http/fixture'
 import { getMyGuesses } from '@/http/gesses'
 import { getLeagues } from '@/http/league'
 
-export default async function LandingPage() {
-  const fixtures = await getFixture()
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ date?: string }>
+}) {
+  const { date } = await searchParams
+  const fixtures = await getFixture(date)
   const leagues = await getLeagues(true)
   const guess = await getMyGuesses()
 
