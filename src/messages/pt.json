@@ -90,7 +90,7 @@
     "invalidCredentials": "Usuário ou senha inválidos",
     "save": "Salvar",
     "register": "Cadastrar",
-    "removeMyAccount": "Deletar minha conta",
+    "removeMyAccount": "Excluir minha conta",
     "email": "Email",
     "invalidCard": "O número do cartão deve conter 16 dígitos.",
     "successSubscription": "Assinatura efetuada com Sucesso.",
@@ -100,7 +100,8 @@
     "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
     "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
     "subscriptionError": "Ocorreu um error, tente novamente.",
-    "invalidEmail": "Email inválido"
+    "invalidEmail": "Email inválido",
+    "update": "Atualizar"
   },
   "pages": {
     "login": {

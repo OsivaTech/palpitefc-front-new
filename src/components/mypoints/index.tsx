@@ -85,11 +85,10 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
 
   const renderHeaderMyPoints = () => {
     return (
-      <div className="pt-4 px-4">
-        <h1 className="mb-4 text-center text-[16px] font-medium">
+      <div className="pt-4 px-1">
+        <h1 className="mb-4 text-lg font-bold text-app-secondary">
           {t('mypoints.component.title')}
         </h1>
-        <Separator className="mb-6 border border-white/50 pl-4" />
         <div className="flex items-center gap-3 pb-2">
           <div className="min-w-[71px] mx-auto">
             <CustomSelect
@@ -119,7 +118,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
     )
 
     return (
-      <div className="bg-app-background mt-2 rounded-md placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs">
+      <div className="bg-[#2323235C] border border-app-secondary mt-2 rounded-md placeholder:uppercase text-white px-[20px] py-[12px] font-medium text-xs">
         <div className="flex justify-between mb-4">
           <div className="flex items-center">
             <div className="relative  gap-2 flex justify-center items-center">
@@ -206,7 +205,7 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
   }
 
   return (
-    <div className="px-2 max-w-[500px] mx-auto mb-6 bg-app-secondary">
+    <div className="px-2 max-w-[500px] mx-auto mb-6">
       {renderHeaderMyPoints()}
       <div className="flex justify-between">
         <p className="font-bold">

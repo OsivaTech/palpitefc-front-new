@@ -11,6 +11,7 @@ import { CircleCheck } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 type PollCardProps = {
   data: Poll
@@ -45,10 +46,20 @@ export const PollCard = ({ data }: PollCardProps) => {
   }
 
   return (
-    <Card className="p-4 border boder-black  bg-app-background">
-      <p className="text-white font-medium mb-6">{data.title}</p>
+    <Card className="p-4 border border-app-secondary bg-[#232323]/40">
+      <div className="flex flex-row space-between gap-2 items-center justify-between">
+        <p className="text-white font-normal">{data.title}</p>
+        <Image
+          src="/assets/capa.png"
+          alt=""
+          width={150}
+          height={150}
+          className="object-cover aspect-square rounded-[30px]"
+        />
+      </div>
+
       <RadioGroup
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-4 mt-4"
         defaultValue={value}
         onValueChange={(evt) => setValue(evt)}
       >
@@ -79,11 +90,12 @@ export const PollCard = ({ data }: PollCardProps) => {
         ))}
       </RadioGroup>
       {!alreadyVoted && (
-        <div className="flex items-center justify-end w-full gap-2 mt-3">
+        <div className="flex items-center justify-end w-full gap-2">
           <Button
-            className="h-[22px] py-1 px-3 text-sm font-bold uppercase"
+            className="py-1 px-3 text-sm font-medium uppercase"
             disabled={!value}
             onClick={handleVote}
+            variant="secondary"
           >
             VOTAR
           </Button>

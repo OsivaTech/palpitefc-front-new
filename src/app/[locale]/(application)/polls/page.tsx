@@ -2,7 +2,7 @@ import PollsPage from '@/components/polls'
 
 export default async function PollsView() {
   return (
-    <div className="mx-auto bg-app-secondary w-full h-full">
+    <div className="mx-auto bg-[#00141C] w-full h-full">
       <PollsPage />
     </div>
   )
