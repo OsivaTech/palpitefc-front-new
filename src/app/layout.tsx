@@ -14,6 +14,13 @@ import { jwtDecode } from 'jwt-decode'
 import { UserToken } from '@/types/UserToken'
 import { BottonMenu } from '@/components/bottom-menu'
 import { CookieConsentComponent } from '@/components/cookie-consent'
+import { Sora } from 'next/font/google'
+import { cn } from '@/lib/utils'
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   title: 'Palpite Futebol Clube',
@@ -40,7 +47,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang={locale} className="dark">
+    <html lang={locale} className={cn('dark', sora.className)}>
       <CookieConsentComponent />
       <NextIntlClientProvider locale={locale} messages={messages}>
         <CookiesProvider>

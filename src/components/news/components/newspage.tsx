@@ -2,6 +2,7 @@
 import { NewsProps } from '@/components/news/components/type'
 import { APP_LINKS } from '@/constants'
 import useWindowSize from '@/hooks/useWindowSize'
+import { cn } from '@/lib/utils'
 
 import { formatDate } from '@/utils/formatDate'
 import { Separator } from '@radix-ui/react-separator'
@@ -28,14 +29,14 @@ export const NewsTabContent = ({ data }: NewsProps) => {
   }, [width])
 
   return (
-    <div className=" h-full p-2">
-      {/* CARD CONTAINER */}
-
-      {/* NEWS CARD */}
-      {data?.map((n) => (
+    <div className=" h-full p-4 space-y-4">
+      {data?.map((n, index) => (
         <Link
           key={n.id}
-          className="flex flex-col h-full"
+          className={cn(
+            'flex flex-col lg:flex-row h-full border border-app-secondary rounded-lg p-4 lg:p-10 ',
+            index % 2 === 1 && 'lg:flex-row-reverse',
+          )}
           href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}
         >
           <Image
@@ -43,19 +44,20 @@ export const NewsTabContent = ({ data }: NewsProps) => {
             width={widthConditional}
             height={heightConditional}
             alt=""
+            className=" lg:w-[50%] h-full object-cover rounded-lg"
           />
 
-          <p className="text-white font-medium text-sm max pt-2 ">
-            {formatDate(n.createdAt, "dd 'de' MMMM 'de' yyyy")}
-          </p>
-          <p className="text-white font-medium text-lg leading-none mt-1">
-            {n.title}
-          </p>
-          <p className="text-white font-normal text-sm mt-2 leading-none">
-            {n.subtitle}
-          </p>
-
-          <Separator className="my-4 border border-white/20" />
+          <div className="flex flex-col items-start justify-center gap-2  p-2 lg:p-10">
+            <p className="text-white font-medium text-sm max pt-2 ">
+              {formatDate(n.createdAt, 'dd/MM/yyyy')}
+            </p>
+            <p className="text-app-secondary font-2xl font-bold text-lg leading-none mt-1">
+              {n.title}
+            </p>
+            <p className="text-white font-normal text-sm mt-2 leading-none">
+              {n.subtitle}
+            </p>
+          </div>
         </Link>
       ))}
     </div>
