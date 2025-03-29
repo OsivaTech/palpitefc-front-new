@@ -19,7 +19,6 @@ import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import Link from 'next/link'
 import { useEffect, useTransition } from 'react'
-import { Button } from '../ui/button'
 import { CustomButton } from '@/components/custom-button'
 
 export const LoginForm = () => {
