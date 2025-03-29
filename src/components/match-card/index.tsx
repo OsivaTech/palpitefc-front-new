@@ -10,7 +10,7 @@ import { useCallback, useState, useTransition } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useToast } from '@/components/ui/use-toast'
 import { makeAGuess } from '@/http/gesses'
-import { APP_LINKS } from '@/constants'
+import { APP_LINKS, MATCH_STATUS } from '@/constants'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/useAuth'
 import { Guess } from '@/types/Guess'
@@ -111,7 +111,7 @@ export const MatchCard = ({
         } else {
           toast({
             title: tCommon('success'),
-            description: tCommon('genericSuccessMessage'),
+            description: tCommon('guessSuccessMessage'),
             variant: 'default',
           })
         }
@@ -142,20 +142,20 @@ export const MatchCard = ({
     <div
       className={cn(
         'flex flex-col border border-app-secondary bg-[#232323]/40 rounded-lg ',
-        ' py-4 px-6 space-y-6 justify-between  flex-shrink-0 relative',
+        ' py-4 px-4 justify-between  flex-shrink-0 relative',
         'h-[221px] lg:w-[407px] w-[90vw]',
       )}
     >
       <div className="flex items-center justify-between">
-        <span className="text-[10px]">{fixture.statusHumanized}</span>
-        <span className="text-[10px]">
+        <span className="text-xs">{fixture.statusHumanized}</span>
+        <span className="text-xs">
           {format(fixture.start, 'dd/MM EE HH:mm', { locale: ptBR })}
         </span>
       </div>
 
       <div className="flex items-center justify-between">
         <TeamShield team={fixture.homeTeam} />
-        <div className="flex items-end  text-white mt-2 mx-4">
+        <div className="flex items-center gap-4 text-white">
           <Input
             className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center "
             maxLength={2}
@@ -164,7 +164,7 @@ export const MatchCard = ({
             onChange={handleHomeScoreChange}
             value={homeScore ?? ''}
           />
-          <span className=" mx-4 text-lg">X</span>
+          <span className="text-lg">X</span>
           <Input
             className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center"
             maxLength={2}
@@ -177,7 +177,7 @@ export const MatchCard = ({
         <TeamShield team={fixture.awayTeam} />
       </div>
 
-      {!guessed ? (
+      {!guessed && MATCH_STATUS.SCHEDULED.includes(fixture.status) ? (
         <CardBottom
           handleClear={handleClear}
           handleGuess={handleGuess}
@@ -187,11 +187,7 @@ export const MatchCard = ({
         <div></div>
       )}
       {gameAlreadyStarted && (
-        <div className="absolute flex items-center justify-center bottom-0 left-0 right-0 bg-app-background/70 rounded-lg p-2 h-full w-full">
-          <p className="text-white text-2xl font-bold">
-            {t('gameAlreadyStarted')}
-          </p>
-        </div>
+        <div className="absolute flex items-center justify-center bottom-0 left-0 right-0 bg-app-background/70 rounded-lg p-2 h-full w-full"></div>
       )}
     </div>
   )
@@ -199,7 +195,7 @@ export const MatchCard = ({
 
 const TeamShield = ({ team }: { team: Team }) => {
   return (
-    <div className="flex flex-col items-center gap-2 flex-1 w-[100px]">
+    <div className="flex flex-col items-center gap-2 flex-1">
       <div className="relative w-[50px] h-[50px]">
         <Image
           src={team.image}
@@ -208,7 +204,9 @@ const TeamShield = ({ team }: { team: Team }) => {
           className="object-contain"
         />
       </div>
-      <span className="text-white text-sm text-center">{team.name}</span>
+      <span className="text-white text-xs text-center break-words">
+        {team.name}
+      </span>
     </div>
   )
 }

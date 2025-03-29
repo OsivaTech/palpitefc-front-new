@@ -104,7 +104,9 @@
     "update": "Atualizar",
     "live": "Ao vivo",
     "nacionais": "Nacionais",
-    "internacionais": "Internacionais"
+    "internacionais": "Internacionais",
+    "success": "Sucesso",
+    "guessSuccessMessage": "Palpite enviado com sucesso!"
   },
   "pages": {
     "login": {

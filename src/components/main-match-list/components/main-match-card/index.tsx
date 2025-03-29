@@ -8,7 +8,7 @@ export const MainMatchCard = ({ fixture }: { fixture: Fixture }) => {
   return (
     <div
       className={cn(
-        'w-full h-full bg-app-background rounded-xl border border-app-secondary p-6 max-w-[350px] relative space-y-2 flex-shrink-0',
+        'w-full h-full bg-app-background rounded-xl border border-app-secondary p-4 max-w-[350px] relative space-y-2 flex-shrink-0',
       )}
     >
       <Image
@@ -18,20 +18,37 @@ export const MainMatchCard = ({ fixture }: { fixture: Fixture }) => {
         alt=""
       />
       <div className="flex items-center justify-between z-10 relative">
-        <span className="text-[10px]">{fixture.league.name}</span>
-        <span className="text-[10px]">
+        <span className="text-xs">{fixture.league.name}</span>
+        <span className="text-xs">
           {format(fixture.start, 'dd/MM EE HH:mm', { locale: ptBR })}
         </span>
       </div>
-      <div className="flex items-center justify-evenly z-10 relative space-y-2">
-        <div>
-          <Image src={fixture.homeTeam.image} width={60} height={60} alt="" />
+      <div className="flex items-center justify-evenly z-10 relative h-[100px]">
+        <div className="relative w-[70px] h-[70px]">
+          <Image
+            src={fixture.homeTeam.image}
+            alt=""
+            className="object-contain"
+            layout="fill"
+          />
         </div>
-        <div>
-          <Image src="/assets/vs.png" width={50} height={100} alt="" />
+
+        <div className="relative w-[50px] h-[100px]">
+          <Image
+            src="/assets/vs.png"
+            alt=""
+            className="object-contain"
+            layout="fill"
+          />
         </div>
-        <div>
-          <Image src={fixture.awayTeam.image} width={60} height={60} alt="" />
+
+        <div className="relative w-[70px] h-[70px]">
+          <Image
+            src={fixture.awayTeam.image}
+            alt=""
+            className="object-contain"
+            layout="fill"
+          />
         </div>
       </div>
       <div className="flex items-center justify-center z-10 relative mt-3"></div>

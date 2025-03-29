@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { format } from 'date-fns'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { CustomInput } from '@/components/custom-input'
 import { login } from '@/components/login-form/data'
@@ -25,10 +25,11 @@ import { SignupRequest } from '@/types/api/resquests/SignupRequest'
 import { DatePicker } from '@/components/date-picker'
 import { Combobox } from '@/components/combobox'
 import Link from 'next/link'
-import React, { useTransition } from 'react'
+import React, { useTransition, useEffect } from 'react'
 import { onlyNumber } from '@/utils/mask'
 import { Button } from '../ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useCookies } from 'next-client-cookies'
 
 export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const t = useTranslations()
@@ -37,6 +38,14 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const { registerUser } = useAuth()
   const locale = useLocale()
   const [isPending, startTransition] = useTransition()
+  const utmSource = useSearchParams().get('utm_source')
+  const cookies = useCookies()
+
+  useEffect(() => {
+    if (utmSource && !cookies.get('utm_source')) {
+      cookies.set('utm_source', utmSource)
+    }
+  }, [cookies, utmSource])
 
   const formSchema = z
     .object({
@@ -480,7 +489,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             isLoading={isPending}
             disabled={isPending}
             variant="secondary"
-            className="w-44 self-center"
+            className="self-center w-full h-10 uppercase"
             type="submit"
           >
             {t('common.signUp')}
