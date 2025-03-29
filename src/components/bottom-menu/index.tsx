@@ -2,15 +2,16 @@
 import { Button } from '@/components/ui/button'
 import { useLocale } from 'next-intl'
 import { ReactNode, useState } from 'react'
-import Image from 'next/image'
-import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
 import { Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { NewsSvg } from '@/components/assets/svg/news'
+import { QuizSvg } from '@/components/assets/svg/quiz'
+import { RankingSvg } from '@/components/assets/svg/ranking'
+import { PointsSvg } from '@/components/assets/svg/points'
 
 export const BottonMenu = () => {
-  const { isAuthenticated } = useAuth()
   const router = useRouter()
   const locale = useLocale()
   const [active, setActive] = useState<string>('home')
@@ -20,23 +21,24 @@ export const BottonMenu = () => {
     setActive('polls')
   }
 
-  const handleOpenMyPoints = () => {
-    if (!isAuthenticated) {
-      router.push(`/${locale}/${APP_LINKS.SIGNIN()}`)
-      return
-    }
-    router.push(`/${locale}/${APP_LINKS.MYPOINTS()}`)
-    setActive('my-points')
-  }
-
   const handleRules = () => {
     router.push(`/${locale}/${APP_LINKS.RULES()}`)
     setActive('rules')
   }
 
-  const handleOpenGuesses = () => {
+  const handleOpenHome = () => {
     router.push(`/${locale}/`)
     setActive('home')
+  }
+
+  const handleOpenQuiz = () => {
+    router.push(`/${locale}/${APP_LINKS.POLLS()}`)
+    setActive('quiz')
+  }
+
+  const handleOpenRanking = () => {
+    router.push(`/${locale}/${APP_LINKS.RANKING()}`)
+    setActive('ranking')
   }
 
   return (
@@ -44,63 +46,31 @@ export const BottonMenu = () => {
       <BottomMenuItem
         icon={<Home size={30} />}
         label="Início"
-        onClick={handleOpenGuesses}
+        onClick={handleOpenHome}
         active={active === 'home'}
       />
       <BottomMenuItem
-        icon={
-          <Image
-            className="self-center"
-            src={'/assets/survey.svg'}
-            height={20}
-            width={20}
-            alt=""
-          />
-        }
+        icon={<PointsSvg color={active === 'polls' ? 'white' : 'black'} />}
         label="Pontos"
         onClick={handleOpenPolls}
         active={active === 'polls'}
       />
       <BottomMenuItem
-        icon={
-          <Image
-            className="self-center"
-            src={'/assets/trophy.svg'}
-            height={20}
-            width={20}
-            alt=""
-          />
-        }
+        icon={<NewsSvg color={active === 'rules' ? 'white' : 'black'} />}
         label="Noticias"
         onClick={handleRules}
         active={active === 'rules'}
       />
       <BottomMenuItem
-        icon={
-          <Image
-            className="self-center"
-            src={'/assets/points.svg'}
-            height={20}
-            width={20}
-            alt=""
-          />
-        }
+        icon={<QuizSvg color={active === 'quiz' ? 'white' : 'black'} />}
         label="Enquetes"
-        onClick={handleOpenMyPoints}
+        onClick={handleOpenQuiz}
         active={active === 'quiz'}
       />
       <BottomMenuItem
-        icon={
-          <Image
-            className="self-center"
-            src={'/assets/points.svg'}
-            height={20}
-            width={20}
-            alt=""
-          />
-        }
+        icon={<RankingSvg color={active === 'ranking' ? 'white' : 'black'} />}
         label="Classificação"
-        onClick={handleOpenMyPoints}
+        onClick={handleOpenRanking}
         active={active === 'ranking'}
       />
     </div>
@@ -133,9 +103,10 @@ export const BottomMenuItem = ({
     >
       <div
         className={cn(
-          'flex flex-col items-center justify-center w-full stroke-red-500 fill-red-500',
+          'flex flex-col items-center justify-center w-full',
           active && 'text-white',
           !active && 'text-app-background',
+          'svg:fill-red-500',
         )}
       >
         {icon}

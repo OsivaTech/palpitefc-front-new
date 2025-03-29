@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Fixture } from '@/types/Fixture'
@@ -35,9 +34,7 @@ export const MainMatchCard = ({ fixture }: { fixture: Fixture }) => {
           <Image src={fixture.awayTeam.image} width={60} height={60} alt="" />
         </div>
       </div>
-      <div className="flex items-center justify-center z-10 relative mt-3">
-        <Button className="w-[150px] bg-transparent">PALPITAR</Button>
-      </div>
+      <div className="flex items-center justify-center z-10 relative mt-3"></div>
     </div>
   )
 }

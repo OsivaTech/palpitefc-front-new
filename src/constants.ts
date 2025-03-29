@@ -12,6 +12,8 @@ export const APP_LINKS = {
   POLLS: () => `polls`,
   PRIVACYPOLICY: () => `privacy-policies`,
   TERMS: () => `terms`,
+  QUIZ: () => `quiz`,
+  RANKING: () => `rankings`,
 }
 
 export const APP_LINKS_ADMIN = {
