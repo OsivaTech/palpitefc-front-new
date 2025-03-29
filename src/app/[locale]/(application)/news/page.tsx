@@ -7,5 +7,9 @@ export default async function NewsPage() {
     return <div>No news found</div>
   }
 
-  return <NewsTabContent data={news} />
+  return (
+    <div className="mx-auto h-full w-full bg-[#00141C]">
+      <NewsTabContent data={news} />
+    </div>
+  )
 }

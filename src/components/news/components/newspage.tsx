@@ -5,7 +5,7 @@ import useWindowSize from '@/hooks/useWindowSize'
 import { cn } from '@/lib/utils'
 
 import { formatDate } from '@/utils/formatDate'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -16,6 +16,7 @@ export const NewsTabContent = ({ data }: NewsProps) => {
   const [heightConditional, setHeightConditional] = useState(0)
   const { width } = useWindowSize()
   const locale = useLocale()
+  const t = useTranslations()
 
   useEffect(() => {
     if (width > 800) {
@@ -28,7 +29,10 @@ export const NewsTabContent = ({ data }: NewsProps) => {
   }, [width])
 
   return (
-    <div className=" h-full p-4 space-y-4">
+    <div className="pt-4 h-full p-2 space-y-4">
+      <h1 className="mb-4 text-lg font-bold text-app-secondary">
+        {t('news.component.title')}
+      </h1>
       {data?.map((n, index) => (
         <Link
           key={n.id}

@@ -177,5 +177,10 @@
     "component": {
       "title": "Enquetes"
     }
+  },
+  "news": {
+    "component": {
+      "title": "Notícias"
+    }
   }
 }

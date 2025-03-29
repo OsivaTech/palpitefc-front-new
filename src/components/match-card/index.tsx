@@ -157,7 +157,7 @@ export const MatchCard = ({
         <TeamShield team={fixture.homeTeam} />
         <div className="flex items-end  text-white mt-2 mx-4">
           <Input
-            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-app-background text-xl px-1 text-center "
+            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center "
             maxLength={2}
             placeholder="-"
             type="number"
@@ -166,7 +166,7 @@ export const MatchCard = ({
           />
           <span className=" mx-4 text-lg">X</span>
           <Input
-            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-app-background text-xl px-1 text-center "
+            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center"
             maxLength={2}
             placeholder="-"
             type="number"
@@ -228,14 +228,14 @@ const CardBottom = ({
     <div className="flex gap-2 items-center justify-between">
       <CustomButton
         variant="primary"
-        className="w-full uppercase flex-1 lg:flex-none"
+        className="w-full uppercase flex-1 lg:flex-none bg-[#D9D9D917]"
         onClick={handleClear}
       >
         {t('clear')}
       </CustomButton>
       <CustomButton
         variant="secondary"
-        className="w-full uppercase  flex-2 lg:flex-1"
+        className="w-full uppercase flex-2 lg:flex-1"
         onClick={handleGuess}
         isLoading={isPending}
       >

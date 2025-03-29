@@ -16,19 +16,19 @@ export const BottonMenu = () => {
   const locale = useLocale()
   const [active, setActive] = useState<string>('home')
 
-  const handleOpenPolls = () => {
-    router.push(`/${locale}/${APP_LINKS.POLLS()}`)
-    setActive('polls')
+  const handleOpenHome = () => {
+    router.push(`/${locale}/`)
+    setActive('home')
+  }
+
+  const handleOpenPoints = () => {
+    router.push(`/${locale}/${APP_LINKS.MYPOINTS()}`)
+    setActive('points')
   }
 
   const handleOpenNews = () => {
     router.push(`/${locale}/${APP_LINKS.NEWS()}`)
     setActive('news')
-  }
-
-  const handleOpenHome = () => {
-    router.push(`/${locale}/`)
-    setActive('home')
   }
 
   const handleOpenQuiz = () => {
@@ -55,10 +55,10 @@ export const BottonMenu = () => {
         active={active === 'home'}
       />
       <BottomMenuItem
-        icon={<PointsSvg color={active === 'polls' ? 'white' : 'black'} />}
+        icon={<PointsSvg color={active === 'points' ? 'white' : 'black'} />}
         label="Pontos"
-        onClick={handleOpenPolls}
-        active={active === 'polls'}
+        onClick={handleOpenPoints}
+        active={active === 'points'}
       />
       <BottomMenuItem
         icon={<NewsSvg color={active === 'news' ? 'white' : 'black'} />}
