@@ -6,8 +6,11 @@ import HeaderActionsMenu from '@/components/header-actions-menu'
 import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import { useLocale } from 'next-intl'
+
 const Header = () => {
   const { isAuthenticated, user } = useAuth()
+  const hideActions = window.location.pathname.includes('/signup')
+
   const locale = useLocale()
   return (
     <header className="flex items-center justify-between xl:py-[30px] xl:px-[80px] py-[20px] px-[20px] bg-[#001D29] ">
@@ -44,7 +47,13 @@ const Header = () => {
         </div>
       </div>
 
-      {isAuthenticated ? <UserProfile user={user!} /> : <HeaderActionsMenu />}
+      {!hideActions ? (
+        isAuthenticated ? (
+          <UserProfile user={user!} />
+        ) : (
+          <HeaderActionsMenu />
+        )
+      ) : null}
     </header>
   )
 }

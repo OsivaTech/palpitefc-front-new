@@ -63,7 +63,7 @@ export function Combobox({
           variant="primary"
           role="combobox"
           aria-expanded={open}
-          className="justify-between bg-transparent text-white/70"
+          className="justify-between text-white/70 bg-white/10"
         >
           <div className="flex justify-start items-center gap-2">
             {currentValue?.imageLink && (
