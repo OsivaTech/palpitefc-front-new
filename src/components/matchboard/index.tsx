@@ -15,15 +15,27 @@ type MatchBoardProps = {
 export const MatchBoard = ({ fixtures, leagues, guess }: MatchBoardProps) => {
   return (
     <div className="w-full h-full">
-      <div className="relative w-full h-[300px] z-0">
+      <div className="relative w-screen max-w-full h-auto">
+        <Image
+          src="/assets/capa-widescreen.png"
+          alt="Descrição da imagem"
+          layout="responsive"
+          width={1920}
+          height={1080}
+          className="object-cover max-w-full max-h-full hidden sm:block"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
         <Image
           src="/assets/capa.png"
-          alt=""
-          fill
-          className="object-cover md:object-fill lg:object-fill xl:object-fill z-0"
+          alt="Descrição da imagem"
+          layout="responsive"
+          width={1920}
+          height={1080}
+          className="object-cover max-w-full max-h-full block sm:hidden"
+          style={{ maxWidth: '100%', height: 'auto' }}
         />
       </div>
-      <section className="-mt-8 z-50 relative gap-2">
+      <section className="-mt-14 z-50 relative gap-2">
         <Title title="Principais Jogos" />
         <MainMatchList />
       </section>
