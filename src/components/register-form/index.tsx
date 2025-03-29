@@ -330,11 +330,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                 <FormItem>
                   <FormControl>
                     <DatePicker
-                      label={
-                        field.value
-                          ? format(field.value, 'PPP')
-                          : 'Data de nascimento'
-                      }
+                      label={'Data de nascimento'}
                       placeholder="Selecione sua data de nascimento"
                       selected={field.value}
                       onSelect={field.onChange}

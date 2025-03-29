@@ -226,14 +226,14 @@ const CardBottom = ({
     <div className="flex gap-2 items-center justify-between">
       <CustomButton
         variant="primary"
-        className="w-full uppercase flex-1 lg:flex-none bg-[#D9D9D917]"
+        className="w-1/3 uppercase flex-1 lg:flex-none bg-[#D9D9D917]"
         onClick={handleClear}
       >
         {t('clear')}
       </CustomButton>
       <CustomButton
         variant="secondary"
-        className="w-full uppercase flex-2 lg:flex-1"
+        className="w-2/3 uppercase flex-2 lg:flex-1"
         onClick={handleGuess}
         isLoading={isPending}
       >
