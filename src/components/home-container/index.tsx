@@ -15,7 +15,7 @@ export const HomeContainer = ({ children }: { children: ReactNode }) => {
   }, [cookies, utm_source])
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-[1400px] mx-auto">
+    <div className="flex flex-col items-center justify-center max-w-[1400px] xl:mx-auto">
       {children}
     </div>
   )
