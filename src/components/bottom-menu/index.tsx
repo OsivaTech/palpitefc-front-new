@@ -21,9 +21,9 @@ export const BottonMenu = () => {
     setActive('polls')
   }
 
-  const handleRules = () => {
-    router.push(`/${locale}/${APP_LINKS.RULES()}`)
-    setActive('rules')
+  const handleOpenNews = () => {
+    router.push(`/${locale}/${APP_LINKS.NEWS()}`)
+    setActive('news')
   }
 
   const handleOpenHome = () => {
@@ -56,10 +56,10 @@ export const BottonMenu = () => {
         active={active === 'polls'}
       />
       <BottomMenuItem
-        icon={<NewsSvg color={active === 'rules' ? 'white' : 'black'} />}
-        label="Noticias"
-        onClick={handleRules}
-        active={active === 'rules'}
+        icon={<NewsSvg color={active === 'news' ? 'white' : 'black'} />}
+        label="Notícias"
+        onClick={handleOpenNews}
+        active={active === 'news'}
       />
       <BottomMenuItem
         icon={<QuizSvg color={active === 'quiz' ? 'white' : 'black'} />}
