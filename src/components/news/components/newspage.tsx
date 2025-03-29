@@ -5,7 +5,6 @@ import useWindowSize from '@/hooks/useWindowSize'
 import { cn } from '@/lib/utils'
 
 import { formatDate } from '@/utils/formatDate'
-import { Separator } from '@radix-ui/react-separator'
 import { useLocale } from 'next-intl'
 
 import Image from 'next/image'
