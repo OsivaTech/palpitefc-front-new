@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { useLocale } from 'next-intl'
 import { ReactNode, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { APP_LINKS } from '@/constants'
 import { Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -40,12 +40,13 @@ export const BottonMenu = () => {
     router.push(`/${locale}/${APP_LINKS.RANKING()}`)
     setActive('ranking')
   }
-
+  const isRegisterPage = usePathname().includes(APP_LINKS.SIGNUP())
   return (
     <div
       className={cn(
         'flex lg:hidden items-center justify-center text-center',
         'max-w-[425px] gap-3 mx-auto py-1 w-full bg-gradient-to-r from-[#00FF55] to-[#00AE3A] rounded-full px-4',
+        isRegisterPage && 'hidden',
       )}
     >
       <BottomMenuItem

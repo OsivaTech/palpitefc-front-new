@@ -6,7 +6,7 @@ import { News } from '@/types/News'
 
 export async function getNews() {
   try {
-    const response = await get(NewsEndpoint, { cache: 'no-cache' }, false)
+    const response = await get(NewsEndpoint, {}, false)
     const news: NewsResponse = await response.json()
 
     return news

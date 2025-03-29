@@ -33,7 +33,7 @@ import { useCookies } from 'next-client-cookies'
 
 export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const t = useTranslations()
-  const { push, refresh } = useRouter()
+  const { push } = useRouter()
   const { toast } = useToast()
   const { registerUser } = useAuth()
   const locale = useLocale()
@@ -189,18 +189,13 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
         })
 
         if (response === false) {
-          toast({
-            title: t('common.error'),
-            description: t('pages.login.usernameOrPasswordWrong'),
-            variant: 'destructive',
-          })
+          push(APP_LINKS.HOMEPAGE())
           return
         }
 
         const { user: userResponse } = response
 
         registerUser(userResponse)
-        refresh()
         push(APP_LINKS.HOMEPAGE())
       } catch (error) {
         console.log('erro', error)
