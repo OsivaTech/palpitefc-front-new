@@ -42,7 +42,12 @@ export const BottonMenu = () => {
   }
 
   return (
-    <div className="flex xl:hidden lg:hidden md:hidden sm:hidden items-center justify-center gap-3 mx-auto py-1 w-full bg-gradient-to-r from-[#00FF55] to-[#00AE3A] rounded-full  px-4">
+    <div
+      className={cn(
+        'flex xl:hidden lg:hidden md:block sm:hidden items-center justify-center',
+        'max-w-[425px] gap-3 mx-auto py-1 w-full bg-gradient-to-r from-[#00FF55] to-[#00AE3A] rounded-full px-4',
+      )}
+    >
       <BottomMenuItem
         icon={<Home size={30} />}
         label="Início"
