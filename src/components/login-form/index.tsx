@@ -20,6 +20,7 @@ import { APP_LINKS } from '@/constants'
 import Link from 'next/link'
 import { useEffect, useTransition } from 'react'
 import { Button } from '../ui/button'
+import { CustomButton } from '@/components/custom-button'
 
 export const LoginForm = () => {
   const t = useTranslations()
@@ -122,7 +123,7 @@ export const LoginForm = () => {
               {t('pages.login.forgotPassword')}
             </Link>
 
-            <Button
+            <CustomButton
               isLoading={isPending}
               disabled={isPending}
               variant="secondary"
@@ -130,7 +131,7 @@ export const LoginForm = () => {
               className="self-center"
             >
               {t('common.signIn')}
-            </Button>
+            </CustomButton>
           </div>
         </form>
       </Form>
