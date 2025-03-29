@@ -35,7 +35,11 @@ const Header = () => {
             <li>
               <Link href={`/${locale}/${APP_LINKS.POLLS()}`}>Enquetes</Link>
             </li>
-            <li>Classificação</li>
+            <li>
+              <Link href={`/${locale}/${APP_LINKS.RANKING()}`}>
+                Classificação
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
