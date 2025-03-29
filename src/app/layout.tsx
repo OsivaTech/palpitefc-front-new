@@ -10,8 +10,8 @@ import { AuthProvider } from '@/context/useAuth'
 import { cookies } from 'next/headers'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
-import { jwtDecode } from 'jwt-decode'
-import { UserToken } from '@/types/UserToken'
+// import { jwtDecode } from 'jwt-decode'
+// import { UserToken } from '@/types/UserToken'
 import { BottonMenu } from '@/components/bottom-menu'
 import { CookieConsentComponent } from '@/components/cookie-consent'
 import { Sora } from 'next/font/google'
@@ -37,14 +37,14 @@ export default function RootLayout({
   const messages = useMessages()
 
   const token = cookies().get('session')
-  let userName = ''
-  let userId = ''
-  if (token?.value) {
-    const decodedToken = jwtDecode<{ token: string }>(token.value)
-    const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
-    userName = userTokenDecode.name
-    userId = userTokenDecode.id
-  }
+  // let userName = ''
+  // let userId = ''
+  // if (token?.value) {
+  //   const decodedToken = jwtDecode<{ token: string }>(token.value)
+  //   const userTokenDecode = jwtDecode<UserToken>(decodedToken.token)
+  //   userName = userTokenDecode.name
+  //   userId = userTokenDecode.id
+  // }
 
   return (
     <html lang={locale} className={cn('dark', sora.className)}>
@@ -67,7 +67,7 @@ export default function RootLayout({
                 {children}
                 <BottonMenu />
                 <Toaster />
-                <Script id="hotjar" strategy="afterInteractive">
+                {/* <Script id="hotjar" strategy="afterInteractive">
                   {`
                     (function(h,o,t,j,a,r){
                         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
@@ -79,7 +79,7 @@ export default function RootLayout({
                     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
                     window.hj('identify', '${userId}', { userName: '${userName}' });
                   `}
-                </Script>
+                </Script> */}
               </body>
               <ModalPage />
             </PageModalProvider>
