@@ -22,7 +22,7 @@ export const Banner = () => {
         style={{ maxWidth: '100%', height: 'auto' }}
       />
       <Image
-        src="/assets/capa.png"
+        src="/assets/capa-small.png"
         alt="Descrição da imagem"
         layout="responsive"
         width={1920}
