@@ -6,7 +6,7 @@ import { Team } from '@/types/Team'
 import { format, formatISO, isAfter } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
-import { useCallback, useState, useTransition } from 'react'
+import { useCallback, useState, useTransition, useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useToast } from '@/components/ui/use-toast'
 import { makeAGuess } from '@/http/gesses'
@@ -15,6 +15,26 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/useAuth'
 import { Guess } from '@/types/Guess'
 import { cn } from '@/lib/utils'
+
+const BlinkingText = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) => {
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible((prev) => !prev)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return <span className={className}>{isVisible ? children : ''}</span>
+}
 
 export const MatchCard = ({
   fixture,
@@ -38,7 +58,6 @@ export const MatchCard = ({
   const locale = useLocale()
   const { toast } = useToast()
   const { isAuthenticated } = useAuth()
-  const gameAlreadyStarted = isAfter(new Date(), fixture.start)
 
   const handleHomeScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (Number(e.target.value) > 99) {
@@ -78,7 +97,6 @@ export const MatchCard = ({
       })
       return
     }
-    console.log('isAuthenticated', isAuthenticated)
 
     if (!isAuthenticated) {
       router.push(`${locale}/${APP_LINKS.SIGNIN()}`)
@@ -98,7 +116,6 @@ export const MatchCard = ({
             goals: awayScore ?? 0,
           },
         })
-        console.log(response)
 
         router.refresh()
 
@@ -147,7 +164,27 @@ export const MatchCard = ({
       )}
     >
       <div className="flex items-center justify-between">
-        <span className="text-xs">{fixture.statusHumanized}</span>
+        <div className="flex flex-row gap-1">
+          {guessed ? (
+            <Image
+              src="/assets/palpite-ball.svg"
+              alt={t('guessed-match')}
+              width={12}
+              height={12}
+              title={t('guessed-match')}
+            />
+          ) : null}
+          <span className="text-xs">
+            {fixture.statusHumanized}
+            {MATCH_STATUS.IN_PLAY.includes(fixture.status) && (
+              <BlinkingText className="text-xs text-app-secondary">
+                {' '}
+                {fixture.elapsed}
+                {"'"}
+              </BlinkingText>
+            )}
+          </span>
+        </div>
         <span className="text-xs">
           {format(fixture.start, 'dd/MM EE HH:mm', { locale: ptBR })}
         </span>
@@ -155,42 +192,52 @@ export const MatchCard = ({
 
       <div className="flex items-center justify-between">
         <TeamShield team={fixture.homeTeam} />
-        <div className="flex items-center gap-4 text-white">
-          <Input
-            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center "
-            maxLength={2}
-            placeholder="-"
-            type="number"
-            onChange={handleHomeScoreChange}
-            value={homeScore ?? ''}
-          />
-          <span className="text-lg">X</span>
-          <Input
-            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center"
-            maxLength={2}
-            placeholder="-"
-            type="number"
-            onChange={handleAwayScoreChange}
-            value={awayScore ?? ''}
-          />
+        <div className="flex flex-col items-center gap-2 text-white">
+          <div className="flex flex-row items-center gap-2">
+            {renderScoreInputs({
+              homeScore,
+              awayScore,
+              fixture,
+              handleHomeScoreChange,
+              handleAwayScoreChange,
+            })}
+          </div>
         </div>
         <TeamShield team={fixture.awayTeam} />
       </div>
+      {getMatchGuess(guess, fixture)}
+      {renderCardBottom()}
+    </div>
+  )
 
-      {!guessed && MATCH_STATUS.SCHEDULED.includes(fixture.status) ? (
+  function renderCardBottom() {
+    if (!guessed && MATCH_STATUS.SCHEDULED.includes(fixture.status)) {
+      return (
         <CardBottom
           handleClear={handleClear}
           handleGuess={handleGuess}
           isPending={isPending}
         />
-      ) : (
-        <div></div>
-      )}
-      {gameAlreadyStarted && (
-        <div className="absolute flex items-center justify-center bottom-0 left-0 right-0 bg-app-background/70 rounded-lg p-2 h-full w-full"></div>
-      )}
-    </div>
-  )
+      )
+    }
+
+    if (guessed && MATCH_STATUS.FINISHED.includes(fixture.status)) {
+      return (
+        <CustomButton
+          variant="secondary"
+          onClick={() =>
+            router.push(
+              `${locale}/${APP_LINKS.MYPOINTS()}?fixtureId=${fixture.id}`,
+            )
+          }
+        >
+          Ver pontos
+        </CustomButton>
+      )
+    }
+
+    return <div></div>
+  }
 }
 
 const TeamShield = ({ team }: { team: Team }) => {
@@ -240,5 +287,65 @@ const CardBottom = ({
         {t('submit')}
       </CustomButton>
     </div>
+  )
+}
+
+function renderScoreInputs({
+  homeScore,
+  awayScore,
+  fixture,
+  handleHomeScoreChange,
+  handleAwayScoreChange,
+}: {
+  homeScore: number | null
+  awayScore: number | null
+  fixture: Fixture
+  handleHomeScoreChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  handleAwayScoreChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}) {
+  return (
+    <>
+      <Input
+        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center "
+        maxLength={2}
+        placeholder="-"
+        type="number"
+        onChange={handleHomeScoreChange}
+        value={
+          isFixtureInProgressOrFinished(fixture)
+            ? fixture.homeTeam.goals
+            : (homeScore ?? '')
+        }
+      />
+      <span className="text-lg">X</span>
+      <Input
+        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center"
+        maxLength={2}
+        placeholder="-"
+        type="number"
+        onChange={handleAwayScoreChange}
+        value={
+          isFixtureInProgressOrFinished(fixture)
+            ? fixture.awayTeam.goals
+            : (awayScore ?? '')
+        }
+      />
+    </>
+  )
+}
+
+function getMatchGuess(guess: Guess[], fixture: Fixture) {
+  const guessed = guess.find((x: Guess) => x.fixtureId === fixture.id)
+
+  return guessed && isFixtureInProgressOrFinished(fixture) ? (
+    <span className="text-xs text-[#FFFFFFB5] text-center">
+      Seu palpite {guessed.homeTeam.goals} X {guessed.awayTeam.goals}
+    </span>
+  ) : null
+}
+
+function isFixtureInProgressOrFinished(fixture: Fixture) {
+  return [...MATCH_STATUS.IN_PLAY, ...MATCH_STATUS.FINISHED].includes(
+    fixture.status,
   )
 }

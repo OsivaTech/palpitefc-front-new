@@ -31,7 +31,8 @@
       "title": "Qual o seu palpite?",
       "error": "Não é possivel palpitar em jogos que já começaram",
       "gameAlreadyStarted": "Esse jogo já começou!",
-      "clear": "Limpar"
+      "clear": "Limpar",
+      "guessed-match": "Jogo palpitado"
     },
     "mypoints": {
       "league": "Campeonatos",

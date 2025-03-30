@@ -12,7 +12,7 @@ export default async function LandingPage({
   const { date } = await searchParams
   const fixtures = await getFixture(date)
   const leagues = await getLeagues(true)
-  const guess = await getMyGuesses()
+  const guess = await getMyGuesses(date)
 
   return (
     <HomeContainer>

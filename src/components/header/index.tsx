@@ -6,12 +6,19 @@ import HeaderActionsMenu from '@/components/header-actions-menu'
 import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import { useLocale } from 'next-intl'
+import { useEffect, useState } from 'react'
 
 const Header = () => {
   const { isAuthenticated, user } = useAuth()
-  const hideActions = window.location.pathname.includes('/signup')
-
+  const [hideActions, setHideActions] = useState(false)
   const locale = useLocale()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHideActions(window.location.pathname.includes('/signup'))
+    }
+  }, [])
+
   return (
     <header className="flex items-center justify-between xl:py-[30px] xl:px-[80px] py-[20px] px-[20px] bg-[#001D29] ">
       <div className="flex items-center gap-[60px] ">

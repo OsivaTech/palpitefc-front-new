@@ -7,6 +7,7 @@ export const SelfEndpoint = `${apiBaseUrl}/users/me`
 export const UpdateUser = `${apiBaseUrl}/users`
 export const FixturesEndpoint = `${apiBaseUrl}/fixtures`
 export const FixturesFeaturedEndpoint = `${apiBaseUrl}/fixtures/featured`
+export const FixturesInLiveEndpoint = `${apiBaseUrl}/fixtures/live`
 export const GuessEndpoint = `${apiBaseUrl}/guesses`
 export const MyGuessEndpoint = `${apiBaseUrl}/guesses/me`
 export const MyPointsEndpoint = `${apiBaseUrl}/points/me`

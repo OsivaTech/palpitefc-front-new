@@ -1,7 +1,11 @@
 'use server'
 import { LEAGUE_CATEGORY } from '@/constants'
 import { get } from '@/lib/api'
-import { FixturesEndpoint, FixturesFeaturedEndpoint } from '@/lib/endpoints'
+import {
+  FixturesEndpoint,
+  FixturesFeaturedEndpoint,
+  FixturesInLiveEndpoint,
+} from '@/lib/endpoints'
 import { FixtureResponse } from '@/types/api/responses/FixtureResponse'
 import { FixtureByLeagueCategory } from '@/types/Fixture'
 
@@ -45,7 +49,6 @@ export async function getFixture(date?: string) {
       acc[category].leagues[leagueId].fixtures.push(fixture)
       return acc
     }, {} as FixtureByLeagueCategory)
-    console.log(groupedFixtures)
     return groupedFixtures
   } catch {
     return null
@@ -56,6 +59,27 @@ export async function getFixtureFeatured() {
   try {
     const response = await get(
       FixturesFeaturedEndpoint,
+      {
+        cache: 'no-cache',
+      },
+      false,
+    )
+
+    const fixture: FixtureResponse = await response.json()
+    if (!fixture) {
+      return [] as FixtureResponse
+    }
+
+    return fixture
+  } catch {
+    return null
+  }
+}
+
+export async function getInLiveFixtures() {
+  try {
+    const response = await get(
+      FixturesInLiveEndpoint,
       {
         cache: 'no-cache',
       },
