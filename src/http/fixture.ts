@@ -1,5 +1,5 @@
 'use server'
-import { LEAGUE_CATEGORY } from '@/constants'
+import { LEAGUE_CATEGORY, MATCH_STATUS } from '@/constants'
 import { get } from '@/lib/api'
 import {
   FixturesEndpoint,
@@ -24,7 +24,32 @@ export async function getFixture(date?: string) {
       return {} as FixtureByLeagueCategory
     }
 
-    const groupedFixtures = fixture.reduce((acc, fixture) => {
+    // Ordenar os fixtures por status e data
+    const sortedFixtures = fixture.sort((a, b) => {
+      const statusOrder = [
+        ...MATCH_STATUS.IN_PLAY,
+        ...MATCH_STATUS.SCHEDULED,
+        ...MATCH_STATUS.FINISHED,
+      ]
+
+      const statusA =
+        statusOrder.indexOf(a.status) !== -1
+          ? statusOrder.indexOf(a.status)
+          : statusOrder.length
+      const statusB =
+        statusOrder.indexOf(b.status) !== -1
+          ? statusOrder.indexOf(b.status)
+          : statusOrder.length
+
+      if (statusA !== statusB) {
+        return statusA - statusB
+      }
+
+      // Ordenar por data (ascendente) se os status forem iguais
+      return new Date(a.start).getTime() - new Date(b.start).getTime()
+    })
+
+    const groupedFixtures = sortedFixtures.reduce((acc, fixture) => {
       const category = fixture.league.category
         .type as unknown as LEAGUE_CATEGORY
       const leagueId = fixture.league.id
@@ -49,6 +74,7 @@ export async function getFixture(date?: string) {
       acc[category].leagues[leagueId].fixtures.push(fixture)
       return acc
     }, {} as FixtureByLeagueCategory)
+
     return groupedFixtures
   } catch {
     return null
