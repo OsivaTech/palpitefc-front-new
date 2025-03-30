@@ -13,7 +13,7 @@ export const Banner = () => {
       onClick={() => router.push(`${locale}/${APP_LINKS.SIGNUP()}`)}
     >
       <Image
-        src="/assets/capa-widescreen.png"
+        src="/assets/capa-medium.png"
         alt="Descrição da imagem"
         layout="responsive"
         width={1920}

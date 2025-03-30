@@ -303,7 +303,13 @@ function renderScoreInputs({
   handleHomeScoreChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleAwayScoreChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }) {
-  return (
+  return isFixtureInProgressOrFinished(fixture) ? (
+    <div className="flex flex-row items-center gap-4">
+      <span className="text-5xl">{fixture.homeTeam.goals}</span>
+      <span className="text-3xl">×</span>
+      <span className="text-5xl">{fixture.awayTeam.goals}</span>
+    </div>
+  ) : (
     <>
       <Input
         className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center "
@@ -317,7 +323,7 @@ function renderScoreInputs({
             : (homeScore ?? '')
         }
       />
-      <span className="text-lg">X</span>
+      <span className="text-3xl">×</span>
       <Input
         className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none w-10 border-2 focus-visible:ring-0 focus-visible:ring-offset-0 dark:border-white dark:text-white bg-transparent text-xl px-1 text-center"
         maxLength={2}
@@ -339,7 +345,7 @@ function getMatchGuess(guess: Guess[], fixture: Fixture) {
 
   return guessed && isFixtureInProgressOrFinished(fixture) ? (
     <span className="text-xs text-[#FFFFFFB5] text-center">
-      Seu palpite {guessed.homeTeam.goals} X {guessed.awayTeam.goals}
+      Seu palpite {guessed.homeTeam.goals} × {guessed.awayTeam.goals}
     </span>
   ) : null
 }
