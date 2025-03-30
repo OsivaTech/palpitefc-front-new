@@ -78,7 +78,7 @@ export const MatchCard = ({
     setAwayScore(null)
   }
 
-  const checkIfCanBeVoted = useCallback(() => {
+  const isMatchStarted = useCallback(() => {
     const gameStart = formatISO(fixture.start)
     const now = formatISO(new Date())
 
@@ -89,10 +89,10 @@ export const MatchCard = ({
   }, [fixture.start])
 
   const handleGuess = useCallback(async () => {
-    if (!checkIfCanBeVoted()) {
+    if (!isMatchStarted()) {
       toast({
         title: tCommon('error'),
-        description: tCommon('genericErrorMessage'),
+        description: t('error'),
         variant: 'destructive',
       })
       return
@@ -142,7 +142,7 @@ export const MatchCard = ({
     }
   }, [
     awayScore,
-    checkIfCanBeVoted,
+    isMatchStarted,
     fixture.awayTeam.id,
     fixture.homeTeam.id,
     fixture.id,
@@ -211,7 +211,11 @@ export const MatchCard = ({
   )
 
   function renderCardBottom() {
-    if (!guessed && MATCH_STATUS.SCHEDULED.includes(fixture.status)) {
+    if (
+      !guessed &&
+      MATCH_STATUS.SCHEDULED.includes(fixture.status) &&
+      isMatchStarted()
+    ) {
       return (
         <CardBottom
           handleClear={handleClear}
