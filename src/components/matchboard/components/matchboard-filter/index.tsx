@@ -99,49 +99,49 @@ export const MatchboardFilterAndFixtures = ({
 
   return (
     <>
-      <div className="flex flex-col md:flex-row mt-10 ml-2 items-center gap-4 lg:gap-0 pb-4">
+      <div className="flex flex-col md:flex-row mt-10 mx-2 items-center gap-4 pb-4">
         <div className="flex w-full gap-4 items-center lg:justify-evenly">
-          <div className="bg-white/10 border border-app-secondary rounded-lg p-2 h-[40px] flex items-center gap-2 lg:w-[400px]">
+          <div className="bg-white/10 border border-app-secondary rounded-lg p-2 h-[40px] flex items-center gap-2 w-1/2">
             <Search className="w-4 h-4 text-white" />
             <Input
               placeholder="Pesquisar"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-transparent  text-white placeholder:text-white border-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-full"
+              className="bg-transparent text-white placeholder:text-white/70 border-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-full"
             />
           </div>
+          <div className="w-1/2 text-center">
+            <Select
+              onValueChange={(value) => setSelectedLeague(value)}
+              value={selectedLeague}
+            >
+              <SelectTrigger className="bg-white/10 border border-app-secondary rounded-lg p-4 h-[40px] flex items-center gap-2">
+                <SelectValue placeholder="Campeonatos" />
+              </SelectTrigger>
+              <SelectContent className="bg-app-background">
+                <SelectItem value={'todos'}>Todos</SelectItem>
+                {leagues.map((league) => (
+                  <SelectItem key={league.id} value={league.name}>
+                    {league.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="flex w-full items-center gap-2">
           <CustomButton
             variant={liveFilter ? 'secondary' : 'primary'}
-            className="bg-white/10"
+            className="bg-white/10 h-[40px]"
             onClick={handleLiveFilter}
           >
             {t('live')}
           </CustomButton>
-        </div>
-        <div className="flex w-full  items-center gap-4 lg:justify-evenly">
-          <Select
-            onValueChange={(value) => setSelectedLeague(value)}
-            value={selectedLeague}
-          >
-            <SelectTrigger className="bg-white/10 border border-app-secondary rounded-lg p-2 h-[40px] flex items-center gap-2 w-[200px] lg:w-[400px]">
-              <SelectValue placeholder="Campeonatos" />
-            </SelectTrigger>
-            <SelectContent className="bg-app-background">
-              <SelectItem value={'todos'}>Todos</SelectItem>
-              {leagues.map((league) => (
-                <SelectItem key={league.id} value={league.name}>
-                  {league.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <div className="max-w-[200px]">
-            <DatePicker
-              placeholder="Selecione uma data"
-              selected={selectedDate}
-              onSelect={(date) => setSelectedDate(date ?? null)}
-            />
-          </div>
+          <DatePicker
+            placeholder="Selecione uma data"
+            selected={selectedDate}
+            onSelect={(date) => setSelectedDate(date ?? null)}
+          />
         </div>
       </div>
 
