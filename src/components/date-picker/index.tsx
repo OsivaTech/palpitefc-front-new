@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { cn } from '@/lib/utils'
+import { ptBR } from 'date-fns/locale'
 
 type DatePickerProps = {
   label?: string
@@ -33,13 +34,17 @@ export function DatePicker({
       <PopoverTrigger asChild>
         <Button
           className={cn(
-            'justify-start w-full bg-transparent rounded-lg border-app-secondary text-white px-[20px] py-[12px] font-medium text-xs bg-white/10 ',
+            'justify-start w-full rounded-lg border-app-secondary text-white px-[20px] py-[12px] font-medium text-xs bg-white/10 ',
             !selected && 'text-muted-foreground',
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4 text-white" />
           {selected ? (
-            format(selected, 'PPP')
+            selected?.toDateString() === new Date().toDateString() ? (
+              'Hoje'
+            ) : (
+              format(selected, 'dd MMM yyyy', { locale: ptBR })
+            )
           ) : (
             <span className="text-white">{placeholder || 'Pick a date'} </span>
           )}
@@ -54,6 +59,7 @@ export function DatePicker({
           selected={selected || undefined}
           onSelect={onSelect}
           captionLayout="dropdown-buttons"
+          lang="pt-BR"
         />
       </PopoverContent>
     </Popover>
