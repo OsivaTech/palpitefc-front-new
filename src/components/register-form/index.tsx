@@ -25,7 +25,7 @@ import { SignupRequest } from '@/types/api/resquests/SignupRequest'
 import { DatePicker } from '@/components/date-picker'
 import { Combobox } from '@/components/combobox'
 import Link from 'next/link'
-import React, { useTransition, useEffect } from 'react'
+import React, { useTransition, useEffect, useState } from 'react'
 import { onlyNumber } from '@/utils/mask'
 import { Button } from '../ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -40,12 +40,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const [isPending, startTransition] = useTransition()
   const utmSource = useSearchParams().get('utm_source')
   const cookies = useCookies()
-
-  useEffect(() => {
-    if (utmSource && !cookies.get('utm_source')) {
-      cookies.set('utm_source', utmSource)
-    }
-  }, [cookies, utmSource])
+  const [isClient, setIsClient] = useState(false)
 
   const formSchema = z
     .object({
@@ -110,6 +105,35 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
       path: ['confirmPassword'],
     })
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      document: '',
+      team: 0,
+      info: '',
+      phoneNumber: '',
+      birthday: undefined,
+      gender: undefined,
+      marketingConsent: false,
+      privacyPolicyAccepted: false,
+    },
+  })
+  useEffect(() => {
+    if (utmSource && !cookies.get('utm_source')) {
+      cookies.set('utm_source', utmSource)
+    }
+  }, [cookies, utmSource])
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isClient) return null
+
   function isValidCPF(cpf: string): boolean {
     cpf = cpf.replace(/[^\d]+/g, '')
     if (cpf.length !== 11) return false
@@ -141,24 +165,6 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
     if (remainder !== parseInt(cpf.substring(10, 11))) return false
     return true
   }
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      document: '',
-      team: 0,
-      info: '',
-      phoneNumber: '',
-      birthday: undefined,
-      gender: undefined,
-      marketingConsent: false,
-      privacyPolicyAccepted: false,
-    },
-  })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const user: SignupRequest = {
@@ -209,7 +215,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   }
 
   return (
-    <div className="max-w-[500px] mx-auto pt-10 px-3">
+    <div className="max-w-[500px] mx-auto pt-10 px-3 h-full">
       <h1 className="mb-6 text-xl font-bold max-w-48 text-app-secondary">
         Olá, vamos começar seu cadastro
       </h1>

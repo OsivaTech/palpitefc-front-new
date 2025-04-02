@@ -14,11 +14,9 @@ export default async function AuthLayout({
   }
 
   return (
-    <html>
-      <body>
-        <Header hideActions />
-        <main className="mx-auto w-full overflow-auto">{children}</main>
-      </body>
-    </html>
+    <main className="mx-auto w-full overflow-auto h-full">
+      <Header hideActions />
+      {children}
+    </main>
   )
 }

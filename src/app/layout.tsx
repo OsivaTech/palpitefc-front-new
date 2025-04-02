@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
-import Header from '@/components/header'
 import { PageModalProvider } from '@/context/usePageModal'
 import { CookiesProvider } from 'next-client-cookies/server'
 import './globals.css'
@@ -10,9 +9,6 @@ import { AuthProvider } from '@/context/useAuth'
 import { cookies } from 'next/headers'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
-// import { jwtDecode } from 'jwt-decode'
-// import { UserToken } from '@/types/UserToken'
-import { BottonMenu } from '@/components/bottom-menu'
 import { CookieConsentComponent } from '@/components/cookie-consent'
 import { Sora } from 'next/font/google'
 import { cn } from '@/lib/utils'
@@ -53,7 +49,7 @@ export default function RootLayout({
         <CookiesProvider>
           <AuthProvider token={token?.value}>
             <PageModalProvider>
-              <body className="flex flex-col h-dvh bg-app-background">
+              <body className="flex flex-col h-full bg-app-background">
                 <noscript>
                   <iframe
                     src="https://www.googletagmanager.com/ns.html?id=GTM-NVRQSJLV"
@@ -63,9 +59,7 @@ export default function RootLayout({
                   ></iframe>
                 </noscript>
                 <Script id="gtm" strategy="afterInteractive"></Script>
-                <Header />
                 {children}
-                <BottonMenu />
                 <Toaster />
                 {/* <Script id="hotjar" strategy="afterInteractive">
                   {`
