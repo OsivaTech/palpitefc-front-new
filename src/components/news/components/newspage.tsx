@@ -1,5 +1,6 @@
 'use client'
 import { NewsProps } from '@/components/news/components/type'
+import Title from '@/components/title'
 import { APP_LINKS } from '@/constants'
 import useWindowSize from '@/hooks/useWindowSize'
 import { cn } from '@/lib/utils'
@@ -30,39 +31,52 @@ export const NewsTabContent = ({ data }: NewsProps) => {
 
   return (
     <div className="pt-4 h-full p-2 space-y-4">
-      <h1 className="mb-4 text-lg font-bold text-app-secondary">
-        {t('news.component.title')}
-      </h1>
-      {data?.map((n, index) => (
-        <Link
-          key={n.id}
-          className={cn(
-            'flex flex-col lg:flex-row h-full border border-app-secondary rounded-lg p-4 lg:p-10 ',
-            index % 2 === 1 && 'lg:flex-row-reverse',
-          )}
-          href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}
-        >
-          <Image
-            src={n.thumbnail}
-            width={widthConditional}
-            height={heightConditional}
-            alt=""
-            className=" lg:w-[50%] h-full object-cover rounded-lg"
-          />
+      <div className="my-12">
+        <Title title={t('news.component.title')} />
+      </div>
+      <div className="container space-y-4">
+        {data?.map((n, index) => (
+          <div
+            key={n.id}
+            className={cn(
+              'flex flex-col lg:flex-row h-full border border-app-secondary rounded-lg p-4 lg:p-10 ',
+              index % 2 === 1 && 'lg:flex-row-reverse',
+            )}
+          >
+            <Image
+              src={n.thumbnail}
+              width={widthConditional}
+              height={heightConditional}
+              alt=""
+              className=" lg:w-[50%] h-full object-cover rounded-lg"
+            />
 
-          <div className="flex flex-col items-start justify-center gap-2  p-2 lg:p-10">
-            <p className="text-white font-medium text-sm max pt-2 ">
-              {formatDate(n.createdAt, 'dd/MM/yyyy')}
-            </p>
-            <p className="text-app-secondary font-2xl font-bold text-lg leading-none mt-1">
-              {n.title}
-            </p>
-            <p className="text-white font-normal text-sm mt-2 leading-none">
-              {n.subtitle}
-            </p>
+            <div className="flex flex-col items-start justify-center gap-2  p-2 lg:p-10">
+              <p className="text-white font-medium text-sm max pt-2 ">
+                {formatDate(n.createdAt, 'dd/MM/yyyy')}
+              </p>
+              <p className="text-app-secondary font-2xl font-bold text-lg leading-none mt-1">
+                {n.title}
+              </p>
+              <div className="flex flex-col justify-between h-full">
+                <p className="text-white font-normal text-sm mt-2 leading-none">
+                  {n.subtitle}
+                </p>
+                {n.content.length > 0 && (
+                  <p>
+                    <Link
+                      href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}
+                      className="flex flex-row-reverse w-full text-app-secondary"
+                    >
+                      Ler mais...
+                    </Link>
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
-        </Link>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import { Banner } from '@/components/matchboard/components/banenr'
 import { RankingsPage } from '@/components/rankings'
 import Title from '@/components/title'
 import { getRank } from '@/http/ranking'
@@ -10,7 +9,6 @@ export default async function RankingsView() {
 
   return (
     <div className="mx-auto max-w-[1400px] h-full">
-      <Banner />
       <section className="-mt-14 relative gap-2">
         <Title title="Classificação" />
       </section>

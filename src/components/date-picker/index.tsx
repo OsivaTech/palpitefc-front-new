@@ -13,26 +13,32 @@ import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { cn } from '@/lib/utils'
 import { ptBR } from 'date-fns/locale'
+import { useState } from 'react'
 
 type DatePickerProps = {
   label?: string
   placeholder: string
   selected: Date | null
   onSelect: (date?: Date) => void
+  disabled?: boolean
 }
+
 export function DatePicker({
   label,
   placeholder,
   selected,
   onSelect,
+  disabled,
 }: DatePickerProps) {
+  const [open, setOpen] = useState(false)
   return (
-    <Popover>
+    <Popover onOpenChange={setOpen} open={open}>
       <label className="block text-white text-sm font-medium mb-1">
         {label}
       </label>
       <PopoverTrigger asChild>
         <Button
+          disabled={disabled}
           className={cn(
             'justify-start w-full rounded-lg border-app-secondary text-white px-[20px] py-[12px] font-medium text-xs bg-white/10 ',
             !selected && 'text-muted-foreground',
@@ -53,13 +59,18 @@ export function DatePicker({
       <PopoverContent className="w-auto p-0">
         <Calendar
           className="bg-transparent"
-          fromYear={1900}
-          toYear={new Date().getFullYear()}
           mode="single"
           selected={selected || undefined}
           onSelect={onSelect}
           captionLayout="dropdown-buttons"
           lang="pt-BR"
+          disabled={(date) => {
+            const today = new Date()
+            const maxDate = new Date()
+            maxDate.setDate(today.getDate() + 7)
+            return date > maxDate
+          }}
+          onDayClick={() => setOpen(false)}
         />
       </PopoverContent>
     </Popover>

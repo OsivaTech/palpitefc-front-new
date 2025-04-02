@@ -3,8 +3,8 @@ import { MainMatchList } from '@/components/main-match-list'
 import { FixtureByLeagueCategory } from '@/types/Fixture'
 import { Guess } from '@/types/Guess'
 import Title from '@/components/title'
-import { Banner } from '@/components/matchboard/components/banenr'
 import { MatchboardFilterAndFixtures } from '@/components/matchboard/components/matchboard-filter'
+import { Banner } from '@/components/matchboard/components/banner'
 
 type MatchBoardProps = {
   fixtures: FixtureByLeagueCategory | null

@@ -1,5 +1,6 @@
 'use client'
 import { APP_LINKS } from '@/constants'
+import { cn } from '@/lib/utils'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -9,7 +10,9 @@ export const Banner = () => {
   const locale = useLocale()
   return (
     <div
-      className="relative w-screen max-w-full h-auto cursor-pointer"
+      className={cn(
+        'relative w-screen h-auto cursor-pointer container lg:max-w-[1024px]  mx-auto',
+      )}
       onClick={() => router.push(`${locale}/${APP_LINKS.SIGNUP()}`)}
     >
       <Image

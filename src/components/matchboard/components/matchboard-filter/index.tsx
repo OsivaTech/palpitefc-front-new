@@ -95,6 +95,7 @@ export const MatchboardFilterAndFixtures = ({
 
   const handleLiveFilter = () => {
     setLiveFilter(!liveFilter)
+    setSelectedDate(null)
   }
 
   return (
@@ -132,12 +133,13 @@ export const MatchboardFilterAndFixtures = ({
         <div className="flex w-full items-center gap-2">
           <CustomButton
             variant={liveFilter ? 'secondary' : 'primary'}
-            className="bg-white/10 h-[40px]"
+            className="bg-white/10 h-[40px] lg:max-w-[100px]"
             onClick={handleLiveFilter}
           >
             {t('live')}
           </CustomButton>
           <DatePicker
+            disabled={liveFilter}
             placeholder="Selecione uma data"
             selected={selectedDate}
             onSelect={(date) => setSelectedDate(date ?? null)}
@@ -176,7 +178,7 @@ export const MatchboardFilterAndFixtures = ({
               </div>
             )}
             {fixture.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto py-4 pl-4">
+              <div className="flex gap-2 overflow-x-auto py-4 pl-12 ">
                 {fixture.map((fixture: Fixture) => (
                   <MatchCard
                     key={fixture.id}
@@ -222,7 +224,7 @@ export const MatchboardFilterAndFixtures = ({
               </div>
             )}
             {fixture.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto py-4 pl-4">
+              <div className="flex gap-2 overflow-x-auto py-4 pl-12">
                 {fixture.map((fixture: Fixture) => (
                   <MatchCard
                     key={fixture.id}

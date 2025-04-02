@@ -6,18 +6,10 @@ import HeaderActionsMenu from '@/components/header-actions-menu'
 import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import { useLocale } from 'next-intl'
-import { useEffect, useState } from 'react'
 
-const Header = () => {
+const Header = ({ hideActions }: { hideActions?: boolean }) => {
   const { isAuthenticated, user } = useAuth()
-  const [hideActions, setHideActions] = useState(false)
   const locale = useLocale()
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setHideActions(window.location.pathname.includes('/signup'))
-    }
-  }, [])
 
   return (
     <header className="flex items-center justify-between xl:py-[30px] xl:px-[80px] py-[20px] px-[20px] bg-[#001D29] ">
@@ -31,27 +23,29 @@ const Header = () => {
             className="xl:w-[150px] xl:h-[30px] lg:w-[120px] lg:h-[30px] w-[100px] h-[30px]"
           />
         </Link>
-        <div className="hidden xl:block lg:block  ">
-          <ul className="flex items-center gap-[60px] lg:gap-[30px] xl:text-lg text-sm">
-            <li>
-              <Link href={`/${locale}/${APP_LINKS.HOMEPAGE()}`}>Início</Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/${APP_LINKS.MYPOINTS()}`}>Pontos</Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/${APP_LINKS.NEWS()}`}>Notícias</Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/${APP_LINKS.POLLS()}`}>Enquetes</Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/${APP_LINKS.RANKING()}`}>
-                Classificação
-              </Link>
-            </li>
-          </ul>
-        </div>
+        {!hideActions && (
+          <div className="hidden xl:block lg:block  ">
+            <ul className="flex items-center gap-[60px] lg:gap-[30px] xl:text-lg text-sm">
+              <li>
+                <Link href={`/${locale}/${APP_LINKS.HOMEPAGE()}`}>Início</Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/${APP_LINKS.MYPOINTS()}`}>Pontos</Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/${APP_LINKS.NEWS()}`}>Notícias</Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/${APP_LINKS.POLLS()}`}>Enquetes</Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/${APP_LINKS.RANKING()}`}>
+                  Classificação
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
 
       {!hideActions ? (
