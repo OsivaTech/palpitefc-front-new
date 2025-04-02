@@ -185,5 +185,9 @@
     "component": {
       "title": "Notícias"
     }
+  },
+  "apiMessages": {
+    "SU001": "Este email já está em uso.",
+    "SU002": "CPF já cadastrado."
   }
 }

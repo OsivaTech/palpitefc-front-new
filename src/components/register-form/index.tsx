@@ -26,7 +26,6 @@ import { format } from 'date-fns'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { CustomInput } from '@/components/custom-input'
-import { login } from '@/components/login-form/data'
 import { APP_LINKS } from '@/constants'
 import { useAuth } from '@/context/useAuth'
 import { createUser } from '@/http/user'
@@ -34,11 +33,12 @@ import { Team } from '@/types/Team'
 import { SignupRequest } from '@/types/api/resquests/SignupRequest'
 import { Combobox } from '@/components/combobox'
 import Link from 'next/link'
-import React, { useTransition, useEffect, useState } from 'react'
+import { useTransition, useEffect, useState } from 'react'
 import { onlyNumber } from '@/utils/mask'
 import { Button } from '../ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useCookies } from 'next-client-cookies'
+import { createSession } from '@/lib/session'
 
 export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const t = useTranslations()
@@ -187,7 +187,16 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
     }
     startTransition(async () => {
       try {
-        await createUser(user)
+        const userResponse = await createUser(user)
+
+        if ('code' in userResponse) {
+          toast({
+            title: t('common.error'),
+            description: t('apiMessages.' + userResponse.code),
+            variant: 'destructive',
+          })
+          return
+        }
 
         if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
           window.fbq('track', 'CompleteRegistration')
@@ -195,19 +204,9 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
           console.warn('Facebook Pixel não está carregado corretamente')
         }
 
-        const response = await login({
-          email: user.email,
-          password: user.password,
-        })
+        registerUser(userResponse.user)
+        createSession(userResponse.accessToken)
 
-        if (response === false) {
-          push(APP_LINKS.HOMEPAGE())
-          return
-        }
-
-        const { user: userResponse } = response
-
-        registerUser(userResponse)
         push(APP_LINKS.HOMEPAGE())
       } catch (error) {
         console.log('erro', error)

@@ -9,6 +9,8 @@ import {
   VerifyResetCode,
 } from '@/lib/endpoints'
 import { User } from '@/types/User'
+import { ErrorResponse } from '@/types/api/responses/Error'
+import { UserResponse } from '@/types/api/responses/UserResponse'
 import { ResetPasswordRequest } from '@/types/api/resquests/ResetPasswordRequest'
 import { SignupRequest } from '@/types/api/resquests/SignupRequest'
 import { cookies } from 'next/headers'
@@ -23,24 +25,25 @@ export const getSelf = async () => {
   }
 }
 
-export async function createUser(user: SignupRequest) {
-  try {
-    await post(
-      RegisterEndpoint,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          ...user,
-          utmSource: cookies().get('utm_source')?.value,
-        }),
-      },
-      false,
-    )
-    cookies().delete('utm_source')
-    return true
-  } catch {
-    return false
-  }
+export async function createUser(
+  user: SignupRequest,
+): Promise<ErrorResponse | UserResponse> {
+  const response = await post(
+    RegisterEndpoint,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        ...user,
+        utmSource: cookies().get('utm_source')?.value,
+      }),
+    },
+    false,
+  )
+  cookies().delete('utm_source')
+
+  const userResponse: UserResponse = await response.json()
+
+  return userResponse
 }
 
 export async function updateUser(user: Omit<SignupRequest, 'password'>) {
