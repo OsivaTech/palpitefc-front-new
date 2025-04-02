@@ -102,7 +102,7 @@ export const MatchboardFilterAndFixtures = ({
     <>
       <div className="flex flex-col md:flex-row mt-10 mx-2 items-center gap-4 pb-4">
         <div className="flex w-full gap-4 items-center lg:justify-evenly">
-          <div className="bg-white/10 border border-app-secondary rounded-lg p-2 h-[40px] flex items-center gap-2 w-1/2">
+          <div className="bg-white/10 border border-app-secondary rounded-lg p-4 h-[40px] flex items-center gap-1 w-1/2">
             <Search className="w-4 h-4 text-white" />
             <Input
               placeholder="Pesquisar"
@@ -178,7 +178,7 @@ export const MatchboardFilterAndFixtures = ({
               </div>
             )}
             {fixture.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto py-4 pl-12 ">
+              <div className="flex gap-2 overflow-x-auto py-4 px-2 ">
                 {fixture.map((fixture: Fixture) => (
                   <MatchCard
                     key={fixture.id}
@@ -224,7 +224,7 @@ export const MatchboardFilterAndFixtures = ({
               </div>
             )}
             {fixture.length > 0 && (
-              <div className="flex gap-2 overflow-x-auto py-4 pl-12">
+              <div className="flex gap-2 overflow-x-auto py-4 px-2">
                 {fixture.map((fixture: Fixture) => (
                   <MatchCard
                     key={fixture.id}

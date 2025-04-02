@@ -50,7 +50,7 @@ export const PollCard = ({ data }: PollCardProps) => {
       <div className="flex flex-row space-between gap-2 items-center justify-between">
         <p className="text-white font-normal">{data.title}</p>
         <Image
-          src="/assets/capa.png"
+          src="/assets/capa-small.png"
           alt=""
           width={150}
           height={150}

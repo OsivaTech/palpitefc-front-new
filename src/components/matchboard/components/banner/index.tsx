@@ -11,7 +11,7 @@ export const Banner = () => {
   return (
     <div
       className={cn(
-        'relative w-screen h-auto cursor-pointer container lg:max-w-[1024px]  mx-auto',
+        'relative w-screen h-auto cursor-pointer lg:max-w-[1024px] mx-auto',
       )}
       onClick={() => router.push(`${locale}/${APP_LINKS.SIGNUP()}`)}
     >

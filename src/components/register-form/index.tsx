@@ -8,6 +8,16 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form'
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
@@ -22,7 +32,6 @@ import { useAuth } from '@/context/useAuth'
 import { createUser } from '@/http/user'
 import { Team } from '@/types/Team'
 import { SignupRequest } from '@/types/api/resquests/SignupRequest'
-import { DatePicker } from '@/components/date-picker'
 import { Combobox } from '@/components/combobox'
 import Link from 'next/link'
 import React, { useTransition, useEffect, useState } from 'react'
@@ -40,7 +49,15 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   const [isPending, startTransition] = useTransition()
   const utmSource = useSearchParams().get('utm_source')
   const cookies = useCookies()
-  const [isClient, setIsClient] = useState(false)
+  const [day, setDay] = useState('')
+  const [month, setMonth] = useState('')
+  const [year, setYear] = useState('')
+
+  useEffect(() => {
+    if (utmSource && !cookies.get('utm_source')) {
+      cookies.set('utm_source', utmSource)
+    }
+  }, [cookies, utmSource])
 
   const formSchema = z
     .object({
@@ -105,35 +122,6 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
       path: ['confirmPassword'],
     })
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      document: '',
-      team: 0,
-      info: '',
-      phoneNumber: '',
-      birthday: undefined,
-      gender: undefined,
-      marketingConsent: false,
-      privacyPolicyAccepted: false,
-    },
-  })
-  useEffect(() => {
-    if (utmSource && !cookies.get('utm_source')) {
-      cookies.set('utm_source', utmSource)
-    }
-  }, [cookies, utmSource])
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  if (!isClient) return null
-
   function isValidCPF(cpf: string): boolean {
     cpf = cpf.replace(/[^\d]+/g, '')
     if (cpf.length !== 11) return false
@@ -165,6 +153,24 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
     if (remainder !== parseInt(cpf.substring(10, 11))) return false
     return true
   }
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      document: '',
+      team: 0,
+      info: '',
+      phoneNumber: '',
+      birthday: undefined,
+      gender: undefined,
+      marketingConsent: false,
+      privacyPolicyAccepted: false,
+    },
+  })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const user: SignupRequest = {
@@ -215,7 +221,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
   }
 
   return (
-    <div className="max-w-[500px] mx-auto pt-10 px-3 h-full">
+    <div className="max-w-[500px] mx-auto pt-10 px-3">
       <h1 className="mb-6 text-xl font-bold max-w-48 text-app-secondary">
         Olá, vamos começar seu cadastro
       </h1>
@@ -332,15 +338,99 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
             control={form.control}
             name="birthday"
             render={({ field }) => {
+              const handleDateChange = (
+                newDay: string,
+                newMonth: string,
+                newYear: string,
+              ) => {
+                if (newDay && newMonth && newYear) {
+                  const date = new Date(
+                    parseInt(newYear),
+                    parseInt(newMonth),
+                    parseInt(newDay),
+                  )
+                  if (!isNaN(date.getTime())) {
+                    form.setValue('birthday', date)
+                  }
+                }
+              }
+
+              const months = [
+                { label: 'Jan', value: 1 },
+                { label: 'Fev', value: 2 },
+                { label: 'Mar', value: 3 },
+                { label: 'Abr', value: 4 },
+                { label: 'Mai', value: 5 },
+                { label: 'Jun', value: 6 },
+                { label: 'Jul', value: 7 },
+                { label: 'Ago', value: 8 },
+                { label: 'Set', value: 9 },
+                { label: 'Out', value: 10 },
+                { label: 'Nov', value: 11 },
+                { label: 'Dez', value: 12 },
+              ]
+
               return (
                 <FormItem>
                   <FormControl>
-                    <DatePicker
-                      label={'Data de nascimento'}
-                      placeholder="Selecione sua data de nascimento"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                    />
+                    <div>
+                      <label className="text-sm">Data de nascimento</label>
+                      <div className="flex gap-4">
+                        <CustomInput
+                          placeholder="Dia"
+                          type="number"
+                          maxLength={2}
+                          max={31}
+                          min={1}
+                          className="w-1/3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          value={day}
+                          onChange={(e) => {
+                            const newDay = e.target.value
+                            setDay(newDay)
+                            handleDateChange(newDay, month, year)
+                          }}
+                        />
+                        <Select
+                          onValueChange={(value) => {
+                            setMonth(value)
+                            handleDateChange(day, value, year)
+                          }}
+                          {...field}
+                          value={month}
+                        >
+                          <SelectTrigger className="text-xs border-0 border-b-[2px] border-white/70 h-[33px] bg-transparent rounded-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0">
+                            <SelectValue placeholder="Mês" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Mês</SelectLabel>
+                              <div className="grid grid-cols-4 gap-1">
+                                {months.map((month) => (
+                                  <SelectItem
+                                    key={month.value}
+                                    value={month.value.toString()}
+                                  >
+                                    {month.label}
+                                  </SelectItem>
+                                ))}
+                              </div>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                        <CustomInput
+                          placeholder="Ano"
+                          type="number"
+                          maxLength={4}
+                          className="w-1/3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          value={year}
+                          onChange={(e) => {
+                            const newYear = e.target.value
+                            setYear(newYear)
+                            handleDateChange(day, month, newYear)
+                          }}
+                        />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage className="text-red-700" />
                 </FormItem>
@@ -453,7 +543,7 @@ export const RegisterForm = ({ teams }: { teams: Team[] }) => {
                     />
                     <label
                       htmlFor="privacyPolicyAccepted"
-                      className="text-xs font-normal"
+                      className="text-sm font-normal"
                     >
                       Confirmo que tenho 18 anos ou mais, aceito os{' '}
                       <Link
