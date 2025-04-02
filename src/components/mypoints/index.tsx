@@ -85,27 +85,22 @@ const MyPointsPage = ({ points }: MyPointsPageProps) => {
 
   const renderHeaderMyPoints = () => {
     return (
-      <div className="pt-4">
-        <h1 className="mb-4 text-lg font-bold text-app-secondary">
-          {t('mypoints.component.title')}
-        </h1>
-        <div className="flex items-center gap-3 pb-2">
-          <div className="min-w-[71px] mx-auto">
-            <CustomSelect
-              title={t('components.mypoints.month')}
-              data={mothersMock.map((l) => ({
-                id: l.id.toString(),
-                name: l.name,
-              }))}
-              onValueChange={(value: string, hasFilter) =>
-                setFilterMonths((old) => ({
-                  ...old,
-                  selectedMoths: value,
-                  hasFilter,
-                }))
-              }
-            />
-          </div>
+      <div className="flex items-center gap-3 pb-2">
+        <div className="min-w-[71px] mx-auto">
+          <CustomSelect
+            title={t('components.mypoints.month')}
+            data={mothersMock.map((l) => ({
+              id: l.id.toString(),
+              name: l.name,
+            }))}
+            onValueChange={(value: string, hasFilter) =>
+              setFilterMonths((old) => ({
+                ...old,
+                selectedMoths: value,
+                hasFilter,
+              }))
+            }
+          />
         </div>
       </div>
     )

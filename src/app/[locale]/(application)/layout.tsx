@@ -7,7 +7,7 @@ export default function ApplicationLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main className="overflow-auto h-full">
+    <main className="overflow-auto h-full mb-28">
       <div className="flex flex-col h-full">
         <Header />
         {children}

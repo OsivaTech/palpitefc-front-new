@@ -1,4 +1,5 @@
 import { NewsTabContent } from '@/components/news/components/newspage'
+import Title from '@/components/title'
 import { getNews } from '@/http/news'
 
 export default async function NewsPage() {
@@ -9,6 +10,9 @@ export default async function NewsPage() {
 
   return (
     <div className="mx-auto h-full w-full bg-[#00141C]">
+      <section className="my-12">
+        <Title title="Notícias" />
+      </section>
       <NewsTabContent data={news} />
     </div>
   )

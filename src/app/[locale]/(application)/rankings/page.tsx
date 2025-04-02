@@ -8,8 +8,8 @@ export default async function RankingsView() {
   const teams = await getTeams()
 
   return (
-    <div className="mx-auto max-w-[1400px] h-full">
-      <section className="-mt-14 relative gap-2">
+    <div className="mx-auto h-full w-full bg-[#00141C]">
+      <section className="my-12">
         <Title title="Classificação" />
       </section>
       <RankingsPage data={rankings || []} teams={teams} />

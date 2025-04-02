@@ -44,8 +44,9 @@ export const BottonMenu = () => {
   return (
     <div
       className={cn(
+        'fixed bottom-4 left-1/2 transform -translate-x-1/2',
         'flex lg:hidden items-center justify-center text-center',
-        'max-w-[425px] gap-3 mx-auto py-1 w-full bg-gradient-to-r from-[#00FF55] to-[#00AE3A] rounded-full px-4',
+        'max-w-[425px] gap-3 mx-auto py-1 w-full bg-gradient-to-r from-[#00FF55] to-[#00AE3A] rounded-full px-4 shadow-lg', // Adiciona sombra para destacar
         isRegisterPage && 'hidden',
       )}
     >
