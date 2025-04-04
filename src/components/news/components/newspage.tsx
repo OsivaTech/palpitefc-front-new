@@ -54,7 +54,7 @@ export const NewsTabContent = ({ data }: NewsProps) => {
               <p className="text-white font-normal text-sm mt-2 leading-none">
                 {n.subtitle}
               </p>
-              {n.content.length > 0 && (
+              {n.content?.length > 0 && (
                 <p>
                   <Link
                     href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}

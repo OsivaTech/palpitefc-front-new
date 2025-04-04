@@ -22,6 +22,17 @@ const NewsPage = ({ news }: { news: News | null }) => {
     setHeightConditional((width / 16) * 9)
   }, [width])
 
+  const renderContentAsParagraphs = (content: string) => {
+    return content
+      .replace(/\\n/g, '\n')
+      .split('\n')
+      .map((paragraph, index) => (
+        <p key={index} className="text-white font-normal text-lg mb-4">
+          {paragraph}
+        </p>
+      ))
+  }
+
   return (
     <div className="px-2 pt-10 max-w-[600px] mx-auto space-y-4">
       {news && (
@@ -40,9 +51,7 @@ const NewsPage = ({ news }: { news: News | null }) => {
             alt=""
           />
 
-          <p className="text-white font-normal text-lg text mb-2 mt-2">
-            {news.content}
-          </p>
+          <div className="mt-2">{renderContentAsParagraphs(news.content)}</div>
         </div>
       )}
     </div>
