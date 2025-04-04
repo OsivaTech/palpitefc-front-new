@@ -61,7 +61,7 @@ export const RankingsPage = ({ data, teams }: RankTabContentProp) => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-3 py-2">
+      <div className="flex flex-col items-center justify-center gap-3">
         <h2 className="font-semibold">
           {t('rank.general.title')}
           {generalFilter.value !== '0'
@@ -89,8 +89,8 @@ export const RankingsPage = ({ data, teams }: RankTabContentProp) => {
 
   function renderPlacings(content: RankingResponse) {
     return (
-      <div className="text-white mx-auto p-2  max-w-[600px]">
-        <div className="flex justify-center gap-4 mb-4">
+      <div className="text-white mx-auto p-2 max-w-[600px]">
+        <div className="flex justify-center">
           {content?.placings ? generatePlaceCard(content, 1) : null}
           {content?.placings ? generatePlaceCard(content, 0) : null}
           {content?.placings ? generatePlaceCard(content, 2) : null}
@@ -99,7 +99,7 @@ export const RankingsPage = ({ data, teams }: RankTabContentProp) => {
           {content?.placings.slice(3).map((place) => (
             <div
               key={place.id}
-              className="flex justify-between items-center bg-[#2D3745] text-white px-4 py-2 rounded-lg mb-2 "
+              className="flex justify-between items-center border border-app-secondary bg-[#2323235C] text-white px-4 py-2 rounded-lg mb-2 "
             >
               <div className="flex items-center">
                 <span className="text-lg font-bold mr-2">{place.place}º</span>
@@ -128,21 +128,26 @@ export const RankingsPage = ({ data, teams }: RankTabContentProp) => {
 
   function generatePlaceCard(content: RankingResponse, place: number) {
     const isFirstPlace = place === 0
-    const sizeClass = isFirstPlace ? 'w-28 h-36' : 'w-24 h-28'
+    const sizeClass = isFirstPlace ? 'w-36 h-36' : 'w-28 h-28'
     const imageSizeClass = isFirstPlace ? 'w-10 h-10' : 'w-8 h-8'
-    const textSizeClass = isFirstPlace ? 'text-xl' : 'text-lg'
+    const textSizeClass = isFirstPlace ? 'text-base' : 'text-xs'
     const placeNumberSizeClass = isFirstPlace
-      ? 'text-2xl w-12 h-12'
-      : 'text-xl w-10 h-10'
-    const placeNumberMarginClass = isFirstPlace ? '-mt-8' : '-mt-7'
+      ? 'text-2xl mt-[-38px] w-[50px] h-[50px]'
+      : 'text-xl mt-[-29px] w-[38px] h-[38px]'
 
     return (
       <div className="flex flex-col items-center">
         <div
-          className={`bg-[#2D3745] text-white text-center text-nowrap px-2 py-2 ${sizeClass} rounded-lg flex flex-col items-center shadow-md clip-custom`}
+          className={`${sizeClass} flex flex-col items-center gap-1`}
+          style={{
+            backgroundImage: 'url(/assets/medal.svg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'contain',
+          }}
         >
           <div
-            className={`relative flex justify-center items-center mb-2 ${imageSizeClass}`}
+            className={`relative flex justify-center items-center mt-2 ${imageSizeClass}`}
           >
             <Image
               fill
@@ -157,15 +162,15 @@ export const RankingsPage = ({ data, teams }: RankTabContentProp) => {
               className="object-contain"
             />
           </div>
-          <span className={isFirstPlace ? '' : 'text-xs'}>
+          <span className={textSizeClass}>
             {content?.placings[place]?.name}
           </span>
-          <span className={`font-bold ${textSizeClass}`}>
+          <span className={`${textSizeClass}`}>
             {content?.placings[place]?.points}
           </span>
         </div>
         <div
-          className={`bg-[#C0C0C0] text-gray-900 z-0 rounded-full border-4 border-[#2D3745] flex items-center justify-center font-bold shadow-md ${placeNumberSizeClass} ${placeNumberMarginClass}`}
+          className={`bg-[#2323235C] text-white rounded-full border border-app-secondary/70 flex items-center justify-center font-bold ${placeNumberSizeClass}`}
         >
           {place + 1}
         </div>
