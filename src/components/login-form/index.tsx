@@ -12,7 +12,6 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
 import { CustomInput } from '@/components/custom-input'
-import { CustomButton } from '@/components/custom-button'
 import { login } from '@/components/login-form/data'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
@@ -20,7 +19,7 @@ import { useAuth } from '@/context/useAuth'
 import { APP_LINKS } from '@/constants'
 import Link from 'next/link'
 import { useEffect, useTransition } from 'react'
-import { Separator } from '@radix-ui/react-separator'
+import { CustomButton } from '@/components/custom-button'
 
 export const LoginForm = () => {
   const t = useTranslations()
@@ -75,9 +74,10 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className="max-w-[500px] mx-auto pt-10 px-3  ">
-      <h1 className="text-center mb-6 font-medium text-sm">Faça seu login</h1>
-      <Separator className="mb-6 border border-white/50" />
+    <div className="max-w-[500px] mx-auto pt-10 px-3">
+      <h1 className="mb-6 max-w-44 font-bold text-xl text-app-secondary">
+        Que bom que você voltou
+      </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -90,7 +90,7 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>{t('pages.login.login')}</FormLabel>
                 <FormControl>
-                  <CustomInput placeholder="Email" {...field} />
+                  <CustomInput placeholder="email@exemplo.com" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -104,37 +104,46 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>{t('pages.login.password')}</FormLabel>
                 <FormControl>
-                  <CustomInput type="password" placeholder="Senha" {...field} />
+                  <CustomInput
+                    type="password"
+                    placeholder="********"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <CustomButton
-            isLoading={isPending}
-            disabled={isPending}
-            type="submit"
-          >
-            {t('common.signIn')}
-          </CustomButton>
+          <div className="flex flex-col gap-8">
+            <Link
+              className="self-left text-sm font-bold text-app-secondary"
+              href={`/${locale}/${APP_LINKS.FORGOT()}`}
+            >
+              {t('pages.login.forgotPassword')}
+            </Link>
+
+            <CustomButton
+              isLoading={isPending}
+              disabled={isPending}
+              variant="secondary"
+              type="submit"
+              className="self-center"
+            >
+              {t('common.signIn')}
+            </CustomButton>
+          </div>
         </form>
       </Form>
       <div className="flex flex-col align-center justify-center gap-2 mt-3">
         <span className="self-center text-sm font-normal">
           {t('pages.login.dontHaveAccount')}
           <Link
-            className=" text-sm font-normal underline ml-1"
+            className="text-sm font-bold ml-1 text-app-secondary"
             href={`/${locale}/${APP_LINKS.SIGNUP()}`}
           >
             {t('pages.login.registerHere')}
           </Link>
         </span>
-        <Link
-          className="self-center text-sm font-normal underline"
-          href={`/${locale}/${APP_LINKS.FORGOT()}`}
-        >
-          {t('pages.login.forgotPassword')}
-        </Link>
       </div>
     </div>
   )

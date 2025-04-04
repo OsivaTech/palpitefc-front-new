@@ -6,7 +6,7 @@ export default async function NewPage({ params }: { params: { id: string } }) {
   const selectedNews = news?.find((n) => n.id === Number(params.id))
 
   return (
-    <div className="mx-auto bg-app-secondary">
+    <div className="mx-auto bg-[#00141C] w-full">
       <NewsPage news={selectedNews || null} />
     </div>
   )

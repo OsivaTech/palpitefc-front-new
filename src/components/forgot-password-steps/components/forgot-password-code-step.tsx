@@ -1,8 +1,8 @@
-import { CustomButton } from '@/components/custom-button'
 import {
   ForgotPasswordSteps,
   useForgotPassword,
 } from '@/components/forgot-password-steps/context/forgot-password-context'
+import { Button } from '@/components/ui/button'
 import {
   InputOTP,
   InputOTPGroup,
@@ -85,14 +85,14 @@ export const ForgotPasswordCodeStep = () => {
           />
         </InputOTPGroup>
       </InputOTP>
-      <div className="text-center flex flex-col gap-2">
-        <span className="text-sm">Enviamos um código para seu email. </span>
+      <div className="text-center flex flex-col gap-4">
+        <span className="text-sm">Enviamos um código para seu email.</span>
         {countdown > 0 ? (
-          <span className="text-sm">Enviar novamene em {countdown}s </span>
+          <span className="text-sm">Enviar novamente em {countdown}s </span>
         ) : (
           <button
             disabled={isResendPending}
-            className="text-sm underline flex gap-2 justify-center w-full items-center"
+            className="text-sm flex gap-2 justify-center w-full items-center font-bold text-app-secondary"
             onClick={handleResendCode}
           >
             {isResendPending ? (
@@ -102,14 +102,16 @@ export const ForgotPasswordCodeStep = () => {
             )}
           </button>
         )}
+        <Button
+          isLoading={isPending}
+          disabled={isPending}
+          onClick={handleVerifyCode}
+          variant="secondary"
+          className="self-center"
+        >
+          Verificar
+        </Button>
       </div>
-      <CustomButton
-        isLoading={isPending}
-        disabled={isPending}
-        onClick={handleVerifyCode}
-      >
-        Verificar
-      </CustomButton>
     </div>
   )
 }

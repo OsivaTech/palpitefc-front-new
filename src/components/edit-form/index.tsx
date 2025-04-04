@@ -25,6 +25,7 @@ import { updateUser } from '@/http/user'
 import { useTransition } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/context/useAuth'
+import Image from 'next/image'
 
 export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
   const t = useTranslations()
@@ -33,6 +34,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
   const { forceReload } = useAuth()
 
   const formSchema = z.object({
+    allowMarketing: z.boolean().optional(),
     email: z.string().email(),
     name: z.string().min(2).max(50),
     document: z.string().min(2).max(50),
@@ -77,6 +79,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
         info: values.info || '',
         phoneNumber: values.phoneNumber,
         birthday: format(new Date(values.birthday), 'y-MM-dd'),
+        allowMarketing: values.allowMarketing || false,
         // address: {
         //   street: values.street || '',
         //   number: values.number || '',
@@ -106,11 +109,19 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
   }
 
   return (
-    <div className="max-w-[500px] mx-auto pt-6 px-6 bg-app-secondary">
-      <h1 className="mb-4 text-center text-[16px] font-medium">
-        Configurações de conta
-      </h1>
-      <Separator className="mb-6 border border-white/50" />
+    <div className="max-w-[500px] mx-auto pt-6 px-6">
+      <div className="flex flex-col items-center gap-2">
+        <Image
+          src={user?.team.image || '/placeholder-image.png'}
+          alt=""
+          width={200}
+          height={200}
+          className="object-cover"
+        />
+        <h1 className="mb-4 text-center text-lg font-bold text-app-secondary">
+          {user?.name}
+        </h1>
+      </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -122,7 +133,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Nome" {...field} />
+                  <CustomInput label="Nome" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -134,7 +145,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Email" {...field} />
+                  <CustomInput label="Email" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -147,7 +158,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="Telefone" {...field} />
+                  <CustomInput label="Telefone" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -160,7 +171,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput placeholder="CPF" {...field} />
+                  <CustomInput label="CPF" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -175,11 +186,8 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
                 <FormItem>
                   <FormControl>
                     <DatePicker
-                      label={
-                        field.value
-                          ? format(field.value, 'PPP')
-                          : 'DATA DE NASCIMENTO'
-                      }
+                      placeholder="DATA DE NASCIMENTO"
+                      label="Data de Nascimento"
                       selected={field.value}
                       onSelect={field.onChange}
                     />
@@ -189,7 +197,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
               )
             }}
           />
-          <h4 className="font-medium text-xs">{t('common.sex')}</h4>
+          <h4 className="font-medium text-sm">{t('common.sex')}</h4>
           <FormField
             control={form.control}
             name="gender"
@@ -232,7 +240,6 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             )}
           />
 
-          <h4 className="font-medium text-xs">{t('common.favoriteTeam')}</h4>
           <FormField
             control={form.control}
             name="team"
@@ -240,6 +247,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
               <FormItem>
                 <FormControl>
                   <Combobox
+                    label={t('common.favoriteTeam')}
                     onChange={field.onChange}
                     value={field.value!}
                     data={teams.map((t) => ({
@@ -325,17 +333,18 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
           /> */}
 
           <Button
-            className="w-[86px] self-center mb-4"
+            className="w-60 self-center mb-4 uppercase"
+            variant="secondary"
             type="submit"
             disabled={isPending}
             isLoading={isPending}
           >
-            {t('common.save')}
+            {t('common.update')}
           </Button>
         </form>
       </Form>
       <Separator className="mb-4 border border-white/50" />
-      <Button variant="outline" className="mb-6" disabled>
+      <Button variant="primary" className="mb-6 w-40" disabled>
         {t('common.removeMyAccount')}
       </Button>
     </div>

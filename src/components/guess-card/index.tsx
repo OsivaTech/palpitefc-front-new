@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronUp } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'use-intl'
@@ -29,13 +29,7 @@ import { useAuth } from '@/context/useAuth'
 import { makeAGuess } from '@/http/gesses'
 import { Spinner } from '@/components/spinner'
 import { APP_LINKS } from '@/constants'
-import { Separator } from '@/components/ui/separator'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 export const GuessCard = ({
   fixture,
@@ -194,7 +188,7 @@ export const GuessCard = ({
 
             <CardFooter className="flex flex-row justify-center items-center gap-4 p-0 mt-2">
               <Button
-                variant="ghost"
+                variant="secondary"
                 onClick={() => setSelectedfixture({ ...fixture, id: 0 })}
                 className={cn(
                   !!guess && 'hidden',
@@ -249,68 +243,7 @@ export const GuessCard = ({
     time,
   ])
 
-  const renderCollapseClosed = useMemo(() => {
-    return (
-      <>
-        {fixture.id !== selectedFixture?.id && (
-          <Card
-            onClick={() => setSelectedfixture(fixture)}
-            className="flex gap-2 py-3 px-2 bg-[#2D3745] cursor-pointer max-h-[51px] justify-between"
-          >
-            <div className="flex">
-              <Tooltip>
-                <TooltipTrigger>
-                  {' '}
-                  <Image
-                    src={league.image}
-                    width={25}
-                    height={25}
-                    alt={league.name}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{league.name}</p>
-                </TooltipContent>
-              </Tooltip>
-
-              <Separator orientation="vertical" className="bg-slate-500 ml-2" />
-            </div>
-            <div className="flex justify-start items-center">
-              <span className="min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] mr-2 overflow-hidden text-ellipsis text-nowrap text-right">
-                {fixture.homeTeam.name}
-              </span>
-              <Image
-                src={fixture.homeTeam.image}
-                width={25}
-                height={25}
-                alt=""
-              />
-            </div>
-            X
-            <div className="flex justify-center flex-row-reverse items-center">
-              <span className="min-[320px]:w-[60px] min-[375px]:w-[90px] min-[425px]:w-[110px] ml-2 overflow-hidden text-ellipsis text-nowrap">
-                {fixture.awayTeam.name}
-              </span>
-              <Image
-                src={fixture.awayTeam.image}
-                width={25}
-                height={25}
-                alt=""
-              />
-            </div>
-            <ChevronDown size={25} className="flex justify-end" />
-          </Card>
-        )}
-      </>
-    )
-  }, [fixture, league.image, selectedFixture?.id, setSelectedfixture])
-
-  return (
-    <TooltipProvider>
-      {renderCollapseOpen}
-      {renderCollapseClosed}
-    </TooltipProvider>
-  )
+  return <TooltipProvider>{renderCollapseOpen}</TooltipProvider>
 }
 
 export const GuessCardContent = ({

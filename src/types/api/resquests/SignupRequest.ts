@@ -8,6 +8,7 @@ export type SignupRequest = {
   phoneNumber: string
   birthday: string
   gender: string
+  allowMarketing: boolean
   address?: {
     street: string
     number: string

@@ -1,4 +1,5 @@
-import Footer from '@/components/footer'
+import { BottonMenu } from '@/components/bottom-menu'
+import Header from '@/components/header'
 
 export default function ApplicationLayout({
   children,
@@ -6,9 +7,11 @@ export default function ApplicationLayout({
   children: React.ReactNode
 }>) {
   return (
-    <main className="h-[calc(100vh-50px)] overflow-auto">
-      <div className="flex flex-col">
-        {children} <Footer />
+    <main className="overflow-auto h-full mb-28">
+      <div className="flex flex-col h-full">
+        <Header />
+        {children}
+        <BottonMenu />
       </div>
     </main>
   )

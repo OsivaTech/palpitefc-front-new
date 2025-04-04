@@ -1,17 +1,19 @@
 export const APP_LINKS = {
-  HOMEPAGE: () => `/`,
-  SIGNIN: () => `/signin`,
-  SIGNUP: () => `/signup`,
-  FORGOT: () => `/forgot`,
-  MYPOINTS: () => `/mypoints`,
-  NEWS: () => `/news`,
-  SUBSCRIPTION: () => `/subscription`,
-  SUBSCRIPTIONCANCEL: () => `/subscription/cancel`,
-  RULES: () => `/rules`,
-  PROFILE: () => `/profile`,
-  POLLS: () => `/polls`,
-  PRIVACYPOLICY: () => `/privacy-policies`,
-  TERMS: () => `/terms`,
+  HOMEPAGE: () => ``,
+  SIGNIN: () => `signin`,
+  SIGNUP: () => `signup`,
+  FORGOT: () => `forgot`,
+  MYPOINTS: () => `mypoints`,
+  NEWS: () => `news`,
+  SUBSCRIPTION: () => `subscription`,
+  SUBSCRIPTIONCANCEL: () => `subscription/cancel`,
+  RULES: () => `rules`,
+  PROFILE: () => `profile`,
+  POLLS: () => `polls`,
+  PRIVACYPOLICY: () => `privacy-policies`,
+  TERMS: () => `terms`,
+  QUIZ: () => `quiz`,
+  RANKING: () => `rankings`,
 }
 
 export const APP_LINKS_ADMIN = {
@@ -45,4 +47,19 @@ export const POINT_TYPE: { [key: string]: string } = {
 
 export const TYPE_PREMIUM = {
   CASH: 'cash',
+}
+
+export const MATCH_STATUS = {
+  IN_PLAY: ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'SUSP', 'INT', 'LIVE'],
+  FINISHED: ['FT', 'AET', 'PEN'],
+  SCHEDULED: ['TBD', 'NS'],
+  NOT_PLAYED: ['AWD', 'WO'],
+  ABANDONED: ['ABD'],
+  CANCELLED: ['CANC'],
+  POSTPONED: ['PST'],
+}
+
+export enum LEAGUE_CATEGORY {
+  BRASIL,
+  INTERNATIONAL,
 }

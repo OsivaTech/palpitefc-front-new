@@ -8,7 +8,7 @@ export const ModalPage = () => {
     <Sheet modal open={isOpen}>
       <SheetContent
         side="left"
-        className="h-full overflow-auto w-screen bg-app-secondary grid grid-rows-[min-content_max-content]"
+        className="h-full overflow-auto w-screen bg-[#00141C] grid grid-rows-[min-content_max-content]"
       >
         {renderPageModal}
       </SheetContent>

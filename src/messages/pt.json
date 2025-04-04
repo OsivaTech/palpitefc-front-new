@@ -15,12 +15,12 @@
           "tabTitle": "Geral",
           "title": "Classificação de"
         },
-        "vip":{
+        "vip": {
           "tabTitle": "VIP",
           "title": "Classificação da",
           "week": "Semana"
         },
-        "filterText":{
+        "filterText": {
           "month": "Alterar mês",
           "week": "Alterar semana"
         }
@@ -30,7 +30,9 @@
       "submit": "Lançar palpite",
       "title": "Qual o seu palpite?",
       "error": "Não é possivel palpitar em jogos que já começaram",
-      "gameAlreadyStarted": "Esse jogo já começou!"
+      "gameAlreadyStarted": "Esse jogo já começou!",
+      "clear": "Limpar",
+      "guessed-match": "Jogo palpitado"
     },
     "mypoints": {
       "league": "Campeonatos",
@@ -67,25 +69,29 @@
       "title": "Tem certeza que quer\ncancelar sua assinatura?",
       "button1": "Sim, quero cancelar meus benefícios",
       "button2": "Não, quero continuar com minhas vantagens"
+    },
+    "match-card": {
+      "clear": "Limpar",
+      "submit": "Lançar palpite"
     }
   },
   "common": {
     "error": "Erro",
     "genericErrorMessage": "Ocorreu um erro e já estamos resolvendo!",
     "all": "Todos",
-    "signIn": "Logar",
+    "signIn": "Entrar",
     "male": "Masculino",
     "female": "Feminino",
     "other": "Outro",
     "sex": "Sexo",
     "favoriteTeam": "Time do coração",
-    "signUp": "Cadastrar-se",
+    "signUp": "Cadastrar",
     "address": "Endereço",
     "cancel": "Cancelar",
     "invalidCredentials": "Usuário ou senha inválidos",
     "save": "Salvar",
     "register": "Cadastrar",
-    "removeMyAccount": "Deletar minha conta",
+    "removeMyAccount": "Excluir minha conta",
     "email": "Email",
     "invalidCard": "O número do cartão deve conter 16 dígitos.",
     "successSubscription": "Assinatura efetuada com Sucesso.",
@@ -94,16 +100,23 @@
     "invalidNameCard": "Minimo de 1 Caractere",
     "successSubscriptionCancel": "Assinatura cancelada com Sucesso",
     "subscriptionCancelError": "Ocorreu algum error ao cancelar a assinatura, tente novamente",
-    "subscriptionError": "Ocorreu um error, tente novamente."
+    "subscriptionError": "Ocorreu um error, tente novamente.",
+    "invalidEmail": "Email inválido",
+    "update": "Atualizar",
+    "live": "Ao vivo",
+    "nacionais": "Nacionais",
+    "internacionais": "Internacionais",
+    "success": "Sucesso",
+    "guessSuccessMessage": "Palpite enviado com sucesso!"
   },
   "pages": {
     "login": {
       "usernameOrPasswordWrong": "Usuário ou senha inválidos",
-      "login": "Login",
+      "login": "Email",
       "password": "Senha",
-      "dontHaveAccount": "Ainda não está cadastrado? ",
-      "registerHere": "cadastre-se aqui!",
-      "forgotPassword": "Esqueci minha senha!"
+      "dontHaveAccount": "Ainda não possui uma conta? ",
+      "registerHere": "Cadastre-se aqui!",
+      "forgotPassword": "Esqueceu sua senha?"
     },
     "register": {
       "error": {
@@ -115,7 +128,16 @@
         "password": "Senha deve conter pelo menos 6 caracteres",
         "birthday": "Campo obrigatório",
         "ageRestriction": "Para carastrar você precisa ser maior de 18 anos",
-        "documentInvalid": "CPF informado é inválido"
+        "documentInvalid": "CPF informado é inválido",
+        "privacyPolicyAccepted": "Você precisa aceitar a política de privacidade",
+        "passwordMatch": "As senhas não coincidem",
+        "genderRequired": "Campo obrigatório",
+        "team": "Selecione seu time do coração"
+      }
+    },
+    "forgot": {
+      "email": {
+        "label": "Insira seu email"
       }
     }
   },
@@ -157,6 +179,11 @@
   "polls": {
     "component": {
       "title": "Enquetes"
+    }
+  },
+  "news": {
+    "component": {
+      "title": "Notícias"
     }
   }
 }

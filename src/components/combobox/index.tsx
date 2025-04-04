@@ -27,6 +27,7 @@ type ComboboxData = {
 }
 
 type ComboboxPropx = {
+  label: string
   data: ComboboxData[]
   errorLabel: string
   searchLabel: string
@@ -35,6 +36,7 @@ type ComboboxPropx = {
 }
 
 export function Combobox({
+  label,
   data,
   errorLabel,
   searchLabel,
@@ -55,12 +57,13 @@ export function Combobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
+      <label className="block text-sm font-medium">{label}</label>
       <PopoverTrigger asChild>
         <CustomButton
-          variant="outline"
+          variant="primary"
           role="combobox"
           aria-expanded={open}
-          className="justify-between hover:bg-transparent"
+          className="justify-between text-white/70 bg-white/10"
         >
           <div className="flex justify-start items-center gap-2">
             {currentValue?.imageLink && (
@@ -78,7 +81,29 @@ export function Combobox({
         </CustomButton>
       </PopoverTrigger>
       <PopoverContent className="min-w-[400px] max-h-96 overflow-y-scroll p-0">
-        <Command>
+        <Command
+          filter={(value, search) => {
+            if (value.toLowerCase().includes(search.toLowerCase())) {
+              return 1
+            }
+
+            // Handle special characters by normalizing both strings
+            const normalizedValue = value
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .toLowerCase()
+            const normalizedSearch = search
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .toLowerCase()
+
+            if (normalizedValue.includes(normalizedSearch)) {
+              return 1
+            }
+
+            return 0
+          }}
+        >
           <CommandInput placeholder={searchLabel} />
           <CommandList className="w-full">
             <CommandEmpty>{errorLabel}</CommandEmpty>

@@ -1,9 +1,9 @@
-import { CustomButton } from '@/components/custom-button'
 import { CustomInput } from '@/components/custom-input'
 import {
   ForgotPasswordSteps,
   useForgotPassword,
 } from '@/components/forgot-password-steps/context/forgot-password-context'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -55,24 +55,36 @@ export const ForgotPasswordEmailStep = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto space-y-8 max-w-[450px"
+        className="mx-auto space-y-8 w-full"
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <CustomInput placeholder={t('common.email')} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-col gap-8">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <CustomInput
+                    label={t('pages.forgot.email.label')}
+                    placeholder={t('common.email')}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <CustomButton isLoading={isPending} disabled={isPending} type="submit">
-          {t('components.forgotPasswordForm.submit')}
-        </CustomButton>
+          <Button
+            variant="secondary"
+            isLoading={isPending}
+            disabled={isPending}
+            type="submit"
+            className="self-center"
+          >
+            {t('components.forgotPasswordForm.submit')}
+          </Button>
+        </div>
       </form>
     </Form>
   )

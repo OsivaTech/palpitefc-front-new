@@ -5,7 +5,7 @@ import { RankingResponse } from '@/types/api/responses/RankResponse'
 
 export async function getRank() {
   try {
-    const response = await get(RankingsEndpoint, {}, false)
+    const response = await get(RankingsEndpoint, { cache: 'no-cache' }, false)
 
     const ranks: RankingResponse[] = await response.json()
 

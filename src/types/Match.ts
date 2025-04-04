@@ -1,6 +1,6 @@
 export type Match = {
   id: number
-  gol: number
+  goals: number
   teamId: number
   fixtureId: number
   name: string

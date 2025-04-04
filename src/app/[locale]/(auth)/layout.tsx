@@ -1,3 +1,4 @@
+import Header from '@/components/header'
 import { isAuthenticated } from '@/lib/session'
 import { redirect } from 'next/navigation'
 
@@ -12,5 +13,10 @@ export default async function AuthLayout({
     redirect('/')
   }
 
-  return <main className="mx-auto w-full overflow-auto">{children}</main>
+  return (
+    <main className="mx-auto w-full overflow-auto h-full">
+      <Header hideActions />
+      {children}
+    </main>
+  )
 }

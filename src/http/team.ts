@@ -9,7 +9,6 @@ export async function getTeams() {
     TeamsEndpoint,
     {
       method: 'GET',
-      cache: 'no-cache',
     },
     false,
   )

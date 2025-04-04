@@ -9,7 +9,7 @@ export const Footer = () => {
   const locale = useLocale()
 
   return (
-    <footer className="flex flex-col gap-2 py-2 bg-app-background border-t border-white/10 items-center justify-center">
+    <footer className="flex flex-col gap-2 py-2 bg-app-background border-t border-white/10 items-center justify-center ">
       <div className="flex flex-row gap-16 items-center">
         <div className="flex flex-col gap-2 justify-between">
           <p className="text-lg font-bold">Sobre nós</p>

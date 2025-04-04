@@ -1,19 +1,25 @@
 'use server'
 import { get, post } from '@/lib/api'
 import { GuessEndpoint, MyGuessEndpoint } from '@/lib/endpoints'
-import { GuessResponse } from '@/types/api/responses/GessResponse'
 import { GuessesRequest } from '@/types/api/resquests/GuessesRequest'
+import { Guess } from '@/types/Guess'
 
-export async function getMyGuesses() {
+export async function getMyGuesses(date?: string) {
   try {
     const response = await get(
-      MyGuessEndpoint,
+      date ? `${MyGuessEndpoint}?date=${date}` : MyGuessEndpoint,
       {
         cache: 'no-cache',
       },
       true,
     )
-    const myGuesses: GuessResponse = await response?.json()
+
+    const responseStatus = response?.status
+    if (responseStatus === 401) {
+      return null
+    }
+
+    const myGuesses: Guess[] = await response?.json()
 
     return myGuesses
   } catch (error) {

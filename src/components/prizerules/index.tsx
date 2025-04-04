@@ -98,8 +98,8 @@ const renderHowItWorks = (howItWorks: Rules) => {
 const PrizeRulesPage = ({ prize, rules }: PrizeRulesProps) => {
   const t = useTranslations()
   return (
-    <div className="max-w-[500px] mx-auto pt-4 px-6 bg-app-secondary">
-      <h1 className="mb-4 text-center text-[16px] font-medium">
+    <div className="max-w-[500px] mx-auto pt-4 px-2">
+      <h1 className="mb-4 text-lg font-bold text-app-secondary">
         {t('prizerules.component.title')}
       </h1>
       <Separator className="mb-6 border border-white/50" />
