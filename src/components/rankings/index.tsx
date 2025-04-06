@@ -89,7 +89,7 @@ export const RankingsPage = ({ data, teams }: RankTabContentProp) => {
 
   function renderPlacings(content: RankingResponse) {
     return (
-      <div className="text-white mx-auto p-2 max-w-[600px]">
+      <div className="text-white mx-auto p-2 lg:container">
         <div className="flex justify-center">
           {content?.placings ? generatePlaceCard(content, 1) : null}
           {content?.placings ? generatePlaceCard(content, 0) : null}

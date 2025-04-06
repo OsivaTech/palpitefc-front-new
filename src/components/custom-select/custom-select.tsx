@@ -51,7 +51,7 @@ export const CustomSelect = ({ title, data, onValueChange }: CustomSelect) => {
         <SheetTrigger asChild>
           <Button
             className={cn(
-              'text-xs p-2 self-start items-center justify-between border border-white h-[30px] w-full bg-app-background text-white ring-offset-0 active:border-1 rounded-full',
+              'text-xs p-2 self-start items-center justify-between border border-app-secondary h-[30px] w-full bg-white/10 text-white ring-offset-0 active:border-1 rounded-full',
               selectedItem !== null && 'text-black bg-white',
             )}
           >

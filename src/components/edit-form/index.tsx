@@ -16,7 +16,6 @@ import { format } from 'date-fns'
 import { CustomInput } from '@/components/custom-input'
 import { Team } from '@/types/Team'
 import { SignupRequest } from '@/types/api/resquests/SignupRequest'
-import { DatePicker } from '@/components/date-picker'
 import { Combobox } from '@/components/combobox'
 import { User } from '@/types/User'
 import { Button } from '@/components/ui/button'
@@ -171,14 +170,19 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <CustomInput label="CPF" {...field} />
+                  <CustomInput
+                    label="CPF"
+                    {...field}
+                    disabled
+                    className="disabled:text-white/50"
+                  />
                 </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="birthday"
             render={({ field }) => {
@@ -196,7 +200,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
                 </FormItem>
               )
             }}
-          />
+          /> */}
           <h4 className="font-medium text-sm">{t('common.sex')}</h4>
           <FormField
             control={form.control}
@@ -333,7 +337,7 @@ export const EditForm = ({ teams, user }: { teams: Team[]; user?: User }) => {
           /> */}
 
           <Button
-            className="w-60 self-center mb-4 uppercase"
+            className="w-60 h-10 self-center mb-4 uppercase"
             variant="secondary"
             type="submit"
             disabled={isPending}
