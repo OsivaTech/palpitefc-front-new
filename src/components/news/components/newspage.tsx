@@ -3,7 +3,8 @@ import { NewsProps } from '@/components/news/components/type'
 import { APP_LINKS } from '@/constants'
 import useWindowSize from '@/hooks/useWindowSize'
 import { cn } from '@/lib/utils'
-import { formatDate } from '@/utils/formatDate'
+import { ptBR } from 'date-fns/locale'
+import { format } from 'date-fns'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -28,10 +29,13 @@ export const NewsTabContent = ({ data }: NewsProps) => {
   return (
     <div className="px-2 lg:container space-y-4">
       {data?.map((n, index) => (
-        <div
+        <ConditionalWrapper
           key={n.id}
+          condition={n.content?.length > 0}
+          wrapper={Link}
+          href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}
           className={cn(
-            'flex flex-col lg:flex-row h-full border border-app-secondary rounded-lg p-4 lg:p-10 ',
+            'flex flex-col lg:flex-row h-full border border-app-secondary rounded-lg',
             index % 2 === 1 && 'lg:flex-row-reverse',
           )}
         >
@@ -40,34 +44,50 @@ export const NewsTabContent = ({ data }: NewsProps) => {
             width={widthConditional}
             height={heightConditional}
             alt=""
-            className=" lg:w-[50%] h-full object-cover rounded-lg"
+            className="lg:w-[50%] h-full object-cover rounded-lg"
           />
 
-          <div className="flex flex-col items-start justify-center gap-2  p-2 lg:p-10">
-            <p className="text-white font-medium text-sm max pt-2 ">
-              {formatDate(n.createdAt, 'dd/MM/yyyy')}
-            </p>
-            <p className="text-app-secondary font-2xl font-bold text-lg leading-none mt-1">
-              {n.title}
-            </p>
-            <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-col w-full items-start justify-around gap-3 p-2 lg:p-6">
+            <div>
+              <p className="text-white font-medium text-sm max pt-2 ">
+                {format(n.createdAt, "dd 'de' MMMM 'de' yyyy", {
+                  locale: ptBR,
+                })}
+              </p>
+              <p className="text-app-secondary font-2xl font-bold text-lg leading-none mt-1">
+                {n.title}
+              </p>
+            </div>
+            {n.subtitle && (
               <p className="text-white font-normal text-sm mt-2 leading-none">
                 {n.subtitle}
               </p>
+            )}
+            <div className="flex flex-row justify-between w-full">
+              <p className="text-sm">
+                por{' '}
+                <span className="font-bold text-app-secondary">
+                  {n.author.name}
+                </span>
+              </p>
               {n.content?.length > 0 && (
-                <p>
-                  <Link
-                    href={`/${locale}/${APP_LINKS.NEWS()}/${n.id}`}
-                    className="flex flex-row-reverse w-full text-app-secondary"
-                  >
-                    Ler mais...
-                  </Link>
-                </p>
+                <p className="text-sm text-white/70">Ler mais...</p>
               )}
             </div>
           </div>
-        </div>
+        </ConditionalWrapper>
       ))}
     </div>
   )
+}
+
+const ConditionalWrapper = ({
+  condition,
+  wrapper,
+  children,
+  ...props
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: any) => {
+  const Wrapper = condition ? wrapper : 'div'
+  return <Wrapper {...props}>{children}</Wrapper>
 }
