@@ -160,7 +160,7 @@ export const MatchCard = ({
       className={cn(
         'flex flex-col border border-app-secondary bg-[#232323]/40 rounded-lg ',
         ' py-4 px-4 justify-between  flex-shrink-0 relative',
-        'h-[221px] lg:w-[407px] w-[90vw]',
+        'h-[221px] md:w-[407px] w-[90vw]',
       )}
     >
       <div className="flex items-center justify-between">

@@ -20,12 +20,12 @@ const Header = ({ hideActions }: { hideActions?: boolean }) => {
             alt=""
             width={150}
             height={30}
-            className="xl:w-[150px] xl:h-[30px] lg:w-[120px] lg:h-[30px] w-[100px] h-[30px]"
+            className="xl:w-[150px] xl:h-[30px] md:w-[120px] md:h-[30px] w-[100px] h-[30px]"
           />
         </Link>
         {!hideActions && (
-          <div className="hidden xl:block lg:block  ">
-            <ul className="flex items-center gap-[60px] lg:gap-[30px] xl:text-lg text-sm">
+          <div className="hidden xl:block md:block">
+            <ul className="flex items-center gap-[60px] md:gap-[20px] xl:text-lg text-sm">
               <li>
                 <Link href={`/${locale}/${APP_LINKS.HOMEPAGE()}`}>Início</Link>
               </li>

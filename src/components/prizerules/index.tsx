@@ -4,7 +4,6 @@ import { TYPE_PREMIUM } from '@/constants'
 import { Prizes } from '@/types/Prizes'
 import { Rules } from '@/types/Rules'
 import { Separator } from '@radix-ui/react-separator'
-import { useTranslations } from 'next-intl'
 
 interface PrizeRulesProps {
   prize: Prizes[]
@@ -37,7 +36,7 @@ const renderPrizes = (prize: Prizes) => {
       <div className="mb-7">
         {prize.prizes.map((prize, index) => (
           <div key={index} className="flex mb-1">
-            <h2 className="text-sm font-normal">
+            <h2 className="text-base font-normal">
               {getMedal(prize.placing)} {typePremium(prize.type, prize.prize)}{' '}
               para o {prize.placing}º lugar
             </h2>
@@ -55,8 +54,8 @@ const renderRules = (rules: Rules) => {
         {rules.rules.map((rule, index) => (
           <div key={index} className="flex flex-col mb-4 gap-1">
             <h2 className="text-lg font-medium">{rule.name}</h2>
-            <h2 className="text-sm font-normal">{rule.description}</h2>
-            <h2 className="text-base font-medium">{rule.complement}</h2>
+            <h2 className="text-base font-normal">{rule.description}</h2>
+            <h2 className="text-lg font-medium">{rule.complement}</h2>
           </div>
         ))}
       </div>
@@ -84,7 +83,7 @@ const renderHowItWorks = (howItWorks: Rules) => {
           <div key={index} className="flex flex-col mb-4 gap-1">
             <h2 className="text-lg font-medium">{name}</h2>
             {descriptions.map((description, i) => (
-              <h2 key={i} className="text-sm font-normal mb-1">
+              <h2 key={i} className="text-base font-normal mb-1">
                 {description}
               </h2>
             ))}
@@ -96,13 +95,8 @@ const renderHowItWorks = (howItWorks: Rules) => {
 }
 
 const PrizeRulesPage = ({ prize, rules }: PrizeRulesProps) => {
-  const t = useTranslations()
   return (
-    <div className="max-w-[500px] mx-auto pt-4 px-2">
-      <h1 className="mb-4 text-lg font-bold text-app-secondary">
-        {t('prizerules.component.title')}
-      </h1>
-      <Separator className="mb-6 border border-white/50" />
+    <div className="container mx-auto pt-4 px-2">
       {prize.map((prize) => renderPrizes(prize))}
       <Separator className="my-6 border border-white/50 " />
       {rules
@@ -112,7 +106,6 @@ const PrizeRulesPage = ({ prize, rules }: PrizeRulesProps) => {
       {rules
         .filter((r) => r.type !== 'howItWorks')
         .map((rule) => renderRules(rule))}
-      <Separator className="my-6 border border-white/50 " />
     </div>
   )
 }
