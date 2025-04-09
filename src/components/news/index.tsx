@@ -34,7 +34,7 @@ const NewsPage = ({ news }: { news: News | null }) => {
   }
 
   return (
-    <div className="px-2 pt-10 max-w-[600px] mx-auto space-y-4">
+    <div className="px-2 pt-10 container mx-auto space-y-4">
       {news && (
         <div key={news.id} className="flex flex-col h-full">
           <p className="text-app-secondary font-bold text-2xl mb-1 leading-none">
@@ -49,6 +49,7 @@ const NewsPage = ({ news }: { news: News | null }) => {
             width={widthConditional}
             height={heightConditional}
             alt=""
+            className="self-center"
           />
 
           <div className="mt-2">{renderContentAsParagraphs(news.content)}</div>
