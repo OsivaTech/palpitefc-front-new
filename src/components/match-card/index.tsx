@@ -60,17 +60,27 @@ export const MatchCard = ({
   const { isAuthenticated } = useAuth()
 
   const handleHomeScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (Number(e.target.value) > 99) {
+    const value = e.target.value
+    if (value === '') {
+      setHomeScore(null)
       return
     }
-    setHomeScore(Number(e.target.value))
+    if (Number(value) > 99) {
+      return
+    }
+    setHomeScore(Number(value))
   }
 
   const handleAwayScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (Number(e.target.value) > 99) {
+    const value = e.target.value
+    if (value === '') {
+      setAwayScore(null)
       return
     }
-    setAwayScore(Number(e.target.value))
+    if (Number(value) > 99) {
+      return
+    }
+    setAwayScore(Number(value))
   }
 
   const handleClear = () => {
